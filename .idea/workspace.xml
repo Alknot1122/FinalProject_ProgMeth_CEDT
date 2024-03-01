@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="e8156501-f92e-4bd4-902f-4c919f8515bd" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ProjectCEDT.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/GameController/GameController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/application/Main.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/gameLogic/Customer.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/gameLogic/Food.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/gameLogic/Ingredient.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/gameLogic/Item.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/gameLogic/Market.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/gameLogic/Oven.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/gameLogic/Player.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/gameLogic/Recipe.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/gameLogic/Storage.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/pane/CookingPane/CookingEventPane.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/pane/CookingPane/OvenPane.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/pane/CookingPane/recpiesPane.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/pane/playerPane/ClockPane.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/pane/playerPane/InventoryPane.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/pane/playerPane/PhonePane.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/pane/timerPane.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/utils/Goto.java" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Interface" />
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 1
+}</component>
+  <component name="ProjectId" id="2czFPp7iTNntVBLFozRvI2hPLIQ" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/USER/IdeaProjects/Cedt_leb5fromteacher&quot;
+  }
+}</component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\USER\IdeaProjects\ProjectCEDT\src" />
+    </key>
+  </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="jdk-21.0.1-openjdk-21.0.1-4caba194b151-23eed401" />
+      </set>
+    </attachedChunks>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="e8156501-f92e-4bd4-902f-4c919f8515bd" name="Changes" comment="" />
+      <created>1709106479384</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1709106479384</updated>
+    </task>
+    <servers />
+  </component>
+</project>
