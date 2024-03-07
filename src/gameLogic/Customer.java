@@ -16,7 +16,7 @@ public class Customer {
     public void gotFood(Item food, Player player){
         for( int i = orderList.size() -1; i >= 0; i--){
             if(Objects.equals(getOrderList().get(i).getName(), food.getName())){
-                player.setMoney(player.getMoney() + food.getPrice() + getOrderList().get(i).getPrice());
+                player.setMoney((int) (player.getMoney() +( food.getPrice() * 1.50)));
                 player.getInventory().withdrawItem(food.getName(), 1);
                 getOrderList().remove(i);
                 break;
