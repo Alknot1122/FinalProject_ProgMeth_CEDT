@@ -5,11 +5,14 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="e8156501-f92e-4bd4-902f-4c919f8515bd" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/javafx_swt.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/pane/RootPane.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ProjectCEDT.iml" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectCEDT.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resource/Menu.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/res/Menu.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resource/kitchen.png" beforeDir="false" afterPath="$PROJECT_DIR$/res/kitchen.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resource/oven1.png" beforeDir="false" afterPath="$PROJECT_DIR$/res/oven1.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resource/oven2.png" beforeDir="false" afterPath="$PROJECT_DIR$/res/oven2.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/application/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/application/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pane/RootPane.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/pane/RootPane.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
