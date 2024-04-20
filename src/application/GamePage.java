@@ -54,15 +54,15 @@ public class GamePage {
         inputField.setOnAction(event -> {
             String inputText = inputField.getText();
             System.out.println("Input: " + inputText);
-            inputField.clear(); 
+            inputField.clear();
         });
 
         root.getChildren().addAll(inputField);
 
         // Define animation properties
         double startY = inputField.getLayoutY();
-        double amplitude = 5; // Adjust for desired bounce height
-        double animationDuration = 1000; // Adjust for animation speed (milliseconds)
+        double amplitude = 5;
+        double animationDuration = 1000;
 
         // Create keyframes for animation
         KeyValue keyValueYStart = new KeyValue(inputField.layoutYProperty(), startY);
