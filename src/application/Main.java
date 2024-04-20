@@ -16,8 +16,6 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
-import pane.RootPane;
-
 import java.util.Objects;
 
 public class Main extends Application {
@@ -25,6 +23,9 @@ public class Main extends Application {
     private static final Font FONT = Font.font("", FontWeight.BOLD, 42);
     private VBox menuBox;
     private int currentItem = 0;
+    private GamePage gamePage;
+    private Scene mainScene; // Declare mainScene at the class level
+
     private Parent createContent() {
         Pane root = new Pane();
         root.setPrefSize(1440, 1080);
@@ -37,8 +38,14 @@ public class Main extends Application {
         MenuItem itemExit = new MenuItem("EXIT");
         itemExit.setOnActivate(() -> System.exit(0));
 
+        MenuItem itemStart = new MenuItem("START");
+        itemStart.setOnActivate(() -> {
+            mainScene.setRoot(gamePage.getRoot());
+            gamePage.getInputField().requestFocus();
+        });
+
         menuBox = new VBox(10,
-                new MenuItem("START"),
+                itemStart,
                 new MenuItem("GUIDE"),
                 itemExit);
         menuBox.setAlignment(Pos.TOP_CENTER);
@@ -104,14 +111,13 @@ public class Main extends Application {
                 script.run();
         }
     }
-    public static void main(String[] args) {
-        launch();
-    }
 
-    @Override
+
     public void start(Stage stage) {
-        Scene scene = new Scene(createContent(), 1440, 1080);
-        scene.setOnKeyPressed(event -> {
+        gamePage = new GamePage();
+
+        mainScene = new Scene(createContent(), 1440, 1080); // Rename the variable to avoid shadowing
+        mainScene.setOnKeyPressed(event -> {
             if(event.getCode() == KeyCode.UP){
                 if(currentItem > 0){
                     getMenuItem(currentItem).setActive(false);
@@ -130,12 +136,14 @@ public class Main extends Application {
             }
         });
 
-        stage.setScene(scene);
-
+        stage.setScene(mainScene);
         stage.setTitle("Cooking Game");
-
         stage.setResizable(false);
-
         stage.show();
+    }
+
+
+    public static void main(String[] args) {
+        launch();
     }
 }
