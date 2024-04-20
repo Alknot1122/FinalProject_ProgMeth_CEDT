@@ -54,7 +54,7 @@ public class GamePage {
         inputField.setOnAction(event -> {
             String inputText = inputField.getText();
             System.out.println("Input: " + inputText);
-            inputField.clear(); // Reset the input field
+            inputField.clear(); 
         });
 
         root.getChildren().addAll(inputField);
