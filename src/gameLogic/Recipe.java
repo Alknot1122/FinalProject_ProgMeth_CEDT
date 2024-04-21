@@ -1,40 +1,26 @@
 package gameLogic;
 
-import java.util.ArrayList;
+import application.Main;
 
 public class Recipe {
-    private final ArrayList<Ratio> Recipe;
-    private final String foodName;
-    private final int timeAmount;
-    private boolean isLock;
+    private final Food food;
+    private final Item[] items;
 
-    public Recipe(ArrayList<Ratio> recipe, String foodname, int timeAmount, boolean isLock) {
-        Recipe = recipe;
-        this.foodName = foodname;
-        this.timeAmount = Math.max(5, timeAmount);
-        this.isLock = isLock;
+
+    public Recipe(Food food, Item[] items) {
+        this.food = food;
+        this.items = items;
+
+
     }
 
-    public ArrayList<Ratio> getRecipe() {
-        return Recipe;
+    public Food getFood() {
+        return food;
     }
 
-
-    public String getFoodName() {
-        return foodName;
-    }
-
-    public int getTimeAmount() {
-        return timeAmount;
+    public Item[] getItems() {
+        return items;
     }
 
 
-
-    public boolean isLock() {
-        return isLock;
-    }
-
-    public void setLock(boolean lock) {
-        isLock = lock;
-    }
 }
