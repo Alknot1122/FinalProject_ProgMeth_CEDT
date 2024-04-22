@@ -1,6 +1,8 @@
 package GameController;
 
 import gameLogic.*;
+import javafx.application.Platform;
+import pane.TimerBar;
 
 import java.util.ArrayList;
 import java.util.Random;
@@ -60,6 +62,24 @@ public class GameController {
             OrderList.add(order);
         }
         return new Customer(OrderList);
+    }
+
+    public void runCountDownTimer(TimerBar timerBar, Timer timer) {
+        while (!timer.isTimerEmpty()) {
+            try {
+                Thread.sleep(1000);
+                timer.decrementTimer(1);
+                System.out.println(timer.getTimeLeft());
+                System.out.println(timer);
+                Platform.runLater(() -> {
+                    timerBar.setTimer(timer);
+                });
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+        }
+
+        //if(timer.isTimerEmpty()) {GameOver}
     }
 
     public itemList getStorage() {
