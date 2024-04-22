@@ -1,5 +1,6 @@
 package application;
 
+import gameLogic.Timer;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
@@ -19,7 +20,7 @@ import pane.IngredientsPane;
 import pane.InventoryPane;
 import pane.OrderPane;
 import pane.RecipesBookPane;
-
+import pane.TimerBar;
 import java.util.Objects;
 
 public class GamePage {
@@ -30,6 +31,7 @@ public class GamePage {
     private static InventoryPane inventoryPane;
     private static OrderPane orderPane;
     private static RecipesBookPane recipesBookPane;
+    private static TimerBar timerBarPane; // Add TimerBarPane
 
     private final Timeline animationTimeline = new Timeline();
 
@@ -42,11 +44,18 @@ public class GamePage {
         inventoryPane = new InventoryPane();
         orderPane = new OrderPane();
         recipesBookPane = new RecipesBookPane();
+        timerBarPane = new TimerBar(new Timer(1,0)); // Initialize TimerBarPane
 
         // Load and set the background image
         Image bgImage = new Image(Objects.requireNonNull(getClass().getResource("/kitchen.png")).toExternalForm());
         BackgroundImage backgroundImage = new BackgroundImage(bgImage, BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT);
         root.setBackground(new Background(backgroundImage));
+
+        // Add TimerBarPane
+        root.getChildren().add(timerBarPane);
+        // Position TimerBarPane on the left side
+        timerBarPane.setLayoutX(10); // Adjust the X position as needed
+        timerBarPane.setLayoutY(10); // Adjust the Y position as needed
 
         // Add input text field
         inputField = new TextField();
