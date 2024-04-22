@@ -1,27 +1,30 @@
 package gameLogic;
 
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+
 public class Item {
-   private String name;
-   private int Price;
+    private final Image itemImage ;
+    private final String itemName;
 
-    public Item(String name, int price) {
-        setName(name);
-        setPrice(price);
+    public Item (String name , String imagePath){
+        itemName = name;
+        String classLoaderPath = ClassLoader.getSystemResource(imagePath).toString();
+        itemImage = new Image(classLoaderPath);
     }
 
-    public String getName() {
-        return name;
+    public ImageView getItemImageView(int fitHight) {
+        ImageView image = new ImageView(itemImage);
+        image.setFitHeight(fitHight);
+        image.setPreserveRatio(true);
+        return image;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public String getItemName() {
+        return itemName;
+    }
+    public  Image getItemImage(){
+        return itemImage;
     }
 
-    public int getPrice() {
-        return Price;
-    }
-
-    public void setPrice(int price) {
-        Price = price;// make it cannot be less than 1
-    }
 }

@@ -1,28 +1,38 @@
 package pane;
 
-import javafx.geometry.Insets;
-import javafx.geometry.Pos;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
+import gameLogic.Food;
+import gameLogic.IngridentsRef;
+import gameLogic.Player;
+import gameLogic.RecipesRef;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
+import javafx.scene.control.TextField;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Background;
-import javafx.scene.layout.BackgroundFill;
+import javafx.scene.layout.Pane;
+import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
-import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
-import utils.Goto;
-
+import javafx.scene.control.Button;
+import java.awt.*;
+import java.awt.event.KeyEvent;
 import java.util.Objects;
 
-
-public class RootPane extends VBox {
+public class RootPane extends Pane {
     private static RootPane instance;
 
     private RootPane() {
-        Image bgImage = new Image(Objects.requireNonNull(getClass().getResource("/kitchen.png")).toExternalForm());
-        ImageView imageView = new ImageView(bgImage);
-        this.getChildren().add(imageView);
+        /*
+         * Player player = new Player();
+         * player.setScores(500);
+         * 
+         * gameOverPane gameoverPane = new gameOverPane(player);
+         * //its turn visible off rn but when gameover u just gonna turn it on
+         */
+        IngredientsPane ingredientsPane = new IngredientsPane();
+        getChildren().add(ingredientsPane);
     }
 
     public static RootPane getRootPane() {

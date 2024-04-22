@@ -5,8 +5,77 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="e8156501-f92e-4bd4-902f-4c919f8515bd" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/res/AnimalBiscuit.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/Blondie.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/Blueberry.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/BlueberryMuffin.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/Brownie.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/Butter.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/CheeseCake.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/ChocChipCookie.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/Chocobun.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/Chocolate.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/ChocolateCake.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/Cinnamon.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/CinnamonRoll.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/CinnamonSugarPretzel.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/CocoPowder.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/Cracker.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/Cream.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/CreamCheese.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/Cupcake.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/CustardPie.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/Egg.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/Flour.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/Lemon.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/LemonMeringuePie.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/LemonSandwichCookie.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/Macaron.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/MagicColorDrop.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/MelonBun.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/Meringue.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/Milk.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/MixedBerryPie.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/PowderedSugar.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/Quaso.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/RainbowCakeRoll.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/Raspberry.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/RaspberryDonut.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/RaspberryTart.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/RedVelvetCake.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/Strawberry.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/StrawberryShortCake.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/Sugar.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/Vanilla.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/df.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/gameLogic/Food.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/gameLogic/IngridentsRef.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/gameLogic/RecipesRef.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/pane/IngredientsPane.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/pane/InventoryPane.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/pane/OrderPane.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/pane/RecipesBookPane.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/pane/gameOverPane.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/application/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/application/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ProjectCEDT.iml" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectCEDT.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/GameController/GameController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GameController/GameController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/gameLogic/Customer.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/gameLogic/Ingredient.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/gameLogic/Item.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/gameLogic/Item.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/gameLogic/Market.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/gameLogic/Oven.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/gameLogic/Player.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/gameLogic/Player.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/gameLogic/Ratio.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/gameLogic/Recipe.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/gameLogic/Recipe.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/gameLogic/itemList.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pane/CookingPane/CookingEventPane.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pane/CookingPane/OvenPane.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pane/CookingPane/recpiesPane.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pane/RootPane.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/pane/RootPane.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pane/playerPane/ClockPane.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pane/playerPane/InventoryPane.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pane/playerPane/PhonePane.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pane/timerPane.java" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -41,18 +110,20 @@
     &quot;Application.Main.executor&quot;: &quot;Run&quot;,
     &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;pane&quot;,
     &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;/Users/trmw.tk/Desktop/riw/FinalProject_ProgMeth_CEDT&quot;,
-    &quot;project.structure.last.edited&quot;: &quot;Libraries&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/USER/IdeaProjects/Cedt_leb5fromteacher&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
     &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
-    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.JavaFX&quot;
+    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;
   }
 }</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\USER\IdeaProjects\ProjectCEDT\src" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\USER\IdeaProjects\ProjectCEDT\res" />
       <recent name="C:\Users\USER\IdeaProjects\ProjectCEDT\src" />
     </key>
   </component>
@@ -95,5 +166,16 @@
       <updated>1709106479384</updated>
     </task>
     <servers />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
   </component>
 </project>
