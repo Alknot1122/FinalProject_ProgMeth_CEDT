@@ -2,6 +2,9 @@ package pane;
 
 
 import gameLogic.Food;
+import gameLogic.IngridentsRef;
+import gameLogic.Player;
+import gameLogic.RecipesRef;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.TextField;
@@ -23,9 +26,13 @@ public class RootPane extends Pane {
     private static RootPane instance;
 
     private RootPane() {
-        RecipesBookPane recipesBookPane = new RecipesBookPane();
-        getChildren().add(recipesBookPane);
+        /*Player player = new Player();
+        player.setScores(500);
 
+       gameOverPane gameoverPane = new gameOverPane(player);
+       //its turn visible off rn but when gameover u just gonna turn it on*/
+  IngredientsPane ingredientsPane = new IngredientsPane();
+  getChildren().add(ingredientsPane);
     }
 
 

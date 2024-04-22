@@ -121,7 +121,7 @@ public class OrderPane extends VBox {
         orderName.setWrappingWidth(271);
 
 
-        ImageView foodimagShow = food.getItemImage(200);
+        ImageView foodimagShow = food.getItemImageView(200);
         foodimagShow.setFitWidth(271);
         foodimagShow.setPreserveRatio(true);
 

@@ -13,7 +13,7 @@ public class Item {
         itemImage = new Image(classLoaderPath);
     }
 
-    public ImageView getItemImage(int fitHight) {
+    public ImageView getItemImageView(int fitHight) {
         ImageView image = new ImageView(itemImage);
         image.setFitHeight(fitHight);
         image.setPreserveRatio(true);
@@ -23,4 +23,8 @@ public class Item {
     public String getItemName() {
         return itemName;
     }
+    public  Image getItemImage(){
+        return itemImage;
+    }
+
 }
