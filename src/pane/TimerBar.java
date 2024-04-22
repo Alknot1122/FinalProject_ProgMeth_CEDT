@@ -1,6 +1,7 @@
 package pane;
 
 import gameLogic.Timer;
+import javafx.application.Platform;
 import javafx.scene.control.ProgressBar;
 
 public class TimerBar extends ProgressBar{
@@ -14,23 +15,36 @@ public class TimerBar extends ProgressBar{
         this.isStop = true;
     }
 
-//    public void runCountDownTimer(Timer t) {
-//        while (!t.isTimerEmpty()) {
-//            try {
-//                Thread.sleep(1000);
-//                t.decrementTimer(1);
-//                System.out.println(t.getTimeLeft());
-//                System.out.println(t);
-//                Platform.runLater(() -> {
-//                    setTimer(t);
-//                });
-//            } catch (InterruptedException e) {
-//                throw new RuntimeException(e);
-//            }
-//        }
-//
-//        //if(t.isTimerEmpty()) {GameOver}
-//    }
+    public  void startCountDownTimer(Timer t) {
+        Thread thread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    runCountDownTimer(t);
+                } catch (Exception exception) {}
+            }
+        });
+
+        thread.start();
+    }
+
+    public void runCountDownTimer(Timer t) {
+        while (!t.isTimerEmpty()) {
+            try {
+                Thread.sleep(1000);
+                t.decrementTimer(1);
+                System.out.println(t.getTimeLeft());
+                System.out.println(t);
+                Platform.runLater(() -> {
+                    setTimer(t);
+                });
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+        }
+
+        //if(t.isTimerEmpty()) {GameOver}
+    }
 
     public void setTimer(Timer t) {
         double percent = (double) t.getTimeLeft() / totalSeconds;
