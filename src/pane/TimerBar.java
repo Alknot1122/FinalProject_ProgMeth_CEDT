@@ -1,0 +1,54 @@
+package pane;
+
+import gameLogic.Timer;
+import javafx.scene.control.ProgressBar;
+
+public class TimerBar extends ProgressBar{
+    private int totalSeconds;
+    private boolean isStop;
+    public TimerBar(Timer t) {
+        super(1);
+        this.setStyle("-fx-accent: DD4848; -fx-pref-width: 1080; -fx-pref-height: 20;");
+        this.totalSeconds = t.getTimeLeft();
+
+        this.isStop = true;
+    }
+
+//    public void runCountDownTimer(Timer t) {
+//        while (!t.isTimerEmpty()) {
+//            try {
+//                Thread.sleep(1000);
+//                t.decrementTimer(1);
+//                System.out.println(t.getTimeLeft());
+//                System.out.println(t);
+//                Platform.runLater(() -> {
+//                    setTimer(t);
+//                });
+//            } catch (InterruptedException e) {
+//                throw new RuntimeException(e);
+//            }
+//        }
+//
+//        //if(t.isTimerEmpty()) {GameOver}
+//    }
+
+    public void setTimer(Timer t) {
+        double percent = (double) t.getTimeLeft() / totalSeconds;
+        this.setProgress(percent);
+    }
+
+    public void reset(Timer t) {
+        this.setProgress(1);
+        totalSeconds = t.getTimeLeft();
+        this.setStyle("-fx-accent: DD4848; -fx-pref-width: 1080; -fx-pref-height: 20;");
+
+        this.isStop = true;
+    }
+
+    public boolean isStop() {
+        return isStop;
+    }
+    public void setStop(boolean isStop) {
+        this.isStop = isStop;
+    }
+}
