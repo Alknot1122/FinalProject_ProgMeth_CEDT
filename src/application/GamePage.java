@@ -15,6 +15,10 @@ import javafx.scene.layout.BackgroundPosition;
 import javafx.scene.layout.Pane;
 import javafx.scene.text.Font;
 import javafx.util.Duration;
+import pane.IngredientsPane;
+import pane.InventoryPane;
+import pane.OrderPane;
+import pane.RecipesBookPane;
 
 import java.util.Objects;
 
@@ -22,12 +26,22 @@ public class GamePage {
 
     private static Pane root;
     private static TextField inputField;
+    private static IngredientsPane ingredientsPane;
+    private static InventoryPane inventoryPane;
+    private static OrderPane orderPane;
+    private static RecipesBookPane recipesBookPane;
 
     private final Timeline animationTimeline = new Timeline();
+
 
     public GamePage() {
         root = new Pane();
         root.setPrefSize(1440, 1080);
+
+        ingredientsPane = new IngredientsPane();
+        inventoryPane = new InventoryPane();
+        orderPane = new OrderPane();
+        recipesBookPane = new RecipesBookPane();
 
         // Load and set the background image
         Image bgImage = new Image(Objects.requireNonNull(getClass().getResource("/kitchen.png")).toExternalForm());
@@ -55,6 +69,28 @@ public class GamePage {
             String inputText = inputField.getText();
             System.out.println("Input: " + inputText);
             inputField.clear();
+
+            if ("Ingredients".equalsIgnoreCase(inputText)) {
+                // Show IngredientsPane
+                if (!root.getChildren().contains(ingredientsPane)) {
+                    root.getChildren().add(ingredientsPane);
+                }
+            } else if ("Inventory".equalsIgnoreCase(inputText)) {
+                // Show InventoryPane
+                if (!root.getChildren().contains(inventoryPane)) {
+                    root.getChildren().add(inventoryPane);
+                }
+            } else if ("Order".equalsIgnoreCase(inputText)) {
+                // Show OrderPane
+                if (!root.getChildren().contains(orderPane)) {
+                    root.getChildren().add(orderPane);
+                }
+            } else if ("Recipes".equalsIgnoreCase(inputText)) {
+                // Show RecipesBookPane
+                if (!root.getChildren().contains(recipesBookPane)) {
+                    root.getChildren().add(recipesBookPane);
+                }
+            }
         });
 
         root.getChildren().addAll(inputField);
