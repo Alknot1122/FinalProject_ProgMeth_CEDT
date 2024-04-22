@@ -15,6 +15,7 @@ import javafx.scene.text.Text;
 public class IngredientsPane extends AnchorPane {
 
     public IngredientsPane(){
+        setVisible(false);
         setPrefHeight(574);
         setPrefWidth(278);
         setBackground(Background.fill(Color.CORAL));
