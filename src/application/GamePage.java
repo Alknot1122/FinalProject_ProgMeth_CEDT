@@ -17,7 +17,6 @@ import javafx.scene.layout.Pane;
 import javafx.scene.text.Font;
 import javafx.util.Duration;
 import pane.IngredientsPane;
-import pane.InventoryPane;
 import pane.OrderPane;
 import pane.RecipesBookPane;
 import pane.TimerBar;
@@ -28,7 +27,6 @@ public class GamePage {
     private static Pane root;
     private static TextField inputField;
     private static IngredientsPane ingredientsPane;
-    private static InventoryPane inventoryPane;
     private static OrderPane orderPane;
     private static RecipesBookPane recipesBookPane;
     private static TimerBar timerBarPane; // Add TimerBarPane
@@ -41,7 +39,6 @@ public class GamePage {
         root.setPrefSize(1440, 1080);
 
         ingredientsPane = new IngredientsPane();
-        inventoryPane = new InventoryPane();
         orderPane = new OrderPane();
         recipesBookPane = new RecipesBookPane();
         timerBarPane = new TimerBar(new Timer(1,0)); // Initialize TimerBarPane
@@ -83,11 +80,6 @@ public class GamePage {
                 // Show IngredientsPane
                 if (!root.getChildren().contains(ingredientsPane)) {
                     root.getChildren().add(ingredientsPane);
-                }
-            } else if ("Inventory".equalsIgnoreCase(inputText)) {
-                // Show InventoryPane
-                if (!root.getChildren().contains(inventoryPane)) {
-                    root.getChildren().add(inventoryPane);
                 }
             } else if ("Order".equalsIgnoreCase(inputText)) {
                 // Show OrderPane
