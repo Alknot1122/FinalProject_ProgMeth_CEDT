@@ -9,8 +9,14 @@ public class Item {
 
     public Item (String name , String imagePath){
         itemName = name;
-        String classLoaderPath = ClassLoader.getSystemResource(imagePath).toString();
+
+
+        String   classLoaderPath = ClassLoader.getSystemResource(imagePath).toString();
+
+
         itemImage = new Image(classLoaderPath);
+
+
     }
 
     public ImageView getItemImageView(int fitHight) {

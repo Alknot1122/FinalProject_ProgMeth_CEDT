@@ -25,9 +25,10 @@ public class OrderPane extends VBox {
   private Text Timer ;
   private Thread timerTread ;
     public OrderPane (){
+        setVisible(false);
         setAlignment(Pos.TOP_RIGHT);
         setPadding(new Insets(4));
-        setVisible(true);
+
         setBackground(Background.fill(Color.CORAL));
         setPrefHeight(562);
         setPrefWidth(271);

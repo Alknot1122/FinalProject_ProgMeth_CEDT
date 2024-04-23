@@ -5,6 +5,23 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="e8156501-f92e-4bd4-902f-4c919f8515bd" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/res/Sound/Backgroundmusic.mp3" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/Sound/CookingSuccessed.mp3" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/res/Sound/CloseIngridentPane.mp3" beforeDir="false" afterPath="$PROJECT_DIR$/res/Sound/CloseIngridentPane.mp3" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/res/Sound/CookingFailed.mp3" beforeDir="false" afterPath="$PROJECT_DIR$/res/Sound/CookingFailed.mp3" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/res/Sound/CookingSuccess.mp3" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/res/Sound/OpenIngridentPane.mp3" beforeDir="false" afterPath="$PROJECT_DIR$/res/Sound/OpenIngridentPane.mp3" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/res/Sound/turnLeftRecipesBook.mp3" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/res/Sound/turnRightRecipesBook.mp3" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/gameLogic/IngridentsRef.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/gameLogic/IngridentsRef.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/gameLogic/Item.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/gameLogic/Item.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/gameLogic/RecipesRef.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/gameLogic/RecipesRef.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pane/IngredientsPane.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/pane/IngredientsPane.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pane/OrderPane.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/pane/OrderPane.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pane/RecipesBookPane.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/pane/RecipesBookPane.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pane/RootPane.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/pane/RootPane.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pane/SoundController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/pane/SoundController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/application/GamePage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/application/GamePage.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -42,17 +59,22 @@
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "git-widget-placeholder": "main",
     "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "C:/Users/USER/IdeaProjects/Cedt_leb5fromteacher",
+    "last_opened_file_path": "C:/Users/USER/IdeaProjects/ProjectCEDT/res/Sound",
     "project.structure.last.edited": "Modules",
     "project.structure.proportion": "0.15",
-    "project.structure.side.proportion": "0.2"
+    "project.structure.side.proportion": "0.2",
+    "settings.editor.selected.configurable": "preferences.fileTypes"
   }
 }]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\USER\IdeaProjects\ProjectCEDT\res\Sound" />
       <recent name="C:\Users\USER\IdeaProjects\ProjectCEDT\src" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\USER\IdeaProjects\ProjectCEDT\res\Sound" />
+      <recent name="C:\Users\USER\IdeaProjects\ProjectCEDT\res\Food" />
+      <recent name="C:\Users\USER\IdeaProjects\ProjectCEDT\res\Item" />
       <recent name="C:\Users\USER\IdeaProjects\ProjectCEDT\res" />
       <recent name="C:\Users\USER\IdeaProjects\ProjectCEDT\src" />
     </key>
