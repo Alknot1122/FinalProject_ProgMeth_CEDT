@@ -5,7 +5,6 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="e8156501-f92e-4bd4-902f-4c919f8515bd" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/src/application/GamePage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/application/GamePage.java" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/res/Sound/Backgroundmusic.mp3" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/res/Sound/CookingSuccessed.mp3" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
@@ -23,6 +22,7 @@
       <change beforePath="$PROJECT_DIR$/src/pane/RecipesBookPane.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/pane/RecipesBookPane.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/pane/RootPane.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/pane/RootPane.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/pane/SoundController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/pane/SoundController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/application/GamePage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/application/GamePage.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

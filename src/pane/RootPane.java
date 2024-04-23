@@ -1,11 +1,10 @@
 package pane;
 
+import gameLogic.*;
 import gameLogic.Food;
 import gameLogic.IngridentsRef;
 import gameLogic.Player;
 import gameLogic.RecipesRef;
-
-import gameLogic.*;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.TextField;
@@ -29,21 +28,20 @@ public class RootPane extends Pane {
 
     private RootPane() {
 
-
         SoundController backgroundMusic = new SoundController("res/Sound/Backgroundmusic.mp3");
         backgroundMusic.getMediaPlayer().setVolume(0.75);
         backgroundMusic.getMediaPlayer().setOnEndOfMedia(() -> {
             backgroundMusic.getMediaPlayer().seek(Duration.ZERO);
             backgroundMusic.getMediaPlayer().play();
         });
-        //please set pane's position afterward
-        //this is example of closeing and open pane
+        // please set pane's position afterward
+        // this is example of closeing and open pane
         backgroundMusic.getMediaPlayer().play();
         IngredientsPane ingredientsPane = new IngredientsPane();
-       RecipesBookPane recipesBookPane = new RecipesBookPane();
-       OrderPane orderPane = new OrderPane();
+        RecipesBookPane recipesBookPane = new RecipesBookPane();
+        OrderPane orderPane = new OrderPane();
 
-       Button ingredientsPaneButton = new Button("ingridentPane button");
+        Button ingredientsPaneButton = new Button("ingridentPane button");
         ingredientsPaneButton.setLayoutX(100);
 
         Button recipebookButton = new Button("recipesBookPane button");
@@ -52,14 +50,15 @@ public class RootPane extends Pane {
         Button OrderButton = new Button("orderPane button");
         OrderButton.setLayoutY(300);
 
-       //all pane i made will set isvisible to fasle first and we make button like this in game
-        //except gameover pane, u gotta turn the isvisible true when its game over
-       ingredientsPaneButton.setOnMousePressed(new EventHandler<MouseEvent>() {
-           @Override
-           public void handle(MouseEvent mouseEvent) {
-               ingredientsPane.setVisible(!ingredientsPane.isVisible());
-           }
-       });
+        // all pane i made will set isvisible to fasle first and we make button like
+        // this in game
+        // except gameover pane, u gotta turn the isvisible true when its game over
+        ingredientsPaneButton.setOnMousePressed(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent mouseEvent) {
+                ingredientsPane.setVisible(!ingredientsPane.isVisible());
+            }
+        });
         recipebookButton.setOnMousePressed(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
@@ -73,7 +72,8 @@ public class RootPane extends Pane {
             }
         });
 
-        getChildren().addAll(recipesBookPane, ingredientsPane, orderPane, ingredientsPaneButton,recipebookButton,OrderButton);
+        getChildren().addAll(recipesBookPane, ingredientsPane, orderPane, ingredientsPaneButton, recipebookButton,
+                OrderButton);
     }
 
     public static RootPane getRootPane() {
