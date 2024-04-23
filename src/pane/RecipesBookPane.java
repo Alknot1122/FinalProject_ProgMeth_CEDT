@@ -9,18 +9,23 @@ import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.image.ImageView;
 import javafx.scene.image.Image;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.control.TextField;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 import javafx.scene.paint.Color;
 import javafx.scene.control.Button;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 
 import java.awt.*;
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Objects;
 
@@ -37,13 +42,15 @@ public class RecipesBookPane extends AnchorPane {
         recipesRef  = new RecipesRef();
        setPrefWidth(712);
        setPrefHeight(467);
+       setVisible(false);
        setBackground(Background.fill(Color.GRAY));
 
        Button goLeftButton = new Button("<");
        goLeftButton.setOnMousePressed(new EventHandler<MouseEvent>() {
            @Override
            public void handle(MouseEvent mouseEvent) {
-
+                SoundController turnleftsound = new SoundController("res/Sound/turnLeftRecipeBook.mp3");
+               turnleftsound.playMusic();
                goLeft();
            }
        });
@@ -52,6 +59,8 @@ public class RecipesBookPane extends AnchorPane {
        goRightButton.setOnMousePressed(new EventHandler<MouseEvent>() {
            @Override
            public void handle(MouseEvent mouseEvent) {
+               SoundController turnRightSound = new SoundController("res/Sound/turnRightRecipeBook.mp3");
+               turnRightSound.playMusic();
                goRight();
            }
        });
@@ -71,16 +80,21 @@ public class RecipesBookPane extends AnchorPane {
 
         ingredientPane.setBackground(Background.fill(Color.WHITE));
         searchTextfield = new TextField();
-        searchTextfield.setOnAction(new EventHandler<ActionEvent>() {
+        searchTextfield.setOnKeyPressed(new EventHandler<KeyEvent>() {
             @Override
-            public void handle(ActionEvent actionEvent) {
-                for (int i =0 ;i < recipesRef.getRecipes().size() ; i++){
-                    if (Objects.equals(searchTextfield.getText(), recipesRef.getRecipes().get(i).getFood().getItemName())){
-                        page = i;
-                        MakePage(recipesRef.getRecipes().get(page));
-                        break;
+            public void handle(KeyEvent keyEvent) {
+                if (keyEvent.getCode().equals(KeyCode.ENTER)) {
+
+                    for (int i =0 ;i < recipesRef.getRecipes().size() ; i++){
+                        if (Objects.equals(searchTextfield.getText(), recipesRef.getRecipes().get(i).getFood().getItemName())){
+                            page = i;
+                            MakePage(recipesRef.getRecipes().get(page));
+                            break;
+                        }
                     }
                 }
+
+
             }
         });
         foodImage = new ImageView();
@@ -97,7 +111,7 @@ public class RecipesBookPane extends AnchorPane {
 
         foodImage = recipesRef.getRecipes().get(page).getFood().getItemImageView(268);
         setNodePosition(foodImage, 130.3,56.0,0.0, 0.0);
-        MakePage(recipesRef.getRecipes().get(page));
+        MakePage(recipesRef.getRecipes().getFirst());
 
     }
     public void MakePage(Recipe recipe){
@@ -124,15 +138,19 @@ public class RecipesBookPane extends AnchorPane {
     public void goLeft(){
         clear();
     page --;
-    if (page == -1) page = recipesRef.getRecipes().size()-1;
-        //System.out.println(page);
+    if (page == -1) {
+        page = recipesRef.getRecipes().size()-1;
+    }
+      //  System.out.println(recipesRef.getRecipes().size());
     MakePage(recipesRef.getRecipes().get(page));
+
     }
     public void goRight(){
         clear();
         page = (page + 1) % recipesRef.getRecipes().size();
-       // System.out.println(page);
+      // System.out.println(recipesRef.getRecipes().size());
        MakePage(recipesRef.getRecipes().get(page));
+
     }
     public void setNodePosition (Node node, double top, double left, double bottom, double right){
         setTopAnchor(node, top);
