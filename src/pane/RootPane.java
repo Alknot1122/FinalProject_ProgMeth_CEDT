@@ -1,7 +1,12 @@
 package pane;
 
 
+
 import gameLogic.*;
+import gameLogic.Food;
+import gameLogic.IngridentsRef;
+import gameLogic.Player;
+import gameLogic.RecipesRef;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.TextField;
@@ -19,7 +24,6 @@ import javafx.util.Duration;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.util.Objects;
-
 
 public class RootPane extends Pane {
     private static RootPane instance;
@@ -70,8 +74,8 @@ public class RootPane extends Pane {
         });
 
         getChildren().addAll(recipesBookPane, ingredientsPane, orderPane, ingredientsPaneButton,recipebookButton,OrderButton);
-    }
 
+    }
 
     public static RootPane getRootPane() {
         if (instance == null)
