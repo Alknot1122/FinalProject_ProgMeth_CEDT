@@ -5,6 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="e8156501-f92e-4bd4-902f-4c919f8515bd" name="Changes" comment="">
+<<<<<<< Updated upstream
       <change afterPath="$PROJECT_DIR$/res/Sound/Backgroundmusic.mp3" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/res/Sound/CookingSuccessed.mp3" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
@@ -16,13 +17,29 @@
       <change beforePath="$PROJECT_DIR$/res/Sound/turnRightRecipesBook.mp3" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/gameLogic/IngridentsRef.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/gameLogic/IngridentsRef.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/gameLogic/Item.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/gameLogic/Item.java" afterDir="false" />
+=======
+      <change afterPath="$PROJECT_DIR$/res/mainmenuBg.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/pane/inputField.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/application/GamePage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/application/GamePage.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/application/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/application/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/gameLogic/Food.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/gameLogic/Food.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/gameLogic/GameController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/gameLogic/GameController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/gameLogic/Item.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/gameLogic/Item.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/gameLogic/Player.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/gameLogic/Player.java" afterDir="false" />
+>>>>>>> Stashed changes
       <change beforePath="$PROJECT_DIR$/src/gameLogic/RecipesRef.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/gameLogic/RecipesRef.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/pane/IngredientsPane.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/pane/IngredientsPane.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pane/InventoryPane.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/pane/InventoryPane.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/pane/OrderPane.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/pane/OrderPane.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/pane/RecipesBookPane.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/pane/RecipesBookPane.java" afterDir="false" />
+<<<<<<< Updated upstream
       <change beforePath="$PROJECT_DIR$/src/pane/RootPane.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/pane/RootPane.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/pane/SoundController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/pane/SoundController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/application/GamePage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/application/GamePage.java" afterDir="false" />
+=======
+      <change beforePath="$PROJECT_DIR$/src/pane/gameOverPane.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/pane/gameOverPane.java" afterDir="false" />
+>>>>>>> Stashed changes
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -59,7 +76,11 @@
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;git-widget-placeholder&quot;: &quot;main&quot;,
     &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+<<<<<<< Updated upstream
     &quot;last_opened_file_path&quot;: &quot;C:/Users/USER/IdeaProjects/ProjectCEDT/res/Sound&quot;,
+=======
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/USER/IdeaProjects/projectCedt&quot;,
+>>>>>>> Stashed changes
     &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
     &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
     &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
@@ -72,6 +93,13 @@
       <recent name="C:\Users\USER\IdeaProjects\ProjectCEDT\src" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+<<<<<<< Updated upstream
+=======
+      <recent name="C:\Users\USER\IdeaProjects\FinalProject_ProgMeth_CEDT\res" />
+      <recent name="C:\Users\USER\IdeaProjects\FinalProject_ProgMeth_CEDT\out\production\ProjectCEDT" />
+      <recent name="C:\Users\USER\IdeaProjects\FinalProject_ProgMeth_CEDT\out\production\ProjectCEDT\src" />
+      <recent name="C:\Users\USER\IdeaProjects\FinalProject_ProgMeth_CEDT\out\production\ProjectCEDT\res" />
+>>>>>>> Stashed changes
       <recent name="C:\Users\USER\IdeaProjects\ProjectCEDT\res\Sound" />
       <recent name="C:\Users\USER\IdeaProjects\ProjectCEDT\res\Food" />
       <recent name="C:\Users\USER\IdeaProjects\ProjectCEDT\res\Item" />

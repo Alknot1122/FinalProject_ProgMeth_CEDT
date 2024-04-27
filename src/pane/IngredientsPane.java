@@ -24,6 +24,7 @@ public class IngredientsPane extends AnchorPane {
             @Override
             public void handle(MouseEvent mouseEvent) {
                 setVisible(false);
+
             }
         });
         ScrollPane scrollPane = new ScrollPane();
@@ -55,7 +56,33 @@ public class IngredientsPane extends AnchorPane {
             itemPane.setColumnIndex(itemName, 1);
             itemPane.setRowIndex(itemName, 1);
 
+<<<<<<< Updated upstream
             itemPane.getChildren().addAll(itemImage, itemName);
+=======
+            Button additemButton = new Button("+");
+            int finalI = i;
+            additemButton.setOnMousePressed(new EventHandler<MouseEvent>() {
+                @Override
+                public void handle(MouseEvent mouseEvent) {
+                    Item tem = new Item(ingridentsRef.getIngridnets().get(finalI));
+                    inventoryPane.Itemin(tem);
+
+                }
+            });
+
+            GridPane.setColumnIndex(itemImage, 0);
+            GridPane.setRowIndex(itemImage, 0);
+            GridPane.setRowSpan(itemImage, 4);
+
+            GridPane.setColumnIndex(itemName, 1);
+            GridPane.setRowIndex(itemName, 1);
+            GridPane.setRowSpan(itemName, 2);
+
+            GridPane.setColumnIndex(additemButton, 1);
+            GridPane.setRowIndex(additemButton, 3);
+
+            itemPane.getChildren().addAll(itemImage, itemName, additemButton);
+>>>>>>> Stashed changes
             itemlist.getChildren().add(itemPane);
         }
 

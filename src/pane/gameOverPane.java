@@ -23,6 +23,7 @@ public class gameOverPane extends VBox {
               public void handle(MouseEvent mouseEvent) {
 
                   setVisible(false);
+
               }
           });
 

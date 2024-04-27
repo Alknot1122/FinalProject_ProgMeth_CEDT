@@ -34,7 +34,11 @@ public class Main extends Application {
         root.setPrefSize(1440, 1080);
 
         // Load and set the background image
+<<<<<<< Updated upstream
         Image bgImage = new Image(Objects.requireNonNull(getClass().getResource("/kitchen.png")).toExternalForm());
+=======
+        Image bgImage = new Image(Objects.requireNonNull(getClass().getResource("/mainmenuBg.png")).toExternalForm());
+>>>>>>> Stashed changes
         BackgroundImage backgroundImage = new BackgroundImage(bgImage, BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT);
         root.setBackground(new Background(backgroundImage));
 
@@ -115,7 +119,11 @@ public class Main extends Application {
         public void setActive(boolean b){
             star1.setVisible(b);
             star2.setVisible(b);
+<<<<<<< Updated upstream
             text.setFill(b ? Color.WHITE : Color.GRAY);
+=======
+            text.setFill(b ? Color.rgb(255,184,59) : Color.rgb(242,203,127));
+>>>>>>> Stashed changes
         }
 
         public void setOnActivate(Runnable r){

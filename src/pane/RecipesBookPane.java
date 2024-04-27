@@ -37,12 +37,18 @@ public class RecipesBookPane extends AnchorPane {
     private int page;
     private RecipesRef recipesRef;
 
+<<<<<<< Updated upstream
     public RecipesBookPane (){
+=======
+    public RecipesBookPane (InventoryPane inventoryPane, Player player, GameController gameController){
+
+>>>>>>> Stashed changes
         page =0;
         recipesRef  = new RecipesRef();
        setPrefWidth(712);
        setPrefHeight(467);
        setVisible(false);
+<<<<<<< Updated upstream
        setBackground(Background.fill(Color.GRAY));
 
        Button goLeftButton = new Button("<");
@@ -72,6 +78,48 @@ public class RecipesBookPane extends AnchorPane {
            }
        });
        exitButton.setFont(new Font(13));
+=======
+       
+        Image bgimg = new Image(Objects.requireNonNull(getClass().getResource("/recipesBookPane.png")).toExternalForm());
+        BackgroundImage BGimg = new BackgroundImage(bgimg, BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT);
+        setBackground(new Background(BGimg));
+
+        foodImage = new ImageView();
+        foodName = new Text();
+        foodName.setFont(Font.loadFont(getClass().getResourceAsStream("/PeaberryBase.ttf"),29));
+        foodName.setWrappingWidth(350);
+       Button goLeftButton = new Button();
+       Button goRightButton = new Button();
+       Button exitButton = new Button();
+       Button cookButton = new Button();
+
+       setBGImageforButton("/goleftButton.png", goLeftButton);
+       setBGImageforButton("/goRightButton.png", goRightButton);
+       setBGImageforButton("/exitButton.png", exitButton);
+
+       cookButton.setOnMousePressed(mouseEvent -> {
+           setVisible(false);
+           gameController.StartCooking( recipesRef.getRecipes().get(page));
+
+       });
+       goLeftButton.setOnMousePressed(mouseEvent -> {
+            SoundController turnleftsound = new SoundController("res/Sound/turnLeftRecipeBook.mp3");
+           turnleftsound.playMusic();
+           goLeft();
+
+       });
+
+
+       goRightButton.setOnMousePressed(mouseEvent -> {
+           SoundController turnRightSound = new SoundController("res/Sound/turnRightRecipeBook.mp3");
+           turnRightSound.playMusic();
+           goRight();
+
+       });
+
+
+       exitButton.setOnMousePressed(mouseEvent -> setVisible(false));
+>>>>>>> Stashed changes
 
         Text findRecText = new Text("Find recpices here!");
         findRecText.setFont(new Font(26));
@@ -80,6 +128,7 @@ public class RecipesBookPane extends AnchorPane {
 
         ingredientPane.setBackground(Background.fill(Color.WHITE));
         searchTextfield = new TextField();
+<<<<<<< Updated upstream
         searchTextfield.setOnKeyPressed(new EventHandler<KeyEvent>() {
             @Override
             public void handle(KeyEvent keyEvent) {
@@ -91,11 +140,27 @@ public class RecipesBookPane extends AnchorPane {
                             MakePage(recipesRef.getRecipes().get(page));
                             break;
                         }
+=======
+        searchTextfield.setPromptText("Find recipes here!");
+        searchTextfield.setFont(Font.loadFont(getClass().getResourceAsStream("/PeaberryBase.ttf"),20));
+
+        searchTextfield.setOnKeyPressed(keyEvent -> {
+            if (keyEvent.getCode().equals(KeyCode.ENTER)) {
+
+                for (int i =0 ;i < recipesRef.getRecipes().size() ; i++){
+                    if (Objects.equals(searchTextfield.getText(), recipesRef.getRecipes().get(i).getFood().getItemName())){
+                        page = i;
+                        clear();
+                        MakePage(recipesRef.getRecipes().get(page));
+                        searchTextfield.setText("");
+                        break;
+>>>>>>> Stashed changes
                     }
                 }
-
-
             }
+
+
+
         });
         foodImage = new ImageView();
 

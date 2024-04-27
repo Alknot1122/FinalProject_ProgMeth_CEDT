@@ -11,7 +11,7 @@ public class RecipesRef {
         Item butter = new Item ("Butter", "Item/Butter.png");
         Item chocolate = new Item ("Chocolate", "Item/Chocolate.png");
         Item cinnamon = new Item ("Cinnamon", "Item/Cinnamon.png");
-        Item cocoaPowder = new Item ("Cocoa Powder", "Item/CocoaPowder.png");
+        Item cocoaPowder = new Item ("Cocoa Powder", "Item/CocoPowder.png");
         Item cracker = new Item ("Cracker", "Item/Cracker.png");
         Item cream = new Item ("Cream", "Item/Cream.png");
         Item creamCheese = new Item ("Cream Cheese", "Item/CreamCheese.png");

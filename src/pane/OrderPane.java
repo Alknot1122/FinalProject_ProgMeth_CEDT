@@ -39,6 +39,7 @@ public class OrderPane extends VBox {
             @Override
             public void handle(MouseEvent mouseEvent) {
                 setVisible(!isVisible());
+
             }
         });
         Text order = new Text("ORDER");
