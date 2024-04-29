@@ -128,7 +128,7 @@ public class GamePage {
         Button ingredientsPaneButton = getDisplay.getButton("/Button/ingridentButton.png",154,318,714,31);
         IngredientButton.applyButtonAnimation(ingredientsPaneButton, recipesBookPane);
 
-        Button recipebookButton = getDisplay.getButton("/Button/recipeBookPaneButton.png", 109, 77,520,510);
+        Button recipebookButton = getDisplay.getButton("/Button/recipeBookPaneButton.png", 109, 77,320,510);
         RecipeButton.applyButtonAnimation(recipebookButton, recipesBookPane);
 
         Button OrderButton = getDisplay.getButton("/Button/phoneButton.png", 32, 45, 560, 460);

@@ -18,8 +18,8 @@ public class IngredientButton {
         button.setEffect(glow);
 
         ScaleTransition scaleTransitionEnter = new ScaleTransition(Duration.millis(200), button);
-        scaleTransitionEnter.setToX(1.2);
-        scaleTransitionEnter.setToY(1.2);
+        scaleTransitionEnter.setToX(1.1);
+        scaleTransitionEnter.setToY(1.1);
 
         ScaleTransition scaleTransitionExit = new ScaleTransition(Duration.millis(200), button);
         scaleTransitionExit.setToX(1.0);
