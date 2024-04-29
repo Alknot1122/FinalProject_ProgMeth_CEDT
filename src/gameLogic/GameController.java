@@ -10,6 +10,9 @@ import javafx.scene.image.Image;
 import javafx.scene.layout.Pane;
 import javafx.scene.text.Text;
 import javafx.util.Duration;
+import javafx.animation.FadeTransition;
+import javafx.animation.TranslateTransition;
+import javafx.util.Duration;
 import pane.*;
 
 import java.awt.*;
@@ -86,8 +89,6 @@ public class GameController {
 
    public void StartCooking ( Recipe recipe){
 
-
-
        for (Item ingrident : recipe.getItems()){
            boolean cookable = false;
 
@@ -101,17 +102,37 @@ public class GameController {
                }
            }
 
-           if (!cookable){
-               player.getErrorText().setText("Missing ingrident :" + ingrident.getItemName());
-               Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(2.5), event -> {
-                   player.getErrorText().setText("");
-               }));
-               timeline.setCycleCount(1);
-               timeline.play();
+           if (!cookable) {
+               StringBuilder missingIngredients = new StringBuilder();
+               boolean missing = false;
 
-               return ;
+               for (Item ingredient : recipe.getItems()) {
+                   boolean found = false;
+                   for (Item inventoryItem : inventoryPane.getItems()) {
+                       if (inventoryItem != null && inventoryItem.getItemName().equalsIgnoreCase(ingredient.getItemName())) {
+                           found = true;
+                           break;
+                       }
+                   }
+                   if (!found) {
+                       missingIngredients.append(ingredient.getItemName()).append(", ");
+                       missing = true;
+                   }
+               }
 
+               if (missing) {
+                   String missingList = missingIngredients.substring(0, missingIngredients.length() - 2); // Remove the last comma and space
+                   player.getErrorText().setText("Missing ingredients: " + missingList);
+                   Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(2.5), event -> {
+                       player.getErrorText().setText("");
+                   }));
+                   timeline.setCycleCount(1);
+                   timeline.play();
+                   return;
+               }
            }
+
+
        }
 
        GameController.recipe = recipe;
