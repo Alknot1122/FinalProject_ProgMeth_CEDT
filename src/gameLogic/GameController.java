@@ -2,6 +2,7 @@ package gameLogic;
 
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.TextField;
@@ -10,10 +11,13 @@ import javafx.scene.layout.Pane;
 import javafx.scene.text.Text;
 import javafx.util.Duration;
 import pane.InventoryPane;
+import pane.OrderPane;
 import pane.TimerBar;
+import pane.gameOverPane;
 
 import java.awt.*;
 import java.util.Objects;
+import java.util.Random;
 
 public class GameController {
     private int Process;
@@ -22,16 +26,68 @@ public class GameController {
     private static Player player;
     private static InventoryPane inventoryPane;
     private static Recipe recipe;
+    private static TimerBar timerBar;
+    private static Thread orderTrade ;
+    private static Boolean isThreadRunning = true;
 
-    public GameController(Player player, InventoryPane inventoryPane ){
+ private static OrderPane orderPane;
+ private static RecipesRef recipesRef;
+
+    public GameController(Player player, InventoryPane inventoryPane, TimerBar timerBar, OrderPane orderPane, RecipesRef recipesRef){
         GameController.inventoryPane = inventoryPane;
         GameController.player = player;
+        GameController.timerBar = timerBar;
+        this.orderPane = orderPane;
+        this.recipesRef = recipesRef;
+    }
+    public static void restart(){
+        player.setScores(0);
+        for (int i =0; i < 9; i++){
+            inventoryPane.ItemOut(i);
+        }
+        gameLogic.Timer t = new Timer(0,10);
+        timerBar.reset(t);
+        timerBar.startCountDownTimer(t);
+        isThreadRunning = true;
+        orderenter();
+    }
+    public static synchronized void orderenter(){
+
+       Random random = new Random();
+
+        orderTrade = new Thread(() -> {
+            while (isThreadRunning) {
+                try {
+                    int randomnumforWait = random.nextInt(76) + 25;
+                    int randomNumforOrder = random.nextInt(61) + 40;
+                    int randomRecipe = random.nextInt(23);
+                    Thread.sleep(5 * 1000);
+                    orderPane.OrderIn(recipesRef.getRecipes().get(randomRecipe).getFood(), randomNumforOrder);
+                 //  System.out.println(recipesRef.getRecipes().get(randomRecipe).getFood().getItemName());
+
+                } catch (InterruptedException e) {
+                    System.out.println("guh");
+                }
+
+            }
+        });
+        orderTrade.start();
+    }
+    public  static void GameOver(){
+
+          //  System.out.println("thread ended");
+            isThreadRunning = false;
+            player.getGameOverPane().setVisible(true);
+           // System.out.println(player.getGameOverPane().isVisible());
+            player.getGameOverPane().setscore(player.getScores());
+         //   System.out.println("gameOver!");
+
 
     }
 
    public void StartCooking ( Recipe recipe){
-       String   passImage = ClassLoader.getSystemResource("boxwhencookgood.png").toString();
-       String   failedImage = ClassLoader.getSystemResource("burntfoodForBadFood.png").toString();
+
+
 
        for (Item ingrident : recipe.getItems()){
            boolean cookable = false;
@@ -61,12 +117,12 @@ public class GameController {
 
        GameController.recipe = recipe;
        player.getInputField().setEventing(true);
-       player.getInputField().setExpectedString("a");
+       player.getInputField().setExpectedString(recipe.getFood().getItemName());
        player.getDisplayEventText().setText("now Type : " + player.getInputField().getExpectedString());
 
 
    }
-   public boolean Ordersending(Food foodOrder){
+   public static boolean Ordersending(Food foodOrder){
        for (int i =0; i < inventoryPane.getItems().length; i++){
            if (Objects.equals(inventoryPane.getItems()[i].getItemName(), foodOrder.getItemName())){
                player.setScores(player.getScores() + foodOrder.getPoints());
@@ -76,23 +132,46 @@ public class GameController {
        }
        return false;
    }
-   public Boolean BuyIngrident ( Item item, Player player, InventoryPane inventoryPane){
 
-
-       return false;
-   }
    public static void Cookingpass(){
+       String   passImage = ClassLoader.getSystemResource("boxwhencookgood.png").toString();
+       Image passimg = new Image(passImage);
+       player.getImageDisplay().setVisible(true);
+       player.getImageDisplay().setImage(passimg);
+
+       Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(2.5), event -> {
+           player.getImageDisplay().setVisible(false);
+       }));
+       timeline.setCycleCount(1);
+       timeline.play();
+
        for (Item ingrident : recipe.getItems()){
            inventoryPane.ItemOut(ingrident.getItemName());
        }
        inventoryPane.Itemin(new Food(recipe.getFood()));
        player.getInputField().setEventing(false);
+       player.getInputField().setExpectedString("");
        player.getDisplayEventText().setText("");
+       player.getDisplayEventText().getText();
    }
    public static void CookingFailed(){
-       System.out.println("lmao L");
+       String   failedImage = ClassLoader.getSystemResource("burntfoodForBadFood.png").toString();
+       Image failimg = new Image(failedImage);
+       player.getImageDisplay().setVisible(true);
+       player.getImageDisplay().setImage(failimg);
+
+       Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(2.5), event -> {
+           player.getImageDisplay().setVisible(false);
+       }));
+       timeline.setCycleCount(1);
+       timeline.play();
+       for (Item ingrident : recipe.getItems()){
+           inventoryPane.ItemOut(ingrident.getItemName());
+       }
        player.getInputField().setEventing(false);
+       player.getInputField().setExpectedString("");
        player.getDisplayEventText().setText("");
+       player.getDisplayEventText().getText();
    }
 
 

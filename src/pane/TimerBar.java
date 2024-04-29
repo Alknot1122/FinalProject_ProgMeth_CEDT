@@ -1,5 +1,6 @@
 package pane;
 
+import gameLogic.GameController;
 import gameLogic.Timer;
 import javafx.application.Platform;
 import javafx.scene.control.ProgressBar;
@@ -9,7 +10,7 @@ public class TimerBar extends ProgressBar{
     private boolean isStop;
     public TimerBar(Timer t) {
         super(1);
-        this.setStyle("-fx-accent: DD4848; -fx-pref-width: 1080; -fx-pref-height: 20;");
+        this.setStyle("-fx-accent: DD4848; -fx-pref-width: 943; -fx-pref-height: 20;");
         this.totalSeconds = t.getTimeLeft();
 
         this.isStop = true;
@@ -33,8 +34,8 @@ public class TimerBar extends ProgressBar{
             try {
                 Thread.sleep(1000);
                 t.decrementTimer(1);
-                System.out.println(t.getTimeLeft());
-                System.out.println(t);
+              //  System.out.println(t.getTimeLeft());
+               // System.out.println(t);
                 Platform.runLater(() -> {
                     setTimer(t);
                 });
@@ -43,7 +44,9 @@ public class TimerBar extends ProgressBar{
             }
         }
 
-        //if(t.isTimerEmpty()) {GameOver}
+        if(t.isTimerEmpty()) {
+            GameController.GameOver();
+        }
     }
 
     public void setTimer(Timer t) {
@@ -54,7 +57,7 @@ public class TimerBar extends ProgressBar{
     public void reset(Timer t) {
         this.setProgress(1);
         totalSeconds = t.getTimeLeft();
-        this.setStyle("-fx-accent: DD4848; -fx-pref-width: 1080; -fx-pref-height: 20;");
+        this.setStyle("-fx-accent: DD4848; -fx-pref-width: 943; -fx-pref-height: 20;");
 
         this.isStop = true;
     }

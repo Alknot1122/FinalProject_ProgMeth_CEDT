@@ -31,14 +31,10 @@ public class Main extends Application {
 
     private Parent createContent() {
         Pane root = new Pane();
-        root.setPrefSize(1440, 1080);
+        root.setPrefSize(963, 722);
 
         // Load and set the background image
-<<<<<<< Updated upstream
-        Image bgImage = new Image(Objects.requireNonNull(getClass().getResource("/kitchen.png")).toExternalForm());
-=======
         Image bgImage = new Image(Objects.requireNonNull(getClass().getResource("/mainmenuBg.png")).toExternalForm());
->>>>>>> Stashed changes
         BackgroundImage backgroundImage = new BackgroundImage(bgImage, BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT);
         root.setBackground(new Background(backgroundImage));
 
@@ -69,8 +65,8 @@ public class Main extends Application {
                 new MenuItem("GUIDE"),
                 itemExit);
         menuBox.setAlignment(Pos.TOP_CENTER);
-        menuBox.setTranslateX(220);
-        menuBox.setTranslateY(185);
+        menuBox.setTranslateX(100);
+        menuBox.setTranslateY(350);
 
         getMenuItem(0).setActive(true);
 
@@ -91,12 +87,12 @@ public class Main extends Application {
         private Runnable script;
 
         public MenuItem(String name){
-            super(15);
+            super(12);
             setAlignment(Pos.CENTER);
 
             text = new Text(name);
             text.setFont(FONT);
-            text.setEffect(new GaussianBlur(2));
+            text.setEffect(new GaussianBlur(1));
 
             getChildren().addAll(star1 , text , star2 );
             setActive(false);
@@ -107,9 +103,9 @@ public class Main extends Application {
             public Star(){
                 ImageView imageView = new ImageView(new Image(Objects.requireNonNull(getClass().getResource("/star1.png")).toExternalForm()));
 
-                imageView.setFitWidth(25);
-                imageView.setFitHeight(25);
-                imageView.setEffect(new GaussianBlur(2));
+                imageView.setFitWidth(20);
+                imageView.setFitHeight(20);
+                imageView.setEffect(new GaussianBlur(1));
 
                 getChildren().add(imageView);
 
@@ -119,11 +115,7 @@ public class Main extends Application {
         public void setActive(boolean b){
             star1.setVisible(b);
             star2.setVisible(b);
-<<<<<<< Updated upstream
-            text.setFill(b ? Color.WHITE : Color.GRAY);
-=======
             text.setFill(b ? Color.rgb(255,184,59) : Color.rgb(242,203,127));
->>>>>>> Stashed changes
         }
 
         public void setOnActivate(Runnable r){
@@ -140,7 +132,7 @@ public class Main extends Application {
     public void start(Stage stage) {
         gamePage = new GamePage();
 
-        mainScene = new Scene(createContent(), 1440, 1080); // Rename the variable to avoid shadowing
+        mainScene = new Scene(createContent(), 963,722); // Rename the variable to avoid shadowing
         mainScene.setOnKeyPressed(event -> {
             if(event.getCode() == KeyCode.UP){
                 if(currentItem > 0){

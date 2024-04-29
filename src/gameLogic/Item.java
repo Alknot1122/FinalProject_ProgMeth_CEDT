@@ -4,27 +4,25 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
 public class Item {
-<<<<<<< Updated upstream
-=======
+
     private final String imagePath;
->>>>>>> Stashed changes
-    private final Image itemImage ;
-    private final String itemName;
+
+   private Image itemImage;
+    private String itemName;
 
     public Item (String name , String imagePath){
         itemName = name;
-<<<<<<< Updated upstream
 
 
-=======
+
+
         this.imagePath = imagePath;
->>>>>>> Stashed changes
+
         String   classLoaderPath = ClassLoader.getSystemResource(imagePath).toString();
 
 
         itemImage = new Image(classLoaderPath);
-<<<<<<< Updated upstream
-=======
+
     }
 
     public String getImagePath() {
@@ -33,7 +31,9 @@ public class Item {
 
     public  Item (Item item){
         this.imagePath = item.getImagePath();
->>>>>>> Stashed changes
+        this.itemName = item.getItemName();
+        this.itemImage = item.getItemImage();
+
 
 
     }

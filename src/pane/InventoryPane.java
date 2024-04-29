@@ -77,7 +77,6 @@ public class InventoryPane extends HBox {
         //System.out.println(getChildren().size());
     }
     public void Itemin(Item item){
-
         if (itemAmount == 9){
             player.getErrorText().setText("Inventory Full!");
             Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(2.5), event -> {
@@ -85,20 +84,18 @@ public class InventoryPane extends HBox {
             }));
                 timeline.setCycleCount(1);
                 timeline.play();
-
         }
         else {
-            Pane pain = (Pane) getChildren().get(nextBlankSlot);
+            Pane pain = (Pane) getChildren().get(getNextBlankSlot());
             ImageView img = (ImageView) pain.getChildren().getFirst();
-            items[nextBlankSlot] = item;
+
+            items[getNextBlankSlot()] = item;
             img.setImage(item.getItemImage());
             img.setVisible(true);
 
-            for (int i = nextBlankSlot; i<9 ;i++){
-                Pane pane = (Pane) getChildren().get(i);
-                ImageView pameimg = (ImageView) pane.getChildren().getFirst();
+            for (int i = getNextBlankSlot(); i<9 ;i++){
 
-                if (!pameimg.isVisible()){
+                if (items[i] == null){
                     nextBlankSlot = i;
                     break;
                 }
@@ -112,18 +109,14 @@ public class InventoryPane extends HBox {
 
     public  void ItemOut(String name){
          for (int i = 0; i<getChildren().size() ;i++){
-             System.out.println(i);
              if (items[i] != null){
                  if (Objects.equals(items[i].getItemName(), name)){
-
-                     System.out.println(items[i].getItemName() + " : " + name);
                      items[i] = null;
 
-                     if (i< nextBlankSlot){
+                     if (i <= nextBlankSlot){
                          nextBlankSlot = i;
                      }
                      Pane pain = (Pane) getChildren().get(i);
-
                      ImageView img = (ImageView) pain.getChildren().getFirst();
                      img.setVisible(false);
 
@@ -140,18 +133,12 @@ public class InventoryPane extends HBox {
         ImageView img = (ImageView) pain.getChildren().getFirst();
               if (items[index] != null){
                   items[index] = null;
-                  if (index < nextBlankSlot){
+                  if (index <= nextBlankSlot){
                       nextBlankSlot = index;
                   }
                   img.setVisible(false);
                   itemAmount--;
               }
-
-
-
-
-
-
     }
 
     public Item[] getItems() {

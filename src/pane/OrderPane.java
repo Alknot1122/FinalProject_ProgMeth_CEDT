@@ -1,15 +1,15 @@
 package pane;
 
 import gameLogic.Food;
+import gameLogic.GameController;
 import javafx.application.Platform;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.Background;
-import javafx.scene.layout.BackgroundFill;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
@@ -18,22 +18,33 @@ import javafx.scene.control.Button;
 import javafx.scene.text.TextAlignment;
 
 import java.awt.*;
+import java.util.Objects;
 
-public class OrderPane extends VBox {
-  private Text orderName ;
-  private Image foodImage ;
-  private Text Timer ;
+public class OrderPane extends Pane {
+
+
+
   private Thread timerTread ;
+  private VBox orderBox;
     public OrderPane (){
         setVisible(false);
-        setAlignment(Pos.TOP_RIGHT);
-        setPadding(new Insets(4));
+        Image bgImage = new Image(Objects.requireNonNull(getClass().getResource("/OrderPane.png")).toExternalForm());
+        BackgroundImage backgroundImage = new BackgroundImage(bgImage, BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT);
+        setBackground(new Background(backgroundImage));
 
-        setBackground(Background.fill(Color.CORAL));
-        setPrefHeight(562);
-        setPrefWidth(271);
-        Button exitButton = new Button("X");
+        setLayoutX(684);
+        setLayoutY(172);
+        setPrefHeight(432);
+        setPrefWidth(211); setScaleY(1.15); setScaleX(1.15);
 
+        Button exitButton = new Button();
+        exitButton.setPrefSize(38,37);
+        exitButton.setScaleX(0.75);exitButton.setScaleY(0.75);
+        exitButton.setLayoutY(2); exitButton.setLayoutX(178);
+
+        Image exitbuttonimg = new Image(Objects.requireNonNull(getClass().getResource("/exitButton.png")).toExternalForm());
+        BackgroundImage bgexitButton = new BackgroundImage(exitbuttonimg, BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT);
+        exitButton.setBackground(new Background(bgexitButton));
 
         exitButton.setOnMousePressed(new EventHandler<MouseEvent>() {
             @Override
@@ -43,15 +54,29 @@ public class OrderPane extends VBox {
             }
         });
         Text order = new Text("ORDER");
-        order.setWrappingWidth(271);
-
-        order.setFont(new Font("Arial Rounded MT Bold", 37));
+        order.setLayoutY(56); order.setLayoutX(56);
+        order.setFont(Font.loadFont(getClass().getResourceAsStream("/PeaberryBase.ttf"), 32));
+        order.setFill(Color.WHITE);
         order.setTextAlignment(TextAlignment.CENTER);
-        getChildren().addAll(exitButton, order);
 
+        ScrollPane scrollPane = new ScrollPane();
+        scrollPane.setStyle("-fx-background: transparent;\n -fx-background-color: transparent");
+        scrollPane.setLayoutX(6);scrollPane.setLayoutY(66);
+
+        scrollPane.setPrefSize(200,331);
+        scrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
+        scrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
+
+        orderBox = new VBox();
+        orderBox.setPadding(new Insets(5));
+        orderBox.setSpacing(5);
+        orderBox.setStyle("-fx-background-color:transparent;");
+        scrollPane.setContent(orderBox);
+        getChildren().addAll(exitButton, order,scrollPane);
+        addnoOrderPic();
 
     }
-    public void countdown(int timeInSec, Text textDisplay){
+    public void countdown(int timeInSec, Text textDisplay, Pane pane){
 
         final int[] Minute = {timeInSec / 60};
         final int[] Sec = {timeInSec % 60};
@@ -73,8 +98,8 @@ public class OrderPane extends VBox {
                         }
                     }
                     else {
-                       orderGone();
-
+                       orderGone(pane);
+                       // System.out.println("guhgugh");
                         break;
                     }
 
@@ -94,42 +119,55 @@ public class OrderPane extends VBox {
     public void setText (String text , Text layout){
         layout.setText(text);
     }
-    public void orderGone (){
+    public void orderGone (Pane pane){
         Platform.runLater(()->{
-                    for (int i = getChildren().size() -1 ; i >= 2; i--){
-                        getChildren().remove(i);
-                    }
-                    Text emptyOrder = new Text( "No order rn :<");
-                    emptyOrder.setWrappingWidth(271);
-                    emptyOrder.setFont(new Font("Arial Rounded MT Bold", 25));
-                    emptyOrder.setOpacity(0.25);
-                    emptyOrder.setTextAlignment(TextAlignment.CENTER);
-                    getChildren().add(emptyOrder);
-                }
-
-                );
+                orderBox.getChildren().remove(pane);
+                });
 
 
     }
     public void OrderIn(Food food, int timerInSec){
-        Text timer = new Text();
-        timer.setFont(new Font("Arial Rounded MT Bold", 27));
-        timer.setWrappingWidth(271);
-        timer.setTextAlignment(TextAlignment.CENTER);
-
-        orderName = new Text(food.getItemName());
-        orderName.setFont(new Font("Arial Rounded MT Bold", 30));
-        orderName.setTextAlignment(TextAlignment.CENTER);
-        orderName.setWrappingWidth(271);
+        Platform.runLater(()-> {
+           if (orderBox.getChildren().getFirst() instanceof  ImageView){
+               System.out.println("image found!");
+               orderBox.getChildren().removeFirst();
+           }
 
 
-        ImageView foodimagShow = food.getItemImageView(200);
-        foodimagShow.setFitWidth(271);
-        foodimagShow.setPreserveRatio(true);
+            OneOrderPane oneOrderPane = new OneOrderPane(food );
 
-        countdown(timerInSec, timer);
-        getChildren().addAll( foodimagShow, orderName, timer);
+            orderBox.getChildren().add(oneOrderPane);
+            oneOrderPane.getSendingbutton().setOnMousePressed(new EventHandler<MouseEvent>() {
+                @Override
+                public void handle(MouseEvent mouseEvent) {
+                    if (GameController.Ordersending(oneOrderPane.getFood())){
+
+                        orderGone(oneOrderPane);
+                        if (orderBox.getChildren().size() == 0){
+                            addnoOrderPic();
+                        }
+                    }
+                }
+            });
+            countdown(timerInSec, oneOrderPane.getTimer(), oneOrderPane);
+        });
 
 
+
+
+    }
+
+
+    public void addnoOrderPic(){
+        String   classLoaderPath = ClassLoader.getSystemResource("noOrder.png").toString();
+        ImageView noorder = new ImageView(new Image(classLoaderPath));
+        noorder.setPreserveRatio(true);
+        Pane borderPane = new Pane();
+        noorder.setScaleX(0.75);
+        noorder.setScaleY(0.75);
+
+        borderPane.setPrefWidth(200);
+
+        orderBox.getChildren().add(borderPane);
     }
 }

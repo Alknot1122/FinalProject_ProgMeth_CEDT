@@ -1,5 +1,7 @@
 package pane;
 
+import gameLogic.GameController;
+import gameLogic.Player;
 import gameLogic.Recipe;
 import gameLogic.RecipesRef;
 import javafx.application.Platform;
@@ -12,10 +14,7 @@ import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.Background;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.Pane;
+import javafx.scene.layout.*;
 import javafx.scene.control.TextField;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
@@ -29,7 +28,7 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.Objects;
 
-public class RecipesBookPane extends AnchorPane {
+public class RecipesBookPane extends Pane {
     private GridPane ingredientPane;
     private ImageView foodImage;
     private Text foodName ;
@@ -37,62 +36,34 @@ public class RecipesBookPane extends AnchorPane {
     private int page;
     private RecipesRef recipesRef;
 
-<<<<<<< Updated upstream
-    public RecipesBookPane (){
-=======
-    public RecipesBookPane (InventoryPane inventoryPane, Player player, GameController gameController){
+    public RecipesBookPane (GameController gameController, RecipesRef recipesRef, PinningPane pinningPane){
 
->>>>>>> Stashed changes
         page =0;
-        recipesRef  = new RecipesRef();
-       setPrefWidth(712);
-       setPrefHeight(467);
+        this.recipesRef  = recipesRef;
+       setPrefWidth(728);setPrefHeight(479);
+       setLayoutX(150);setLayoutY(120);
        setVisible(false);
-<<<<<<< Updated upstream
-       setBackground(Background.fill(Color.GRAY));
-
-       Button goLeftButton = new Button("<");
-       goLeftButton.setOnMousePressed(new EventHandler<MouseEvent>() {
-           @Override
-           public void handle(MouseEvent mouseEvent) {
-                SoundController turnleftsound = new SoundController("res/Sound/turnLeftRecipeBook.mp3");
-               turnleftsound.playMusic();
-               goLeft();
-           }
-       });
-
-       Button goRightButton = new Button(">");
-       goRightButton.setOnMousePressed(new EventHandler<MouseEvent>() {
-           @Override
-           public void handle(MouseEvent mouseEvent) {
-               SoundController turnRightSound = new SoundController("res/Sound/turnRightRecipeBook.mp3");
-               turnRightSound.playMusic();
-               goRight();
-           }
-       });
-       Button exitButton = new Button("X");
-       exitButton.setOnMousePressed(new EventHandler<MouseEvent>() {
-           @Override
-           public void handle(MouseEvent mouseEvent) {
-               setVisible(false);
-           }
-       });
-       exitButton.setFont(new Font(13));
-=======
        
         Image bgimg = new Image(Objects.requireNonNull(getClass().getResource("/recipesBookPane.png")).toExternalForm());
         BackgroundImage BGimg = new BackgroundImage(bgimg, BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT);
         setBackground(new Background(BGimg));
 
         foodImage = new ImageView();
+        foodImage.setFitHeight(200);
         foodName = new Text();
         foodName.setFont(Font.loadFont(getClass().getResourceAsStream("/PeaberryBase.ttf"),29));
-        foodName.setWrappingWidth(350);
+        foodName.setWrappingWidth(275);
        Button goLeftButton = new Button();
        Button goRightButton = new Button();
        Button exitButton = new Button();
        Button cookButton = new Button();
+       Button pinButton = new Button();
 
+       setSizeButton(goLeftButton, 34,40);
+       setSizeButton(goRightButton, 34, 40);
+       setSizeButton(exitButton, 38, 37);
+       setSizeButton(cookButton, 134, 52);
+       setSizeButton(pinButton, 50,52);
        setBGImageforButton("/goleftButton.png", goLeftButton);
        setBGImageforButton("/goRightButton.png", goRightButton);
        setBGImageforButton("/exitButton.png", exitButton);
@@ -119,29 +90,22 @@ public class RecipesBookPane extends AnchorPane {
 
 
        exitButton.setOnMousePressed(mouseEvent -> setVisible(false));
->>>>>>> Stashed changes
+       pinButton.setOnMousePressed(new EventHandler<MouseEvent>() {
+           @Override
+           public void handle(MouseEvent mouseEvent) {
+               pinningPane.setVisible(true);
+               pinningPane.setFoodList(recipesRef.getRecipes().get(page));
+           }
+       });
 
-        Text findRecText = new Text("Find recpices here!");
-        findRecText.setFont(new Font(26));
 
         ingredientPane = new GridPane(4, 4);
 
-        ingredientPane.setBackground(Background.fill(Color.WHITE));
-        searchTextfield = new TextField();
-<<<<<<< Updated upstream
-        searchTextfield.setOnKeyPressed(new EventHandler<KeyEvent>() {
-            @Override
-            public void handle(KeyEvent keyEvent) {
-                if (keyEvent.getCode().equals(KeyCode.ENTER)) {
+        ingredientPane.setStyle("-fx-background-color: rgba(245, 145, 32,0.25);");
 
-                    for (int i =0 ;i < recipesRef.getRecipes().size() ; i++){
-                        if (Objects.equals(searchTextfield.getText(), recipesRef.getRecipes().get(i).getFood().getItemName())){
-                            page = i;
-                            MakePage(recipesRef.getRecipes().get(page));
-                            break;
-                        }
-=======
+        searchTextfield = new TextField();
         searchTextfield.setPromptText("Find recipes here!");
+        searchTextfield.setPrefWidth(285);
         searchTextfield.setFont(Font.loadFont(getClass().getResourceAsStream("/PeaberryBase.ttf"),20));
 
         searchTextfield.setOnKeyPressed(keyEvent -> {
@@ -154,28 +118,25 @@ public class RecipesBookPane extends AnchorPane {
                         MakePage(recipesRef.getRecipes().get(page));
                         searchTextfield.setText("");
                         break;
->>>>>>> Stashed changes
                     }
                 }
             }
-
-
-
         });
-        foodImage = new ImageView();
 
-        foodName = new Text("food name guhugh");
-        foodName.setFont(new Font(29));
-        setNodePosition(ingredientPane, 107.0, 413.0, 52.0, 94.0);
-        setNodePosition(foodName, 54.0, 413.0, 381.4, 63.463);
-        setNodePosition(searchTextfield, 59.0, 25.0, 385.0, 377.6);
-        setNodePosition(findRecText, 24.0, 25.0, 413.47, 482.46);
-        setNodePosition(exitButton, 5.0, 675.0, 433.0, 5.0);
-        setNodePosition(goLeftButton, 216.0, 4.0, 208.0, 680.4);
-        setNodePosition(goRightButton, 216.0, 680.0, 208.0, 4.0);
+      setNodePosition(ingredientPane, 447,110);
+        setNodePosition(foodName, 425,73);
+        setNodePosition(searchTextfield, 52,42);
+        setNodePosition(exitButton, 686,-12);
+        setNodePosition(goLeftButton, -27,214);
+        setNodePosition(goRightButton, 701, 214);
+        setNodePosition(cookButton, 95,340);
+        setNodePosition(pinButton,240, 340 );
 
-        foodImage = recipesRef.getRecipes().get(page).getFood().getItemImageView(268);
-        setNodePosition(foodImage, 130.3,56.0,0.0, 0.0);
+        foodImage = recipesRef.getRecipes().get(page).getFood().getItemImageView(200);
+        foodImage.setX(95.0);
+        foodImage.setY(110.0);
+
+        getChildren().addAll(ingredientPane, foodName, searchTextfield,foodImage, exitButton, goLeftButton, goRightButton, cookButton, pinButton);
         MakePage(recipesRef.getRecipes().getFirst());
 
     }
@@ -189,8 +150,8 @@ public class RecipesBookPane extends AnchorPane {
         int row =0;
         for (int i =0; i <recipe.getItems().length; i++){
             ImageView imageItem = recipe.getItems()[i].getItemImageView(100);
-            ingredientPane.setColumnIndex(imageItem, colum);
-            ingredientPane.setRowIndex(imageItem, row);
+            GridPane.setColumnIndex(imageItem, colum);
+            GridPane.setRowIndex(imageItem, row);
 
             colum++;
             if (colum == 2) {
@@ -206,32 +167,34 @@ public class RecipesBookPane extends AnchorPane {
     if (page == -1) {
         page = recipesRef.getRecipes().size()-1;
     }
-      //  System.out.println(recipesRef.getRecipes().size());
+
     MakePage(recipesRef.getRecipes().get(page));
 
     }
     public void goRight(){
         clear();
         page = (page + 1) % recipesRef.getRecipes().size();
-      // System.out.println(recipesRef.getRecipes().size());
+
        MakePage(recipesRef.getRecipes().get(page));
 
     }
-    public void setNodePosition (Node node, double top, double left, double bottom, double right){
-        setTopAnchor(node, top);
-        setLeftAnchor(node, left);
-        setBottomAnchor(node, bottom);
-        setRightAnchor(node, right);
-        getChildren().add(node);
+    public void setNodePosition (Node nodem, double Xpos, double Ypos){
+        nodem.setLayoutX(Xpos);
+        nodem.setLayoutY(Ypos);
+
+    }
+    public void setSizeButton(Button button, double width, double hight){
+        button.setPrefHeight(hight);
+        button.setPrefWidth(width);
     }
     public void clear (){
-
             for (int i = ingredientPane.getChildren().size()-1; i >=0 ; i--){
                 ingredientPane.getChildren().remove(i);
             }
-            // remove the inof of earlier recipe
-         //   getChildren().removeLast();
-
-
+    }
+    public void setBGImageforButton (String imgpath, Button button ){
+        Image buttonimg = new Image(Objects.requireNonNull(getClass().getResource(imgpath)).toExternalForm());
+        BackgroundImage BGbuttonimg = new BackgroundImage(buttonimg, BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT);
+        button.setBackground(new Background(BGbuttonimg));
     }
 }

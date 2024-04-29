@@ -50,7 +50,7 @@ public class RecipesRef {
         Food raspberryDonut = new Food("RaspberryDonut", "Food/RaspberryDonut.png", 60);
         Food raspberryTart  = new Food("Raspberry Tart", "Food/RaspberryTart.png", 50);
         Food redVelvetCake = new Food("Red Velvet Cake", "Food/RedVelvetCake.png", 60);
-        Food strawberryShortcake = new Food("Strawberry Shortcake", "Item/StrawberryShortCake.png", 60);
+        Food strawberryShortcake = new Food("Strawberry Shortcake", "Food/StrawberryShortCake.png", 60);
 
         //All recipes
         Recipe animalBiscuitR = new Recipe(animalBiscuit, new Item[]{butter, cinnamon, egg, flour, sugar, vanilla} );
