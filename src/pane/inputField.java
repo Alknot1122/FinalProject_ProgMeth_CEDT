@@ -74,9 +74,9 @@ public class inputField extends TextField {
          @Override
          public void handle(ActionEvent actionEvent) {
           if (isEventing()){
-             if (Objects.equals(getText(), getExpectedString())){
-             GameController.Cookingpass();
-             }
+              if (getText().equalsIgnoreCase(getExpectedString())) {
+                  GameController.Cookingpass();
+              }
              else {
              GameController.CookingFailed();
              }

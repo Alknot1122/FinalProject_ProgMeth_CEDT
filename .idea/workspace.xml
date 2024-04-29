@@ -4,14 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="a2931400-677a-4a12-b94b-b4a8c183172b" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/Utils/PlayerIdleAnimation.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Utils/IngredientButton.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Utils/IngredientButton.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Utils/OrderButtonAnimation.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Utils/OrderButtonAnimation.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Utils/RecipeButton.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Utils/RecipeButton.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/application/GamePage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/application/GamePage.java" afterDir="false" />
-    </list>
+    <list default="true" id="a2931400-677a-4a12-b94b-b4a8c183172b" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
