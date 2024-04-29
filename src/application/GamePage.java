@@ -1,5 +1,8 @@
 package application;
 
+import Utils.IngredientButton;
+import Utils.OrderButtonAnimation;
+import Utils.RecipeButton;
 import gameLogic.*;
 import javafx.event.EventHandler;
 import javafx.scene.Node;
@@ -15,6 +18,15 @@ import javafx.scene.layout.BackgroundRepeat;
 import javafx.scene.layout.BackgroundSize;
 import javafx.scene.layout.BackgroundPosition;
 import javafx.scene.layout.Pane;
+import javafx.animation.ScaleTransition;
+import javafx.scene.effect.Glow;
+import javafx.animation.RotateTransition;
+import javafx.animation.Timeline;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
+import javafx.util.Duration;
+import javafx.util.Duration;
 import javafx.scene.media.MediaPlayer;
 import javafx.util.Duration;
 import pane.*;
@@ -114,38 +126,14 @@ public class GamePage {
 
         //set buttons for open and close pane
         Button ingredientsPaneButton = getDisplay.getButton("/Button/ingridentButton.png",154,318,714,31);
-        ingredientsPaneButton.setOnMousePressed(mouseEvent -> {
-            SoundController OpenIngridentPane = new SoundController("res/Sound/OpenIngridentPane.mp3");
-            OpenIngridentPane.getMediaPlayer().setVolume(0.75);
-            OpenIngridentPane.playMusic();
-            ingredientsPane.setVisible(!ingredientsPane.isVisible());
-        });
+        IngredientButton.applyButtonAnimation(ingredientsPaneButton, recipesBookPane);
 
         Button recipebookButton = getDisplay.getButton("/Button/recipeBookPaneButton.png", 109, 77,520,510);
+        RecipeButton.applyButtonAnimation(recipebookButton, recipesBookPane);
 
+        Button OrderButton = getDisplay.getButton("/Button/phoneButton.png", 32, 45, 560, 460);
+        OrderButtonAnimation.applyButtonAnimation(OrderButton, orderPane);
 
-        recipebookButton.setOnMousePressed(new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent mouseEvent) {
-                SoundController turnleftsound = new SoundController("res/Sound/openBook.mp3");
-                turnleftsound.playMusic();
-                recipesBookPane.setVisible(!recipesBookPane.isVisible());
-            }
-        });
-
-        Button OrderButton = getDisplay.getButton("/Button/phoneButton.png", 32,45,560,460);
-        /*setButton(32,45,560,460, OrderButton);
-
-        setBGImageforButton("/Button/phoneButton.png", OrderButton);*/
-        OrderButton.setOnMousePressed(new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent mouseEvent) {
-                SoundController clockingButtonnoise = new SoundController("res/Sound/buttonclick.mp3");
-                clockingButtonnoise.getMediaPlayer().setVolume(0.5);
-                clockingButtonnoise.playMusic();
-                orderPane.setVisible(!orderPane.isVisible());
-            }
-        });
         root.getChildren().addAll(player.getInputField(), OrderButton, ingredientsPaneButton, recipebookButton);
         root.getChildren().addAll(orderPane, ingredientsPane, recipesBookPane,inventoryPane, pinningPane);
         root.getChildren().addAll(player.getErrorText(), player.getDisplayEventText(), player.getDisplayScore(),
