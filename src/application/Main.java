@@ -49,17 +49,13 @@ public class Main extends Application {
                 fadeOut.setToValue(0.0);
                 fadeOut.setOnFinished(e -> {
                     mainScene.setRoot(gamePage.getRoot()); // Switch to game page after fade out
-                    gamePage.getInputField().requestFocus();
                     FadeTransition fadeIn = new FadeTransition(Duration.seconds(1), gamePage.getRoot());
                     fadeIn.setFromValue(0.0);
                     fadeIn.setToValue(1.0);
                     fadeIn.play();
                 });
                 fadeOut.play();
-
-            } else {
-                gamePage.getInputField().requestFocus();
-            }
+                }
         });
         menuBox = new VBox(10,
                 itemStart,

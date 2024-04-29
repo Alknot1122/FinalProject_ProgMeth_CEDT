@@ -35,6 +35,7 @@ public class Player  {
         gameOverPane = new gameOverPane();
         ErrorText = getDisplay.getText("", 29, 808,78,587);
         inputField = new inputField();
+        inputField.setVisible(false);
         displayEventText = getDisplay.getText("", 37,600, 250,470);
         imageDisplay = getDisplay.getImage("Item/Lemon.png", 75, true);
 

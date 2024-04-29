@@ -1,7 +1,8 @@
 package gameLogic;
 
-import javafx.animation.KeyFrame;
-import javafx.animation.Timeline;
+import Utils.ZoomTransitionUtil;
+import application.GamePage;
+import javafx.animation.*;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -10,8 +11,6 @@ import javafx.scene.image.Image;
 import javafx.scene.layout.Pane;
 import javafx.scene.text.Text;
 import javafx.util.Duration;
-import javafx.animation.FadeTransition;
-import javafx.animation.TranslateTransition;
 import javafx.util.Duration;
 import pane.*;
 
@@ -87,8 +86,10 @@ public class GameController {
 
     }
 
+
    public void StartCooking ( Recipe recipe){
 
+       GameController.recipe = recipe;
        for (Item ingrident : recipe.getItems()){
            boolean cookable = false;
 
@@ -97,7 +98,6 @@ public class GameController {
                    if (inventoryPane.getItems()[i].getItemName().equalsIgnoreCase(ingrident.getItemName())) {
                        System.out.println(inventoryPane.getItems()[i].getItemName() + "=" + ingrident.getItemName());
                        cookable = true;
-
                    }
                }
            }
@@ -121,6 +121,7 @@ public class GameController {
                }
 
                if (missing) {
+                   player.getInputField().setVisible(false);
                    String missingList = missingIngredients.substring(0, missingIngredients.length() - 2); // Remove the last comma and space
                    player.getErrorText().setText("Missing ingredients: " + missingList);
                    Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(2.5), event -> {
@@ -131,17 +132,15 @@ public class GameController {
                    return;
                }
            }
-
-
+       }
+           ZoomTransitionUtil.applyZoomTransition(GamePage.getRoot());
+           player.getInputField().setVisible(true);
+           player.getInputField().requestFocus();
+           player.getInputField().setEventing(true);
+           player.getInputField().setExpectedString(recipe.getFood().getItemName());
+           player.getDisplayEventText().setText("now Type : " + player.getInputField().getExpectedString());
        }
 
-       GameController.recipe = recipe;
-       player.getInputField().setEventing(true);
-       player.getInputField().setExpectedString(recipe.getFood().getItemName());
-       player.getDisplayEventText().setText("now Type : " + player.getInputField().getExpectedString());
-
-
-   }
    public static boolean Ordersending(Food foodOrder){
        for (int i =0; i < inventoryPane.getItems().length; i++){
            if (inventoryPane.getItems()[i] != null){
@@ -167,6 +166,7 @@ public class GameController {
 
        Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(2.5), event -> {
            player.getImageDisplay().setVisible(false);
+           ZoomTransitionUtil.applyZoomOutTransition(GamePage.getRoot());
        }));
        timeline.setCycleCount(1);
        timeline.play();

@@ -1,8 +1,10 @@
 package pane;
 
+import application.GamePage;
 import gameLogic.GameController;
 import gameLogic.Recipe;
 import gameLogic.RecipesRef;
+import javafx.animation.ScaleTransition;
 import javafx.event.EventHandler;
 import javafx.scene.Node;
 import javafx.scene.image.ImageView;
@@ -14,6 +16,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.Button;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
+import javafx.util.Duration;
 
 import java.util.Objects;
 
@@ -51,14 +54,17 @@ public class RecipesBookPane extends Pane {
 
 
 
-       cookButton.setOnMousePressed(mouseEvent -> {
-           SoundController clockingButtonnoise = new SoundController("res/Sound/buttonclick.mp3");
-           clockingButtonnoise.getMediaPlayer().setVolume(0.5);
-           clockingButtonnoise.playMusic();
-           setVisible(false);
-           gameController.StartCooking( recipesRef.getRecipes().get(page));
+        cookButton.setOnMousePressed(mouseEvent -> {
+            // Play button click sound
+            SoundController clockingButtonnoise = new SoundController("res/Sound/buttonclick.mp3");
+            clockingButtonnoise.getMediaPlayer().setVolume(0.5);
+            clockingButtonnoise.playMusic();
 
-       });
+            setVisible(false);
+
+            // Start cooking process
+            gameController.StartCooking(recipesRef.getRecipes().get(page));
+        });
        goLeftButton.setOnMousePressed(mouseEvent -> {
             SoundController turnleftsound = new SoundController("res/Sound/turnLeftRecipeBook.mp3");
            turnleftsound.playMusic();

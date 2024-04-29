@@ -1,9 +1,6 @@
 package application;
 
-import Utils.IngredientButton;
-import Utils.OrderButtonAnimation;
-import Utils.PlayerIdleAnimation;
-import Utils.RecipeButton;
+import Utils.*;
 import gameLogic.*;
 import javafx.event.EventHandler;
 import javafx.scene.Node;
@@ -37,7 +34,7 @@ import java.util.Objects;
 public class GamePage {
 
     private static Pane root;
-    private static TextField inputField;
+    private static inputField inputField;
     private static IngredientsPane ingredientsPane;
     private static OrderPane orderPane;
     private static RecipesBookPane recipesBookPane;
@@ -64,13 +61,11 @@ public class GamePage {
         root = new Pane();
         root.setPrefSize(963, 722);
 
-        inputField = new TextField();
+        inputField = player.getInputField();
+        inputField.setVisible(false);
         pinningPane = new PinningPane();
         ingredientsPane = new IngredientsPane(inventoryPane, player );
         recipesBookPane = new RecipesBookPane( gameController, recipesRef, pinningPane);
-
-
-
        /* inputField.setPromptText("Enter your input");
         setPos( 250,200, inputField); // Adjust the position as needed
 
@@ -151,7 +146,7 @@ public class GamePage {
         return root;
     }
 
-    public static TextField getInputField() {
+    public static inputField getInputField() {
         return inputField;
     }
 
