@@ -126,7 +126,7 @@ public class GamePage {
 
         //set buttons for open and close pane
         Button ingredientsPaneButton = getDisplay.getButton("/Button/ingridentButton.png",154,318,714,31);
-        IngredientButton.applyButtonAnimation(ingredientsPaneButton, recipesBookPane);
+        IngredientButton.applyButtonAnimation(ingredientsPaneButton, ingredientsPane);
 
         Button recipebookButton = getDisplay.getButton("/Button/recipeBookPaneButton.png", 109, 77,320,510);
         RecipeButton.applyButtonAnimation(recipebookButton, recipesBookPane);
