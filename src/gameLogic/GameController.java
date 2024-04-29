@@ -134,6 +134,10 @@ public class GameController {
            }
        }
            ZoomTransitionUtil.applyZoomTransition(GamePage.getRoot());
+           GamePage.getIngredientsPane().setVisible(false);
+           GamePage.getOrderPane().setVisible(false);
+           GamePage.getPinningPane().setVisible(false);
+           GamePage.getRecipesBookPane().setVisible(false);
            player.getInputField().setVisible(true);
            player.getInputField().requestFocus();
            player.getInputField().setEventing(true);

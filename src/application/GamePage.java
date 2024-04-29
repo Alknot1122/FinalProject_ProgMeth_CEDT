@@ -150,6 +150,21 @@ public class GamePage {
         return inputField;
     }
 
+    public static IngredientsPane getIngredientsPane() {
+        return ingredientsPane;
+    }
+
+    public static OrderPane getOrderPane() {
+        return orderPane;
+    }
+
+    public static RecipesBookPane getRecipesBookPane() {
+        return recipesBookPane;
+    }
+
+    public static PinningPane getPinningPane() {
+        return pinningPane;
+    }
 
     public void setPos(double Xpos, double Ypos, Node node){
         node.setLayoutX(Xpos);
