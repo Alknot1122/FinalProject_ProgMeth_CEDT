@@ -140,6 +140,9 @@ public class GamePage {
         OrderButton.setOnMousePressed(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
+                SoundController clockingButtonnoise = new SoundController("res/Sound/buttonclick.mp3");
+                clockingButtonnoise.getMediaPlayer().setVolume(0.5);
+                clockingButtonnoise.playMusic();
                 orderPane.setVisible(!orderPane.isVisible());
             }
         });

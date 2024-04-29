@@ -51,12 +51,14 @@ public class GameController {
     public static synchronized void orderenter(){
 
        Random random = new Random();
-
+        int randomNumforOrder1 = random.nextInt(40) + 60;
+        int randomRecipe1 = random.nextInt(23);
+        orderPane.OrderIn(recipesRef.getRecipes().get(randomRecipe1).getFood(), randomNumforOrder1);
         orderTrade = new Thread(() -> {
             while (isThreadRunning) {
                 try {
-                    int randomnumforWait = random.nextInt(76) + 40;
-                    int randomNumforOrder = random.nextInt(61) + 40;
+                    int randomnumforWait = random.nextInt(30) + 35;
+                    int randomNumforOrder = random.nextInt(30) + 60;
                     int randomRecipe = random.nextInt(23);
                     Thread.sleep(randomnumforWait * 1000);
                     orderPane.OrderIn(recipesRef.getRecipes().get(randomRecipe).getFood(), randomNumforOrder);

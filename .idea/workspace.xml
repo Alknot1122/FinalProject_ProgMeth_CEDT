@@ -5,39 +5,18 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="a2931400-677a-4a12-b94b-b4a8c183172b" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/res/Background/pinning.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/res/Button/addToinventory.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/res/Button/cookbutton.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/res/Button/deliveryButton.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/res/Button/pinningButton.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/res/Sound/CloseBook.mp3" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/res/Sound/buttonclick.mp3" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/res/Sound/openBook.mp3" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/GameOverPane.png" beforeDir="false" afterPath="$PROJECT_DIR$/res/Background/GameOverPane.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/Menu.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/res/Menu.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/OrderPane.png" beforeDir="false" afterPath="$PROJECT_DIR$/res/Background/OrderPane.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/Sound/Backgroundmusic.mp3" beforeDir="false" afterPath="$PROJECT_DIR$/res/Sound/Backgroundmusic.mp3" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/exitButton.png" beforeDir="false" afterPath="$PROJECT_DIR$/res/Button/exitButton.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/goRightButton.png" beforeDir="false" afterPath="$PROJECT_DIR$/res/Button/goRightButton.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/goleftButton.png" beforeDir="false" afterPath="$PROJECT_DIR$/res/Button/goleftButton.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/ingridentButton.png" beforeDir="false" afterPath="$PROJECT_DIR$/res/Button/ingridentButton.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/ingridentsPane.png" beforeDir="false" afterPath="$PROJECT_DIR$/res/Background/ingridentsPane.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/kitchen.png" beforeDir="false" afterPath="$PROJECT_DIR$/res/Background/kitchen.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/mainmenuBg.png" beforeDir="false" afterPath="$PROJECT_DIR$/res/Background/mainmenuBg.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/phoneButton.png" beforeDir="false" afterPath="$PROJECT_DIR$/res/Button/phoneButton.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/recipeBookPaneButton.png" beforeDir="false" afterPath="$PROJECT_DIR$/res/Button/recipeBookPaneButton.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/recipesBookPane.png" beforeDir="false" afterPath="$PROJECT_DIR$/res/Background/recipesBookPane.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/application/GamePage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/application/GamePage.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/application/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/application/Main.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/gameLogic/GameController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/gameLogic/GameController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/gameLogic/IngridentsRef.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/gameLogic/IngridentsRef.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/gameLogic/Player.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/gameLogic/Player.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/pane/IngredientsPane.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/pane/IngredientsPane.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/pane/OneOrderPane.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/pane/OneOrderPane.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/pane/OrderPane.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/pane/OrderPane.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/pane/PinningPane.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/pane/PinningPane.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/pane/RecipesBookPane.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/pane/RecipesBookPane.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pane/gameOverPane.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/pane/gameOverPane.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pane/SoundController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/pane/SoundController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/pane/getDisplay.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/pane/getDisplay.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />

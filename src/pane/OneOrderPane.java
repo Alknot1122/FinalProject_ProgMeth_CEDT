@@ -21,8 +21,8 @@ public class OneOrderPane extends Pane {
 
         setPrefSize(170,70);
 
-        Text orderName = getDisplay.getText(food.getItemName(), 16,118, 64,20);
-         timer = getDisplay.getText("", 18, 77, 64,61);
+        Text orderName = getDisplay.getText(food.getItemName(), 16,118, 70,20);
+         timer = getDisplay.getText("", 18, 77, 70,61);
 
 
          sendingbutton = getDisplay.getButton("/Button/deliveryButton.png",34,33,141,42);

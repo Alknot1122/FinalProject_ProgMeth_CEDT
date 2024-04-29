@@ -35,7 +35,7 @@ public class Player  {
         gameOverPane = new gameOverPane();
         ErrorText = getDisplay.getText("", 29, 808,78,587);
         inputField = new inputField();
-        displayEventText = getDisplay.getText("", 37,200, 250,470);
+        displayEventText = getDisplay.getText("", 37,600, 250,470);
         imageDisplay = getDisplay.getImage("Item/Lemon.png", 75, true);
 
 
@@ -45,7 +45,8 @@ public class Player  {
 
         displayEventText.setLayoutX(250); displayEventText.setLayoutY(190);
         displayEventText.setFont(Font.loadFont(getClass().getResourceAsStream("/PeaberryBase.ttf"),37));
-
+        displayEventText.setStyle("-fx-fill : rgb(255,241,234);" + "-fx-stroke: rgb(116,35,16);" + "-fx-stroke-width: 4px;"
+                + "-fx-text-alignment: center;" + "-fx-stroke-type:outside;");
 
        
         ErrorText.setTextAlignment(TextAlignment.CENTER);

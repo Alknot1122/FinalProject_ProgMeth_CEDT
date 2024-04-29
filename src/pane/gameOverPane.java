@@ -33,7 +33,7 @@ public class gameOverPane extends Pane {
           gameOverImg.setLayoutY(145);
 
 
-           scoreText = new Text();
+           scoreText = getDisplay.getText("", 32, 400, 396,348);
           Button replayButton = new Button ("Start again?");
           replayButton.setPrefWidth(105);
           replayButton.setPrefHeight(43);

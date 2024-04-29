@@ -39,9 +39,8 @@ public class RecipesBookPane extends Pane {
 
         foodImage = new ImageView();
         foodImage.setFitHeight(200);
-        foodName = new Text();
-        foodName.setFont(Font.loadFont(getClass().getResourceAsStream("/PeaberryBase.ttf"),29));
-        foodName.setWrappingWidth(275);
+        foodName = getDisplay.getText("", 29, 275, 425,73);
+
        Button goLeftButton = getDisplay.getButton("/Button/goleftButton.png", 34,40,-10,214);
        Button goRightButton = getDisplay.getButton("/Button/goRightButton.png", 34,40,701,214);
        Button exitButton = getDisplay.getButton("/Button/exitButton.png", 38,37,686,-12);
@@ -101,6 +100,8 @@ public class RecipesBookPane extends Pane {
         searchTextfield.setPromptText("Find recipes here!");
         searchTextfield.setPrefWidth(285);
         searchTextfield.setFont(Font.loadFont(getClass().getResourceAsStream("/PeaberryBase.ttf"),20));
+        searchTextfield.setBackground(Background.EMPTY); // Make background transparent
+        searchTextfield.setBorder(null); // Remove border
 
         searchTextfield.setOnKeyPressed(keyEvent -> {
             if (keyEvent.getCode().equals(KeyCode.ENTER)) {
@@ -119,7 +120,6 @@ public class RecipesBookPane extends Pane {
 
 
         setNodePosition(ingredientPane, 447,110);
-        setNodePosition(foodName, 425,73);
         setNodePosition(searchTextfield, 52,42);
         foodImage = recipesRef.getRecipes().get(page).getFood().getItemImageView(200);
         foodImage.setX(95.0);

@@ -65,13 +65,14 @@ public class IngredientsPane extends Pane {
             itemPane.setPrefHeight(90);
 
             itemPane.setStyle("-fx-background-color:transparent;");
-            Text itemName = getDisplay.getText(ingridentsRef.getIngridnets().get(i).getItemName(),17,119,93,20 );
+            Text itemName = getDisplay.getText(ingridentsRef.getIngridnets().get(i).getItemName(),17,119,93,20, Color.WHITE );
+
             /*Text itemName = new Text (ingridentsRef.getIngridnets().get(i).getItemName());
             itemName.setWrappingWidth(119);
             itemName.setLayoutX(93);*/
 
             //itemName.setFont(Font.loadFont(getClass().getResourceAsStream("/PeaberryBase.ttf"),17));
-            itemName.setFill(Color.WHITE);
+
 
             ImageView itemImage = ingridentsRef.getIngridnets().get(i).getItemImageView(80);
             itemImage.setLayoutY(7);

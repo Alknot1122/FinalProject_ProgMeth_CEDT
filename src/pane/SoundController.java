@@ -18,11 +18,15 @@ public class SoundController {
         return mediaPlayer;
     }
     public void playMusic(){
-        if (mediaPlayer.getStatus() == MediaPlayer.Status.PLAYING){
-            mediaPlayer.stop();
-            mediaPlayer.seek(mediaPlayer.getStartTime());
+        Thread ae = new Thread(() -> {
+            if (mediaPlayer.getStatus() == MediaPlayer.Status.PLAYING){
+                mediaPlayer.stop();
+                mediaPlayer.seek(mediaPlayer.getStartTime());
 
-        }
-        mediaPlayer.play();
+            }
+            mediaPlayer.play();
+            Thread.yield();
+        });
+        ae.start();
     }
 }

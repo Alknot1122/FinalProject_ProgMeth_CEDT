@@ -56,6 +56,7 @@ public class Main extends Application {
                     fadeIn.play();
                 });
                 fadeOut.play();
+
             } else {
                 gamePage.getInputField().requestFocus();
             }
@@ -132,13 +133,13 @@ public class Main extends Application {
     public void start(Stage stage) {
         gamePage = new GamePage();
         //play background music
-        Thread backgroundMusicplayer = new Thread(()->{
+
             SoundController backgroundMusic = new SoundController("res/Sound/Backgroundmusic.mp3");
             backgroundMusic.getMediaPlayer().setVolume(0.75);
             backgroundMusic.getMediaPlayer().setCycleCount(MediaPlayer.INDEFINITE);
             backgroundMusic.getMediaPlayer().play();
-        });
-        backgroundMusicplayer.start();
+
+
         SoundController clockingButtonnoise = new SoundController("res/Sound/buttonclick.mp3");
         clockingButtonnoise.getMediaPlayer().setVolume(0.5);
         mainScene = new Scene(createContent(), 963,722); // Rename the variable to avoid shadowing

@@ -49,7 +49,7 @@ public class PinningPane extends Pane {
         FoodName.setText(recipe.getFood().getItemName());
         itemListPane.getChildren().clear();
         for (Item item : recipe.getItems()){
-            Text itemname = getDisplay.getText(item.getImagePath(), 15, 195, 0,0);
+            Text itemname = getDisplay.getText(item.getItemName(), 15, 195, 0,0);
             itemListPane.getChildren().add(itemname);
 
         }

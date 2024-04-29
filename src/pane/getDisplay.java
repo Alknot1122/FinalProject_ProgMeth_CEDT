@@ -5,6 +5,7 @@ import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
+import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 
@@ -32,10 +33,18 @@ public class getDisplay {
     }
     public static Text getText (String string, int Fontsize, int wrappingWidth, int posX, int posY){
         Text text = new Text(string);
+        text.setStyle("-fx-fill: rgba(116,35,16,1);");
         text.setFont(Font.loadFont(getDisplay.class.getResourceAsStream("/PeaberryBase.ttf"),Fontsize));
         text.setWrappingWidth(wrappingWidth);
         text.setLayoutX(posX); text.setLayoutY(posY);
         return text;
     }
-
+    public static Text getText (String string, int Fontsize, int wrappingWidth, int posX, int posY, Color color){
+        Text text = new Text(string);
+        text.setFill(color);
+        text.setFont(Font.loadFont(getDisplay.class.getResourceAsStream("/PeaberryBase.ttf"),Fontsize));
+        text.setWrappingWidth(wrappingWidth);
+        text.setLayoutX(posX); text.setLayoutY(posY);
+        return text;
+    }
 }
