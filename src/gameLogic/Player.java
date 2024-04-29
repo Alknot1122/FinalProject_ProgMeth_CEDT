@@ -11,6 +11,7 @@ import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
 import pane.InventoryPane;
 import pane.gameOverPane;
+import pane.getDisplay;
 import pane.inputField;
 
 
@@ -32,27 +33,21 @@ public class Player  {
         scores =0;
         displayScore = new Text("Score : " + scores);
         gameOverPane = new gameOverPane();
-        ErrorText = new Text();
+        ErrorText = getDisplay.getText("", 29, 808,78,587);
         inputField = new inputField();
-        displayEventText = new Text();
-        ErrorText = new Text("");
+        displayEventText = getDisplay.getText("", 37,200, 250,470);
+        imageDisplay = getDisplay.getImage("Item/Lemon.png", 75, true);
 
-        String   classLoaderPath = ClassLoader.getSystemResource("Food/AnimalBiscuit.png").toString();
-        Image itemImage = new Image(classLoaderPath);
-        imageDisplay = new ImageView(itemImage);
+
+
         imageDisplay.setVisible(false);
-        imageDisplay.setFitHeight(75);
-        imageDisplay.setPreserveRatio(true);
         imageDisplay.setLayoutY(280); imageDisplay.setLayoutX(470);
 
         displayEventText.setLayoutX(250); displayEventText.setLayoutY(190);
         displayEventText.setFont(Font.loadFont(getClass().getResourceAsStream("/PeaberryBase.ttf"),37));
 
 
-        ErrorText.setFont(Font.loadFont(getClass().getResourceAsStream("/PeaberryBase.ttf"),29));
-        ErrorText.setLayoutX(78);
-        ErrorText.setLayoutY(587);
-        ErrorText.setWrappingWidth(808);
+       
         ErrorText.setTextAlignment(TextAlignment.CENTER);
         ErrorText.setStyle("-fx-fill : rgb(255,241,234);" + "-fx-stroke: rgb(116,35,16);" + "-fx-stroke-width: 4px;"
         + "-fx-text-alignment: center;" + "-fx-stroke-type:outside;");

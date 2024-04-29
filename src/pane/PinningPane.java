@@ -6,12 +6,13 @@ import gameLogic.Recipe;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.scene.control.Button;
+import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.Background;
-import javafx.scene.layout.Pane;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
+
+import java.util.Objects;
 
 public class PinningPane extends Pane {
     private Text FoodName ;
@@ -21,8 +22,9 @@ public class PinningPane extends Pane {
         setLayoutX(78); setLayoutY(386);
         setPrefHeight(200);
         setPrefWidth(228);
-        setBackground(Background.fill(Color.WHITE));
-        // setbga image ;
+        Image bgimg = new Image(Objects.requireNonNull(getClass().getResource("/Background/pinning.png")).toExternalForm());
+        BackgroundImage BG = new BackgroundImage(bgimg, BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT);
+        setBackground(new Background(BG));
 
         FoodName = getDisplay.getText("", 17, 169, 14,32);
 
@@ -32,9 +34,9 @@ public class PinningPane extends Pane {
         itemListPane.setPrefHeight(154); itemListPane.setPrefWidth(205);
         itemListPane.setLayoutX(9); itemListPane.setLayoutY(40);
 
-        Button exitButton = new Button();
-        exitButton.setPrefWidth(38); exitButton.setPrefHeight(37);
-        exitButton.setLayoutY(-4); exitButton.setLayoutX(195);
+        Button exitButton = getDisplay.getButton("/Button/exitButton.png",38,37,195,-4);
+      /*  exitButton.setPrefWidth(38); exitButton.setPrefHeight(37);
+        exitButton.setLayoutY(-4); exitButton.setLayoutX(195);*/
         exitButton.setOnMousePressed(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {

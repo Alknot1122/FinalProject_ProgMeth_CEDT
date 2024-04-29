@@ -5,7 +5,6 @@ import gameLogic.GameController;
 import javafx.application.Platform;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
-import javafx.geometry.Pos;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -17,7 +16,6 @@ import javafx.scene.image.Image;
 import javafx.scene.control.Button;
 import javafx.scene.text.TextAlignment;
 
-import java.awt.*;
 import java.util.Objects;
 
 public class OrderPane extends Pane {
@@ -28,7 +26,7 @@ public class OrderPane extends Pane {
   private VBox orderBox;
     public OrderPane (){
         setVisible(false);
-        Image bgImage = new Image(Objects.requireNonNull(getClass().getResource("/OrderPane.png")).toExternalForm());
+        Image bgImage = new Image(Objects.requireNonNull(getClass().getResource("/Background/OrderPane.png")).toExternalForm());
         BackgroundImage backgroundImage = new BackgroundImage(bgImage, BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT);
         setBackground(new Background(backgroundImage));
 
@@ -37,14 +35,8 @@ public class OrderPane extends Pane {
         setPrefHeight(432);
         setPrefWidth(211); setScaleY(1.15); setScaleX(1.15);
 
-        Button exitButton = new Button();
-        exitButton.setPrefSize(38,37);
-        exitButton.setScaleX(0.75);exitButton.setScaleY(0.75);
-        exitButton.setLayoutY(2); exitButton.setLayoutX(178);
+        Button exitButton = getDisplay.getButton("/Button/exitButton.png", 38,37,178,2);
 
-        Image exitbuttonimg = new Image(Objects.requireNonNull(getClass().getResource("/exitButton.png")).toExternalForm());
-        BackgroundImage bgexitButton = new BackgroundImage(exitbuttonimg, BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT);
-        exitButton.setBackground(new Background(bgexitButton));
 
         exitButton.setOnMousePressed(new EventHandler<MouseEvent>() {
             @Override
@@ -53,9 +45,7 @@ public class OrderPane extends Pane {
 
             }
         });
-        Text order = new Text("ORDER");
-        order.setLayoutY(56); order.setLayoutX(56);
-        order.setFont(Font.loadFont(getClass().getResourceAsStream("/PeaberryBase.ttf"), 32));
+        Text order = getDisplay.getText("ORDER", 32, 106, 51, 67);
         order.setFill(Color.WHITE);
         order.setTextAlignment(TextAlignment.CENTER);
 
@@ -129,7 +119,7 @@ public class OrderPane extends Pane {
     public void OrderIn(Food food, int timerInSec){
         Platform.runLater(()-> {
            if (orderBox.getChildren().getFirst() instanceof  ImageView){
-               System.out.println("image found!");
+
                orderBox.getChildren().removeFirst();
            }
 
@@ -143,7 +133,7 @@ public class OrderPane extends Pane {
                     if (GameController.Ordersending(oneOrderPane.getFood())){
 
                         orderGone(oneOrderPane);
-                        if (orderBox.getChildren().size() == 0){
+                        if (orderBox.getChildren().isEmpty()){
                             addnoOrderPic();
                         }
                     }

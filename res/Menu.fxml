@@ -6,6 +6,6 @@
 
 <ImageView fitHeight="150.0" fitWidth="200.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
    <image>
-      <Image url="@kitchen.png" />
+      <Image url="@Background/kitchen.png" />
    </image>
 </ImageView>

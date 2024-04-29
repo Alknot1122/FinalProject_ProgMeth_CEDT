@@ -21,18 +21,12 @@ public class OneOrderPane extends Pane {
 
         setPrefSize(170,70);
 
-        Text orderName = new Text(food.getItemName());
-        orderName.setFont(Font.loadFont(getClass().getResourceAsStream("/PeaberryBase.ttf"), 16));
-        orderName.setLayoutX(64); orderName.setLayoutY(20);
-        orderName.setWrappingWidth(118);
+        Text orderName = getDisplay.getText(food.getItemName(), 16,118, 64,20);
+         timer = getDisplay.getText("", 18, 77, 64,61);
 
-         timer = new Text();
-        timer.setFont(Font.loadFont(getClass().getResourceAsStream("/PeaberryBase.ttf"), 18));
-        timer.setLayoutX(64); timer.setLayoutY(61);
-        timer.setWrappingWidth(77);
 
-         sendingbutton = new Button("Delivery");
-        sendingbutton.setLayoutX(141); sendingbutton.setLayoutY(42);
+         sendingbutton = getDisplay.getButton("/Button/deliveryButton.png",34,33,141,42);
+        sendingbutton.setStyle("-fx-background-image: url('/Button/deliveryButton.png'); -fx-background-color: transparent;");
 
 
         ImageView foodimagShow = food.getItemImageView(58);

@@ -1,15 +1,11 @@
 package application;
 
 import gameLogic.*;
-import javafx.animation.KeyFrame;
-import javafx.animation.KeyValue;
-import javafx.animation.Timeline;
 import javafx.event.EventHandler;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
-import javafx.scene.effect.DropShadow;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -19,12 +15,10 @@ import javafx.scene.layout.BackgroundRepeat;
 import javafx.scene.layout.BackgroundSize;
 import javafx.scene.layout.BackgroundPosition;
 import javafx.scene.layout.Pane;
-import javafx.scene.text.Font;
-import javafx.scene.text.Text;
+import javafx.scene.media.MediaPlayer;
 import javafx.util.Duration;
 import pane.*;
 
-import javax.naming.Name;
 import java.util.Objects;
 
 public class GamePage {
@@ -49,7 +43,7 @@ public class GamePage {
         int sec = 0;
         Timer t = new Timer(minute,sec);
         timerBarPane = new TimerBar(t); // Initialize TimerBarPane
-       // timerBarPane.startCountDownTimer(t);
+        timerBarPane.startCountDownTimer(t);
         orderPane = new OrderPane();
         RecipesRef recipesRef = new RecipesRef();
         GameController gameController = new GameController(player, inventoryPane, timerBarPane, orderPane, recipesRef);
@@ -101,18 +95,12 @@ public class GamePage {
 
         // Load and set the background image
 
-        Image bgImage = new Image(Objects.requireNonNull(getClass().getResource("/kitchen.png")).toExternalForm());
+        Image bgImage = new Image(Objects.requireNonNull(getClass().getResource("/Background/kitchen.png")).toExternalForm());
         BackgroundImage backgroundImage = new BackgroundImage(bgImage, BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT);
         root.setBackground(new Background(backgroundImage));
         //play background music
 
-        SoundController backgroundMusic = new SoundController("res/Sound/Backgroundmusic.mp3");
-        backgroundMusic.getMediaPlayer().setVolume(0.75);
-        backgroundMusic.getMediaPlayer().setOnEndOfMedia(() -> {
-            backgroundMusic.getMediaPlayer().seek(Duration.ZERO);
-            backgroundMusic.getMediaPlayer().play();
-        });
-        backgroundMusic.getMediaPlayer().play();
+
 
         // Add TimerBarPane
         root.getChildren().add(timerBarPane);
@@ -125,21 +113,36 @@ public class GamePage {
 
 
         //set buttons for open and close pane
-        Button ingredientsPaneButton = new Button();
-        setButton(154,318,714,31, ingredientsPaneButton);
-        setBGImageforButton("/ingridentButton.png", ingredientsPaneButton);
-        OpenCloseButton(ingredientsPaneButton, ingredientsPane);
+        Button ingredientsPaneButton = getDisplay.getButton("/Button/ingridentButton.png",154,318,714,31);
+        ingredientsPaneButton.setOnMousePressed(mouseEvent -> {
+            SoundController OpenIngridentPane = new SoundController("res/Sound/OpenIngridentPane.mp3");
+            OpenIngridentPane.getMediaPlayer().setVolume(0.75);
+            OpenIngridentPane.playMusic();
+            ingredientsPane.setVisible(!ingredientsPane.isVisible());
+        });
 
-        Button recipebookButton = new Button();
-        setButton(109,77,520,510, recipebookButton);
-        setBGImageforButton("/recipeBookPaneButton.png", recipebookButton);
-        OpenCloseButton(recipebookButton, recipesBookPane);
+        Button recipebookButton = getDisplay.getButton("/Button/recipeBookPaneButton.png", 109, 77,520,510);
 
-        Button OrderButton = new Button();
-        setButton(32,45,560,460, OrderButton);
-        OpenCloseButton(OrderButton, orderPane);
-        setBGImageforButton("/phoneButton.png", OrderButton);
 
+        recipebookButton.setOnMousePressed(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent mouseEvent) {
+                SoundController turnleftsound = new SoundController("res/Sound/openBook.mp3");
+                turnleftsound.playMusic();
+                recipesBookPane.setVisible(!recipesBookPane.isVisible());
+            }
+        });
+
+        Button OrderButton = getDisplay.getButton("/Button/phoneButton.png", 32,45,560,460);
+        /*setButton(32,45,560,460, OrderButton);
+
+        setBGImageforButton("/Button/phoneButton.png", OrderButton);*/
+        OrderButton.setOnMousePressed(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent mouseEvent) {
+                orderPane.setVisible(!orderPane.isVisible());
+            }
+        });
         root.getChildren().addAll(player.getInputField(), OrderButton, ingredientsPaneButton, recipebookButton);
         root.getChildren().addAll(orderPane, ingredientsPane, recipesBookPane,inventoryPane, pinningPane);
         root.getChildren().addAll(player.getErrorText(), player.getDisplayEventText(), player.getDisplayScore(),
@@ -155,26 +158,8 @@ public class GamePage {
     public static TextField getInputField() {
         return inputField;
     }
-    public void OpenCloseButton(Button button, Node node){
-        button.setOnMousePressed(new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent mouseEvent) {
-                node.setVisible(!node.isVisible());
 
-            }
-        });
-    }
-    public void setButton(double Xsize, double Ysize, double Xpos, double Ypos, Button button){
-        button.setPrefWidth(Xsize);
-        button.setPrefHeight(Ysize);
-        button.setLayoutX(Xpos);
-        button.setLayoutY(Ypos);
-    }
-    public void setBGImageforButton (String imgpath, Button button ){
-        Image buttonimg = new Image(Objects.requireNonNull(getClass().getResource(imgpath)).toExternalForm());
-        BackgroundImage BGbuttonimg = new BackgroundImage(buttonimg, BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT);
-        button.setBackground(new Background(BGbuttonimg));
-    }
+
     public void setPos(double Xpos, double Ypos, Node node){
         node.setLayoutX(Xpos);
         node.setLayoutY(Ypos);

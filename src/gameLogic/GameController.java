@@ -10,10 +10,7 @@ import javafx.scene.image.Image;
 import javafx.scene.layout.Pane;
 import javafx.scene.text.Text;
 import javafx.util.Duration;
-import pane.InventoryPane;
-import pane.OrderPane;
-import pane.TimerBar;
-import pane.gameOverPane;
+import pane.*;
 
 import java.awt.*;
 import java.util.Objects;
@@ -58,10 +55,10 @@ public class GameController {
         orderTrade = new Thread(() -> {
             while (isThreadRunning) {
                 try {
-                    int randomnumforWait = random.nextInt(76) + 25;
+                    int randomnumforWait = random.nextInt(76) + 40;
                     int randomNumforOrder = random.nextInt(61) + 40;
                     int randomRecipe = random.nextInt(23);
-                    Thread.sleep(5 * 1000);
+                    Thread.sleep(randomnumforWait * 1000);
                     orderPane.OrderIn(recipesRef.getRecipes().get(randomRecipe).getFood(), randomNumforOrder);
                  //  System.out.println(recipesRef.getRecipes().get(randomRecipe).getFood().getItemName());
 
@@ -124,16 +121,22 @@ public class GameController {
    }
    public static boolean Ordersending(Food foodOrder){
        for (int i =0; i < inventoryPane.getItems().length; i++){
-           if (Objects.equals(inventoryPane.getItems()[i].getItemName(), foodOrder.getItemName())){
-               player.setScores(player.getScores() + foodOrder.getPoints());
-               inventoryPane.ItemOut(i);
-               return true;
+           if (inventoryPane.getItems()[i] != null){
+               if (Objects.equals(inventoryPane.getItems()[i].getItemName(), foodOrder.getItemName())){
+                   player.setScores(player.getScores() + foodOrder.getPoints());
+                   inventoryPane.ItemOut(i);
+                   return true;
+               }
            }
+
        }
        return false;
    }
 
    public static void Cookingpass(){
+       SoundController CookingFailedSound = new SoundController("res/Sound/CookingSuccessed.mp3");
+       CookingFailedSound.playMusic();
+
        String   passImage = ClassLoader.getSystemResource("boxwhencookgood.png").toString();
        Image passimg = new Image(passImage);
        player.getImageDisplay().setVisible(true);
@@ -155,6 +158,9 @@ public class GameController {
        player.getDisplayEventText().getText();
    }
    public static void CookingFailed(){
+       SoundController CookingFailedSound = new SoundController("res/Sound/CookingFailed.mp3");
+       CookingFailedSound.playMusic();
+
        String   failedImage = ClassLoader.getSystemResource("burntfoodForBadFood.png").toString();
        Image failimg = new Image(failedImage);
        player.getImageDisplay().setVisible(true);

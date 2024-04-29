@@ -5,19 +5,19 @@ import javafx.application.Application;
 import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Menu;
-import javafx.scene.control.MenuItem;
 import javafx.scene.effect.GaussianBlur;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.*;
+import javafx.scene.media.MediaPlayer;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.util.Duration;
+import pane.SoundController;
 
 import java.util.Objects;
 
@@ -34,7 +34,7 @@ public class Main extends Application {
         root.setPrefSize(963, 722);
 
         // Load and set the background image
-        Image bgImage = new Image(Objects.requireNonNull(getClass().getResource("/mainmenuBg.png")).toExternalForm());
+        Image bgImage = new Image(Objects.requireNonNull(getClass().getResource("/Background/mainmenuBg.png")).toExternalForm());
         BackgroundImage backgroundImage = new BackgroundImage(bgImage, BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT);
         root.setBackground(new Background(backgroundImage));
 
@@ -131,9 +131,22 @@ public class Main extends Application {
 
     public void start(Stage stage) {
         gamePage = new GamePage();
-
+        //play background music
+        Thread backgroundMusicplayer = new Thread(()->{
+            SoundController backgroundMusic = new SoundController("res/Sound/Backgroundmusic.mp3");
+            backgroundMusic.getMediaPlayer().setVolume(0.75);
+            backgroundMusic.getMediaPlayer().setCycleCount(MediaPlayer.INDEFINITE);
+            backgroundMusic.getMediaPlayer().play();
+        });
+        backgroundMusicplayer.start();
+        SoundController clockingButtonnoise = new SoundController("res/Sound/buttonclick.mp3");
+        clockingButtonnoise.getMediaPlayer().setVolume(0.5);
         mainScene = new Scene(createContent(), 963,722); // Rename the variable to avoid shadowing
         mainScene.setOnKeyPressed(event -> {
+
+
+            clockingButtonnoise.playMusic();
+
             if(event.getCode() == KeyCode.UP){
                 if(currentItem > 0){
                     getMenuItem(currentItem).setActive(false);

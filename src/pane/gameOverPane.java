@@ -1,7 +1,6 @@
 package pane;
 
 import gameLogic.GameController;
-import gameLogic.Player;
 import javafx.event.EventHandler;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
@@ -9,7 +8,6 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.Pane;
-import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
@@ -26,7 +24,7 @@ public class gameOverPane extends Pane {
           setPrefHeight(722);
           setPrefWidth(963);
          setBackground(Background.fill(Color.rgb(255,255,255,0.75)));
-          String   gameoverpic = ClassLoader.getSystemResource("GameOverPane.png").toString();
+          String   gameoverpic = ClassLoader.getSystemResource("Background/GameOverPane.png").toString();
           Image gameoverimage = new Image(gameoverpic);
           ImageView gameOverImg = new ImageView(gameoverimage);
           gameOverImg.setFitHeight(175);

@@ -16,10 +16,12 @@ public class getDisplay {
         Image bgImage = new Image(Objects.requireNonNull(getDisplay.class.getResource(imagePath)).toExternalForm());
         BackgroundImage backgroundImage = new BackgroundImage(bgImage, BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT);
         button.setBackground(new Background(backgroundImage));
+
         button.setPrefHeight(hight); button.setPrefWidth(width);
         button.setLayoutX(posX); button.setLayoutY(posY);
         return button;
     }
+
     public static ImageView getImage (String imagePath, int fitHigh, boolean preserveRatio){
         String   classLoaderPath = ClassLoader.getSystemResource(imagePath).toString();
         Image image = new Image(classLoaderPath);
