@@ -31,6 +31,13 @@ public class IngredientButton {
         rotateTransition.setCycleCount(Timeline.INDEFINITE);
         rotateTransition.setAutoReverse(true);
 
+        Timeline IdleAnimation = new Timeline(
+                new KeyFrame(Duration.seconds(1), event -> button.setRotate(0.5)),
+                new KeyFrame(Duration.seconds(2), event -> button.setRotate(-0.5))
+        );
+        IdleAnimation.setCycleCount(Animation.INDEFINITE);
+        IdleAnimation.play();
+
         Timeline pulseAnimation = new Timeline(
                 new KeyFrame(Duration.ZERO, new KeyValue(glow.levelProperty(), 0.0)),
                 new KeyFrame(Duration.seconds(1.5), new KeyValue(glow.levelProperty(), 0.6)),
@@ -47,6 +54,7 @@ public class IngredientButton {
             glow.setLevel(0.6);
             rotateTransition.play();
             pulseAnimation.stop();
+            IdleAnimation.stop();
         });
 
         button.setOnMouseExited(event -> {
@@ -57,6 +65,7 @@ public class IngredientButton {
             rotateTransition.stop();
             button.setRotate(0);
             pulseAnimation.play();
+            IdleAnimation.play();
         });
 
         button.setOnMousePressed(new EventHandler<MouseEvent>() {

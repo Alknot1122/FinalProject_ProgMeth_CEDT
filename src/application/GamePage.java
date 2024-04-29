@@ -2,6 +2,7 @@ package application;
 
 import Utils.IngredientButton;
 import Utils.OrderButtonAnimation;
+import Utils.PlayerIdleAnimation;
 import Utils.RecipeButton;
 import gameLogic.*;
 import javafx.event.EventHandler;
@@ -122,6 +123,9 @@ public class GamePage {
         //make game start to random add the order
         GameController.orderenter();
 
+        PlayerIdleAnimation playerAnimation = new PlayerIdleAnimation();
+        // Retrieve player image view
+        ImageView playerImageView = playerAnimation.getPlayerImageView();
 
 
         //set buttons for open and close pane
@@ -134,6 +138,7 @@ public class GamePage {
         Button OrderButton = getDisplay.getButton("/Button/phoneButton.png", 32, 45, 560, 460);
         OrderButtonAnimation.applyButtonAnimation(OrderButton, orderPane);
 
+        root.getChildren().add(playerImageView);
         root.getChildren().addAll(player.getInputField(), OrderButton, ingredientsPaneButton, recipebookButton);
         root.getChildren().addAll(orderPane, ingredientsPane, recipesBookPane,inventoryPane, pinningPane);
         root.getChildren().addAll(player.getErrorText(), player.getDisplayEventText(), player.getDisplayScore(),

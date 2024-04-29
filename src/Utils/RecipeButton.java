@@ -31,6 +31,13 @@ public class RecipeButton {
         rotateTransition.setCycleCount(Timeline.INDEFINITE);
         rotateTransition.setAutoReverse(true);
 
+        Timeline IdleAnimation = new Timeline(
+                new KeyFrame(Duration.seconds(1), event -> button.setRotate(2)),
+                new KeyFrame(Duration.seconds(2), event -> button.setRotate(-2))
+        );
+        IdleAnimation.setCycleCount(Animation.INDEFINITE);
+        IdleAnimation.play();
+
         Timeline pulseAnimation = new Timeline(
                 new KeyFrame(Duration.ZERO, new KeyValue(glow.levelProperty(), 0.0)),
                 new KeyFrame(Duration.seconds(1.5), new KeyValue(glow.levelProperty(), 0.6)),
@@ -47,6 +54,7 @@ public class RecipeButton {
             glow.setLevel(0.5);
             rotateTransition.play();
             pulseAnimation.stop();
+            IdleAnimation.stop();
         });
 
         button.setOnMouseExited(event -> {
@@ -56,6 +64,7 @@ public class RecipeButton {
             glow.setLevel(0.0);
             rotateTransition.stop();
             pulseAnimation.play();
+            IdleAnimation.play();
         });
 
         button.setOnMousePressed(new EventHandler<MouseEvent>() {
