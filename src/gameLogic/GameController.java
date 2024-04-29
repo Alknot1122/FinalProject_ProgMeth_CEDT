@@ -195,6 +195,7 @@ public class GameController {
 
        Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(2.5), event -> {
            player.getImageDisplay().setVisible(false);
+           ZoomTransitionUtil.applyZoomOutTransition(GamePage.getRoot());
        }));
        timeline.setCycleCount(1);
        timeline.play();
