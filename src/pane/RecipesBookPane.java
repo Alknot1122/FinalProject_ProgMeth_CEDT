@@ -32,7 +32,7 @@ public class RecipesBookPane extends Pane {
        setPrefWidth(728);setPrefHeight(479);
        setLayoutX(150);setLayoutY(120);
        setVisible(false);
-       
+
         Image bgimg = new Image(Objects.requireNonNull(getClass().getResource("/Background/recipesBookPane.png")).toExternalForm());
         BackgroundImage BGimg = new BackgroundImage(bgimg, BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT);
         setBackground(new Background(BGimg));
@@ -97,17 +97,22 @@ public class RecipesBookPane extends Pane {
         ingredientPane.setStyle("-fx-background-color: rgba(245, 145, 32,0.25);");
 
         searchTextfield = new TextField();
-        searchTextfield.setPromptText("Find recipes here!");
-        searchTextfield.setPrefWidth(285);
+        searchTextfield.setPromptText("Find Recipes Here!");
+        searchTextfield.setPrefWidth(265);
         searchTextfield.setFont(Font.loadFont(getClass().getResourceAsStream("/PeaberryBase.ttf"),20));
-        searchTextfield.setBackground(Background.EMPTY); // Make background transparent
-        searchTextfield.setBorder(null); // Remove border
+        searchTextfield.setBackground(Background.EMPTY);
+
+        searchTextfield.setOnMouseEntered(event -> {
+            searchTextfield.requestFocus();
+        });
+
 
         searchTextfield.setOnKeyPressed(keyEvent -> {
             if (keyEvent.getCode().equals(KeyCode.ENTER)) {
-
-                for (int i =0 ;i < recipesRef.getRecipes().size() ; i++){
-                    if (Objects.equals(searchTextfield.getText(), recipesRef.getRecipes().get(i).getFood().getItemName())){
+                String searchInput = searchTextfield.getText().trim().toLowerCase(); // Get the trimmed lowercase input
+                for (int i = 0; i < recipesRef.getRecipes().size(); i++) {
+                    String recipeName = recipesRef.getRecipes().get(i).getFood().getItemName().trim().toLowerCase(); // Get the trimmed lowercase recipe name
+                    if (searchInput.equals(recipeName)) {
                         page = i;
                         clear();
                         MakePage(recipesRef.getRecipes().get(page));
