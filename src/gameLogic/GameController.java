@@ -1,5 +1,7 @@
 package gameLogic;
 
+import Utils.CookingFinishAnimation;
+import Utils.PlayerAnimation;
 import Utils.ZoomTransitionUtil;
 import application.GamePage;
 import javafx.animation.*;
@@ -8,6 +10,7 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.scene.text.Text;
 import javafx.util.Duration;
@@ -142,7 +145,7 @@ public class GameController {
            player.getInputField().requestFocus();
            player.getInputField().setEventing(true);
            player.getInputField().setExpectedString(recipe.getFood().getItemName());
-           player.getDisplayEventText().setText("now Type : " + player.getInputField().getExpectedString());
+           player.getDisplayEventText().setText("Type : " + player.getInputField().getExpectedString());
        }
 
    public static boolean Ordersending(Food foodOrder){
@@ -159,32 +162,48 @@ public class GameController {
        return false;
    }
 
-   public static void Cookingpass(){
-       SoundController CookingFailedSound = new SoundController("res/Sound/CookingSuccessed.mp3");
-       CookingFailedSound.playMusic();
+    public static void Cookingpass() {
+        SoundController cookingSuccessSound = new SoundController("res/Sound/CookingSuccessed.mp3");
+        cookingSuccessSound.playMusic();
 
-       String   passImage = ClassLoader.getSystemResource("boxwhencookgood.png").toString();
-       Image passimg = new Image(passImage);
-       player.getImageDisplay().setVisible(true);
-       player.getImageDisplay().setImage(passimg);
+        String passImage = ClassLoader.getSystemResource("boxwhencookgood.png").toString();
+        Image passimg = new Image(passImage);
+        player.getImageDisplay().setVisible(true);
+        player.getImageDisplay().setImage(passimg);
 
-       Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(2.5), event -> {
-           player.getImageDisplay().setVisible(false);
-           ZoomTransitionUtil.applyZoomOutTransition(GamePage.getRoot());
-       }));
-       timeline.setCycleCount(1);
-       timeline.play();
+        // Play happy animation
+        PlayerAnimation playerAnimation = GamePage.getPlayerAnimation();
+        playerAnimation.playHappyAnimation();
 
-       for (Item ingrident : recipe.getItems()){
-           inventoryPane.ItemOut(ingrident.getItemName());
-       }
-       inventoryPane.Itemin(new Food(recipe.getFood()));
-       player.getInputField().setEventing(false);
-       player.getInputField().setExpectedString("");
-       player.getDisplayEventText().setText("");
-       player.getDisplayEventText().getText();
-   }
-   public static void CookingFailed(){
+        // Schedule a task to transition back to idle animation after 5 seconds
+        new java.util.Timer().schedule(
+                new java.util.TimerTask() {
+                    @Override
+                    public void run() {
+                        playerAnimation.playIdleAnimation();
+                    }
+                },
+                5000
+        );
+
+        // Play cooking finish animation
+        ImageView imageView = player.getImageDisplay(); // Assuming this is your ImageView
+        CookingFinishAnimation cookingFinishAnimation = new CookingFinishAnimation(imageView);
+        cookingFinishAnimation.playAnimation();
+
+        // Clearing input field and event text
+        for (Item ingredient : recipe.getItems()) {
+            inventoryPane.ItemOut(ingredient.getItemName());
+        }
+        inventoryPane.Itemin(new Food(recipe.getFood()));
+        player.getInputField().setEventing(false);
+        player.getInputField().setExpectedString("");
+        player.getDisplayEventText().setText("");
+        player.getDisplayEventText().getText();
+    }
+
+
+    public static void CookingFailed(){
        SoundController CookingFailedSound = new SoundController("res/Sound/CookingFailed.mp3");
        CookingFailedSound.playMusic();
 
@@ -193,12 +212,25 @@ public class GameController {
        player.getImageDisplay().setVisible(true);
        player.getImageDisplay().setImage(failimg);
 
-       Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(2.5), event -> {
-           player.getImageDisplay().setVisible(false);
-           ZoomTransitionUtil.applyZoomOutTransition(GamePage.getRoot());
-       }));
-       timeline.setCycleCount(1);
-       timeline.play();
+        PlayerAnimation playerAnimation = GamePage.getPlayerAnimation();
+        playerAnimation.playSadAnimation();
+
+        // Schedule a task to transition back to idle animation after 5 seconds
+        new java.util.Timer().schedule(
+                new java.util.TimerTask() {
+                    @Override
+                    public void run() {
+                        playerAnimation.playIdleAnimation();
+                    }
+                },
+                5000
+        );
+
+        // Play cooking finish animation
+        ImageView imageView = player.getImageDisplay(); // Assuming this is your ImageView
+        CookingFinishAnimation cookingFinishAnimation = new CookingFinishAnimation(imageView);
+        cookingFinishAnimation.playAnimation();
+
        for (Item ingrident : recipe.getItems()){
            inventoryPane.ItemOut(ingrident.getItemName());
        }

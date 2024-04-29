@@ -5,8 +5,13 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="a2931400-677a-4a12-b94b-b4a8c183172b" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/src/Utils/CookingFinishAnimation.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Utils/PlayerIdleAnimation.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Utils/PlayerAnimation.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/application/GamePage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/application/GamePage.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/gameLogic/GameController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/gameLogic/GameController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/gameLogic/Player.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/gameLogic/Player.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pane/inputField.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/pane/inputField.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

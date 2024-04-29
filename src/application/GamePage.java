@@ -41,6 +41,7 @@ public class GamePage {
     private static TimerBar timerBarPane; // Add TimerBarPane
     private static InventoryPane inventoryPane;
     private static PinningPane pinningPane;
+    private static PlayerAnimation playerAnimation;
 
 
    // private final Timeline animationTimeline = new Timeline();
@@ -54,6 +55,7 @@ public class GamePage {
         Timer t = new Timer(minute,sec);
         timerBarPane = new TimerBar(t); // Initialize TimerBarPane
         timerBarPane.startCountDownTimer(t);
+        playerAnimation = new PlayerAnimation();
         orderPane = new OrderPane();
         RecipesRef recipesRef = new RecipesRef();
         GameController gameController = new GameController(player, inventoryPane, timerBarPane, orderPane, recipesRef);
@@ -118,9 +120,9 @@ public class GamePage {
         //make game start to random add the order
         GameController.orderenter();
 
-        PlayerIdleAnimation playerAnimation = new PlayerIdleAnimation();
         // Retrieve player image view
         ImageView playerImageView = playerAnimation.getPlayerImageView();
+        playerAnimation.playIdleAnimation();
 
 
         //set buttons for open and close pane
@@ -139,6 +141,11 @@ public class GamePage {
         root.getChildren().addAll(player.getErrorText(), player.getDisplayEventText(), player.getDisplayScore(),
                 player.getImageDisplay());
         root.getChildren().add(player.getGameOverPane());
+
+        setPos(180, 450, player.getDisplayEventText());
+        setPos(250, 250, player.getInputField());
+        centerText(player.getDisplayEventText(), root.getPrefWidth());
+
 
     }
 
@@ -166,9 +173,19 @@ public class GamePage {
         return pinningPane;
     }
 
+    public static PlayerAnimation getPlayerAnimation() {
+        return playerAnimation;
+    }
+
     public void setPos(double Xpos, double Ypos, Node node){
         node.setLayoutX(Xpos);
         node.setLayoutY(Ypos);
+    }
+
+    public void centerText(Node node, double sceneWidth) {
+        double textWidth = node.getBoundsInLocal().getWidth();
+        double xPos = (sceneWidth - textWidth) / 2.0;
+        node.setLayoutX(xPos);
     }
 
 

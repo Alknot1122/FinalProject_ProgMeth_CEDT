@@ -46,7 +46,7 @@ public class inputField extends TextField {
         setLayoutX(250); setLayoutY(200);
         setBackground(Background.EMPTY); // Make background transparent
         setBorder(null); // Remove border
-        setFont(Font.loadFont(getClass().getResourceAsStream("/PeaberryBase.ttf"), 50)); // Load and set Bubblegum Sans font with size 30
+        setFont(Font.loadFont(getClass().getResourceAsStream("/PeaberryBase.ttf"), 47));
 
         // Apply CSS styling
         setStyle("-fx-stroke: pink; " +

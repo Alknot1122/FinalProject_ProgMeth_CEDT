@@ -1,4 +1,6 @@
 package gameLogic;
+import javafx.animation.TranslateTransition;
+import javafx.geometry.Pos;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -9,6 +11,7 @@ import javafx.scene.paint.Paint;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
+import javafx.util.Duration;
 import pane.InventoryPane;
 import pane.gameOverPane;
 import pane.getDisplay;
@@ -36,11 +39,18 @@ public class Player  {
         ErrorText = getDisplay.getText("", 29, 808,78,587);
         inputField = new inputField();
         inputField.setVisible(false);
-        displayEventText = getDisplay.getText("", 37,600, 250,470);
+        inputField.setAlignment(Pos.CENTER);
+        displayEventText = getDisplay.getText("", 37,500, 250,470);
         imageDisplay = getDisplay.getImage("Item/Lemon.png", 75, true);
 
 
+        TranslateTransition translateTransition = new TranslateTransition(Duration.seconds(1), displayEventText);
+        translateTransition.setByY(-30); // Adjust this value to change the amplitude of the animation
+        translateTransition.setCycleCount(TranslateTransition.INDEFINITE);
+        translateTransition.setAutoReverse(true);
 
+        // Play the animation
+        translateTransition.play();
         imageDisplay.setVisible(false);
         imageDisplay.setLayoutY(280); imageDisplay.setLayoutX(470);
 
