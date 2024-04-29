@@ -93,8 +93,8 @@ public class GameController {
 
            for (int i =0; i < inventoryPane.getItems().length; i++) {
                if (inventoryPane.getItems()[i] != null) {
-                   if (Objects.equals(inventoryPane.getItems()[i].getItemName(), ingrident.getItemName())) {
-
+                   if (inventoryPane.getItems()[i].getItemName().equalsIgnoreCase(ingrident.getItemName())) {
+                       System.out.println(inventoryPane.getItems()[i].getItemName() + "=" + ingrident.getItemName());
                        cookable = true;
 
                    }
