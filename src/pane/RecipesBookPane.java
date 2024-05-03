@@ -64,7 +64,7 @@ public class RecipesBookPane extends Pane {
         cookButton.setOnMousePressed(mouseEvent -> {
             // Play button click sound
             SoundController clockingButtonnoise = new SoundController("res/Sound/buttonclick.mp3");
-            clockingButtonnoise.getMediaPlayer().setVolume(0.5);
+            clockingButtonnoise.getMediaPlayer().setVolume(0.7);
             clockingButtonnoise.playMusic();
 
             setVisible(false);
@@ -97,7 +97,7 @@ public class RecipesBookPane extends Pane {
            @Override
            public void handle(MouseEvent mouseEvent) {
                SoundController clockingButtonnoise = new SoundController("res/Sound/buttonclick.mp3");
-               clockingButtonnoise.getMediaPlayer().setVolume(0.5);
+               clockingButtonnoise.getMediaPlayer().setVolume(0.7);
                clockingButtonnoise.playMusic();
                pinningPane.setVisible(true);
                pinningPane.setFoodList(recipesRef.getRecipes().get(page));

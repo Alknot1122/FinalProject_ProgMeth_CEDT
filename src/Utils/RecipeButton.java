@@ -70,7 +70,7 @@ public class RecipeButton {
         button.setOnMousePressed(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
-                SoundController turnleftsound = new SoundController("res/Sound/openBook.mp3");
+                SoundController turnleftsound = new SoundController("res/Sound/turnRightRecipeBook.mp3");
                 turnleftsound.playMusic();
                 recipesBookPane.setVisible(!recipesBookPane.isVisible());
             }

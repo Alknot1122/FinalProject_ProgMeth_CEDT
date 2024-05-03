@@ -130,14 +130,14 @@ public class Main extends Application {
         gamePage = new GamePage();
         //play background music
 
-            SoundController backgroundMusic = new SoundController("res/Sound/Backgroundmusic.mp3");
-            backgroundMusic.getMediaPlayer().setVolume(0.75);
-            backgroundMusic.getMediaPlayer().setCycleCount(MediaPlayer.INDEFINITE);
-            backgroundMusic.getMediaPlayer().play();
+        SoundController backgroundMusic = new SoundController("res/Sound/Backgroundmusic.mp3");
+        backgroundMusic.getMediaPlayer().setVolume(0.55);
+        backgroundMusic.getMediaPlayer().setCycleCount(MediaPlayer.INDEFINITE);
+        backgroundMusic.getMediaPlayer().play();
 
 
         SoundController clockingButtonnoise = new SoundController("res/Sound/buttonclick.mp3");
-        clockingButtonnoise.getMediaPlayer().setVolume(0.5);
+        clockingButtonnoise.getMediaPlayer().setVolume(0.65);
         mainScene = new Scene(createContent(), 963,722); // Rename the variable to avoid shadowing
         mainScene.setOnKeyPressed(event -> {
 

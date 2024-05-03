@@ -42,7 +42,7 @@ public class OrderPane extends Pane {
             @Override
             public void handle(MouseEvent mouseEvent) {
                 SoundController clockingButtonnoise = new SoundController("res/Sound/buttonclick.mp3");
-                clockingButtonnoise.getMediaPlayer().setVolume(0.5);
+                clockingButtonnoise.getMediaPlayer().setVolume(0.7);
                 clockingButtonnoise.playMusic();
                 setVisible(!isVisible());
 
