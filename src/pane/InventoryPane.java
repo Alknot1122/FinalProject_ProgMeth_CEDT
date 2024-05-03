@@ -2,7 +2,9 @@ package pane;
 
 import gameLogic.Item;
 import gameLogic.Player;
+import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
+import javafx.animation.ScaleTransition;
 import javafx.animation.Timeline;
 import javafx.geometry.Insets;
 import javafx.scene.image.Image;
@@ -69,6 +71,32 @@ public class InventoryPane extends HBox {
             ImageView itemimage = new ImageView(new Image(ClassLoader.getSystemResource("Item/Lemon.png").toString()));
             itemimage.setVisible(false);
             itemimage.setFitHeight(80);
+
+            ScaleTransition scaleTransitionEnter = new ScaleTransition(Duration.millis(200), itemimage);
+            scaleTransitionEnter.setToX(1.2);
+            scaleTransitionEnter.setToY(1.2);
+
+            ScaleTransition scaleTransitionExit = new ScaleTransition(Duration.millis(200), itemimage);
+            scaleTransitionExit.setToX(1.0);
+            scaleTransitionExit.setToY(1.0);
+
+            double initialAngle = 5;
+
+            itemimage.setOnMouseEntered(event -> {
+                scaleTransitionEnter.play();
+            });
+
+           itemimage.setOnMouseExited(event -> {
+                scaleTransitionExit.play();
+            });
+
+            Timeline IdleAnimation = new Timeline(
+                    new KeyFrame(Duration.seconds(1), event -> itemimage.setRotate(0.4)),
+                    new KeyFrame(Duration.seconds(2), event -> itemimage.setRotate(-0.4))
+            );
+            IdleAnimation.setCycleCount(Animation.INDEFINITE);
+            IdleAnimation.play();
+
             itemimage.setPreserveRatio(true);
             pane.getChildren().add(itemimage);
             getChildren().add(pane);

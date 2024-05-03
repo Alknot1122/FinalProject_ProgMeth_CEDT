@@ -1,5 +1,6 @@
 package pane;
 
+import Utils.AnimatedOtherButton;
 import gameLogic.IngridentsRef;
 import gameLogic.Item;
 import gameLogic.Player;
@@ -8,6 +9,7 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.effect.DropShadow;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -31,6 +33,8 @@ public class IngredientsPane extends Pane {
         setBackground(new Background(BG));
 
         Button exitButton = getDisplay.getButton("/Button/exitButton.png", 38,37, 206,-4);
+
+        AnimatedOtherButton.applyHoverEffect(exitButton);
 
         exitButton.setOnMousePressed(new EventHandler<MouseEvent>() {
             @Override
@@ -57,7 +61,6 @@ public class IngredientsPane extends Pane {
 
         scrollPane.setContent(itemlist);
         IngridentsRef ingridentsRef = new IngridentsRef();
-        Button templateButton = getDisplay.getButton("/Button/addToinventory.png",33, 29,93,51 );
         for (int i =0; i < ingridentsRef.getIngridnets().size(); i++){
             Pane itemPane = new Pane();
 
@@ -67,19 +70,14 @@ public class IngredientsPane extends Pane {
             itemPane.setStyle("-fx-background-color:transparent;");
             Text itemName = getDisplay.getText(ingridentsRef.getIngridnets().get(i).getItemName(),17,119,93,20, Color.WHITE );
 
-            /*Text itemName = new Text (ingridentsRef.getIngridnets().get(i).getItemName());
-            itemName.setWrappingWidth(119);
-            itemName.setLayoutX(93);*/
-
-            //itemName.setFont(Font.loadFont(getClass().getResourceAsStream("/PeaberryBase.ttf"),17));
-
-
             ImageView itemImage = ingridentsRef.getIngridnets().get(i).getItemImageView(80);
             itemImage.setLayoutY(7);
             itemImage.setLayoutX(5);
 
             Button additemButton = getDisplay.getButton("/Button/addToinventory.png",33, 29,93,51 );
             additemButton.setStyle("-fx-background-image: url('/Button/addToinventory.png'); -fx-background-color: transparent;");
+
+            AnimatedOtherButton.applyHoverEffect(additemButton);
 
             int finalI = i;
             additemButton.setOnMousePressed(new EventHandler<MouseEvent>() {
@@ -92,18 +90,12 @@ public class IngredientsPane extends Pane {
                     Item tem = new Item(ingridentsRef.getIngridnets().get(finalI));
 
                     inventoryPane.Itemin(tem);
-                   
                 }
             });
-
 
             itemPane.getChildren().addAll(itemImage, itemName, additemButton);
             itemlist.getChildren().add(itemPane);
         }
-
-
-
-
 
         getChildren().addAll(scrollPane,exitButton);
     }
