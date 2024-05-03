@@ -47,7 +47,7 @@ public class GameController {
         for (int i =0; i < 9; i++){
             inventoryPane.ItemOut(i);
         }
-        gameLogic.Timer t = new Timer(0,10);
+        gameLogic.Timer t = new Timer(5,0);
         timerBar.reset(t);
         timerBar.startCountDownTimer(t);
         isThreadRunning = true;
