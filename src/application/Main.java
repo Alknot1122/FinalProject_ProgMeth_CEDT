@@ -1,6 +1,7 @@
 package application;
 
 import javafx.animation.FadeTransition;
+import javafx.animation.ScaleTransition;
 import javafx.application.Application;
 import javafx.geometry.Pos;
 import javafx.scene.Parent;
@@ -113,6 +114,19 @@ public class Main extends Application {
             star1.setVisible(b);
             star2.setVisible(b);
             text.setFill(b ? Color.rgb(255,184,59) : Color.rgb(242,203,127));
+
+            // Apply animation when setting active state
+            if (b) {
+                ScaleTransition scaleTransition = new ScaleTransition(Duration.millis(200), text);
+                scaleTransition.setToX(1.1);
+                scaleTransition.setToY(1.1);
+                scaleTransition.play();
+            } else {
+                ScaleTransition scaleTransition = new ScaleTransition(Duration.millis(200), text);
+                scaleTransition.setToX(1.0);
+                scaleTransition.setToY(1.0);
+                scaleTransition.play();
+            }
         }
 
         public void setOnActivate(Runnable r){
