@@ -18,7 +18,8 @@ import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.util.Duration;
-import pane.SoundController;
+import Utils.SoundController;
+import pane.GamePage;
 
 import java.util.Objects;
 
@@ -170,7 +171,7 @@ public class Main extends Application {
                     if (currentItem > 0) {
                         getMenuItem(currentItem).setActive(false);
                         getMenuItem(--currentItem).setActive(true);
-                    
+
                 }
             }
             if(event.getCode() == KeyCode.DOWN){

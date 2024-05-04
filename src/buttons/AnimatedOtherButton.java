@@ -1,6 +1,6 @@
 package buttons;
 
-import Utils.ButtonAnimation;
+import Animation.ButtonAnimation;
 import javafx.scene.control.Button;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.paint.Color;

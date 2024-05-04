@@ -1,20 +1,13 @@
 package gameLogic;
 import javafx.animation.TranslateTransition;
 import javafx.geometry.Pos;
-import javafx.scene.control.TextField;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.Background;
-import javafx.scene.layout.Pane;
-import javafx.scene.paint.Color;
-import javafx.scene.paint.Paint;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
 import javafx.util.Duration;
-import pane.InventoryPane;
 import pane.gameOverPane;
-import pane.getDisplay;
+import Utils.getDisplay;
 import pane.inputField;
 
 

@@ -1,5 +1,7 @@
 package pane;
 
+import Utils.SoundController;
+import Utils.getDisplay;
 import buttons.AnimatedOtherButton;
 import gameLogic.IngridentsRef;
 import gameLogic.Item;

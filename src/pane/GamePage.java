@@ -1,5 +1,6 @@
-package application;
+package pane;
 
+import Animation.PlayerIdleAnimation;
 import Utils.*;
 import buttons.IngredientButton;
 import buttons.OrderButtonAnimation;

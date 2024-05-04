@@ -1,4 +1,4 @@
-package Utils;
+package Animation;
 
 import javafx.scene.control.Button;
 import javafx.scene.layout.Pane;

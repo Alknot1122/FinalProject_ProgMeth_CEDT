@@ -1,11 +1,12 @@
-package Utils;
+package Animation;
 
-import application.GamePage;
+import Utils.ZoomTransitionUtil;
+import pane.GamePage;
 import javafx.animation.*;
 import javafx.scene.image.ImageView;
 import javafx.util.Duration;
 
-public class CookingFinishAnimation  extends PlayerAnimation  {
+public class CookingFinishAnimation  extends PlayerAnimation {
 
     private final ImageView imageView;
     private final double initialX;

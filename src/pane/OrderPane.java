@@ -1,5 +1,7 @@
 package pane;
 
+import Utils.SoundController;
+import Utils.getDisplay;
 import gameLogic.Food;
 import gameLogic.GameController;
 import javafx.application.Platform;
@@ -10,7 +12,6 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
-import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.scene.image.Image;
 import javafx.scene.control.Button;

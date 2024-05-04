@@ -1,9 +1,10 @@
 package gameLogic;
 
-import Utils.CookingFinishAnimation;
-import Utils.PlayerIdleAnimation;
+import Animation.CookingFinishAnimation;
+import Animation.PlayerIdleAnimation;
+import Utils.SoundController;
 import Utils.ZoomTransitionUtil;
-import application.GamePage;
+import pane.GamePage;
 import javafx.animation.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;

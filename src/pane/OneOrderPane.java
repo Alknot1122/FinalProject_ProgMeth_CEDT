@@ -1,13 +1,10 @@
 package pane;
 
+import Utils.getDisplay;
 import gameLogic.Food;
-import gameLogic.GameController;
-import javafx.event.EventHandler;
 import javafx.scene.control.Button;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
-import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 
 public class OneOrderPane extends Pane {

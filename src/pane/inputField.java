@@ -1,8 +1,6 @@
 package pane;
 
-import application.GamePage;
 import gameLogic.GameController;
-import gameLogic.Player;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
@@ -12,10 +10,6 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.Background;
 import javafx.scene.text.Font;
 import javafx.util.Duration;
-
-import java.util.Objects;
-
-import static gameLogic.Player.*;
 
 public class inputField extends TextField {
  private boolean Eventing;

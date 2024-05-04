@@ -1,6 +1,6 @@
 package buttons;
 
-import Utils.ButtonAnimation;
+import Animation.ButtonAnimation;
 import javafx.animation.*;
 import javafx.event.EventHandler;
 import javafx.scene.control.Button;
@@ -8,7 +8,7 @@ import javafx.scene.effect.Glow;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.util.Duration;
-import pane.SoundController;
+import Utils.SoundController;
 
 public class RecipeButton implements ButtonAnimation {
 

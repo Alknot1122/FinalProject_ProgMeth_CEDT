@@ -2,17 +2,22 @@
 class pane.OrderPane {
 - Thread timerTread
 - VBox orderBox
++ <<Create>> OrderPane()
 + void countdown(int,Text,Pane)
 + void setText(String,Text)
 + void orderGone(Pane)
 + void OrderIn(Food,int)
 + void addnoOrderPic()
 }
+interface Animation.ButtonAnimation {
+~ {static} void applyButtonAnimation(Button,Pane)
+}
 class pane.InventoryPane {
 - Item[] items
 - int itemAmount
 - int nextBlankSlot
 - Player player
++ <<Create>> InventoryPane(Player)
 + int getNextBlankSlot()
 + void Itemin(Item)
 + void ItemOut(String)
@@ -23,11 +28,28 @@ class Utils.ZoomTransitionUtil {
 + {static} void applyZoomTransition(Node)
 + {static} void applyZoomOutTransition(Node)
 }
-class Utils.CookingFinishAnimation {
-- ImageView imageView
-- double initialX
-- double initialY
+class Animation.PlayerIdleAnimation {
+- ImageView playerImageView
+- Image playerImage1
+- Image playerImage2
+- Image happyImage1
+- Image happyImage2
+- Image sadImage1
+- Image sadImage2
+- Timeline idleAnimationTimeline
+- Timeline happyAnimationTimeline
+- Timeline sadAnimationTimeline
++ <<Create>> PlayerIdleAnimation()
++ ImageView getPlayerImageView()
 + void playAnimation()
++ void playHappyAnimation()
++ void playSadAnimation()
+}
+class Utils.getDisplay {
++ {static} Button getButton(String,int,int,int,int)
++ {static} ImageView getImage(String,int,boolean)
++ {static} Text getText(String,int,int,int,int)
++ {static} Text getText(String,int,int,int,int,Color)
 }
 class application.GamePage {
 - {static} Pane root
@@ -39,6 +61,7 @@ class application.GamePage {
 - {static} InventoryPane inventoryPane
 - {static} PinningPane pinningPane
 - {static} PlayerIdleAnimation playerIdleAnimation
++ <<Create>> GamePage()
 + {static} Parent getRoot()
 + {static} inputField getInputField()
 + {static} IngredientsPane getIngredientsPane()
@@ -50,9 +73,14 @@ class application.GamePage {
 + void centerText(Node,double)
 }
 class pane.IngredientsPane {
++ <<Create>> IngredientsPane(InventoryPane,Player)
 }
-interface Utils.ButtonAnimation {
-~ {static} void applyButtonAnimation(Button,Pane)
+class Animation.CookingFinishAnimation {
+- ImageView imageView
+- double initialX
+- double initialY
++ <<Create>> CookingFinishAnimation(ImageView)
++ void playAnimation()
 }
 class gameLogic.Player {
 - int scores
@@ -62,6 +90,7 @@ class gameLogic.Player {
 - Text ERROR_TEXT
 - gameOverPane GAMEOVER_PANE
 - ImageView IMAGE_DISPLAY
++ <<Create>> Player()
 + Text getDisplayScore()
 + int getScores()
 + void setScores(int)
@@ -71,15 +100,11 @@ class gameLogic.Player {
 + Text getErrorText()
 + gameOverPane getGameOverPane()
 }
-class pane.SoundController {
-- MediaPlayer mediaPlayer
-+ void playMusic()
-+ MediaPlayer getMediaPlayer()
-}
 class pane.inputField {
 - boolean Eventing
 - String expectedString
 - Timeline animationTimeline
++ <<Create>> inputField()
 + String getExpectedString()
 + void setExpectedString(String)
 + boolean isEventing()
@@ -101,18 +126,22 @@ class application.Main$MenuItem {
 - Star star2
 - Text text
 - Runnable script
++ <<Create>> MenuItem(String)
 + void setActive(boolean)
 + void setOnActivate(Runnable)
 + void activate()
 }
 class application.Main$MenuItem$Star {
++ <<Create>> Star()
 }
 class gameLogic.RecipesRef {
 - ArrayList<Recipe> recipes
++ <<Create>> RecipesRef()
 + ArrayList<Recipe> getRecipes()
 }
 class gameLogic.IngridentsRef {
 - ArrayList<Item> ingridnets
++ <<Create>> IngridentsRef()
 + ArrayList<Item> getIngridnets()
 }
 class buttons.AnimatedOtherButton {
@@ -125,10 +154,16 @@ class pane.RecipesBookPane {
 - TextField searchTextfield
 - int page
 - RecipesRef recipesRef
++ <<Create>> RecipesBookPane(GameController,RecipesRef,PinningPane)
 + void MakePage(Recipe)
 + void goLeft()
 + void goRight()
 + void setNodePosition(Node,double,double)
+}
+abstract class Animation.PlayerAnimation {
+# ImageView playerImageView
++ <<Create>> PlayerAnimation(ImageView)
++ {abstract}void playAnimation()
 }
 class gameLogic.GameController {
 - {static} Player player
@@ -139,6 +174,7 @@ class gameLogic.GameController {
 - {static} Thread OrderEventThred
 - {static} OrderPane orderPane
 - {static} RecipesRef recipesRef
++ <<Create>> GameController(Player,InventoryPane,TimerBar,OrderPane,RecipesRef)
 + {static} void restart()
 + {static} void startOrderEvent()
 + {static} void GameOver()
@@ -150,11 +186,13 @@ class gameLogic.GameController {
 class pane.PinningPane {
 - Text FoodName
 - VBox itemListPane
++ <<Create>> PinningPane()
 + void setRecipeList(Recipe)
 }
 class pane.TimerBar {
 - int totalSeconds
 - boolean isStop
++ <<Create>> TimerBar(Timer)
 + void startCountDownTimer(Timer)
 + void runCountDownTimer(Timer)
 + void setTimer(Timer)
@@ -162,14 +200,11 @@ class pane.TimerBar {
 + boolean isStop()
 + void setStop(boolean)
 }
-abstract class Utils.PlayerAnimation {
-# ImageView playerImageView
-+ {abstract}void playAnimation()
-}
 class pane.OneOrderPane {
 - Food food
 - Text timer
 - Button sendingbutton
++ <<Create>> OneOrderPane(Food)
 + Food getFood()
 + Text getTimer()
 + Button getSendingbutton()
@@ -178,6 +213,8 @@ class gameLogic.Item {
 - String IMAGE_PATH
 - Image ITEM_IMAGE
 - String ITEM_NAME
++ <<Create>> Item(String,String)
++ <<Create>> Item(Item)
 + String getImagePath()
 + ImageView getItemImageView(int)
 + String getItemName()
@@ -186,6 +223,7 @@ class gameLogic.Item {
 class gameLogic.Recipe {
 - Food FOOD
 - Item[] ITEMS
++ <<Create>> Recipe(Food,Item[])
 + Food getFood()
 + Item[] getItems()
 }
@@ -194,22 +232,26 @@ class buttons.RecipeButton {
 }
 class pane.gameOverPane {
 - Text SCORE_TEXT
++ <<Create>> gameOverPane()
 + void setscore(int)
+}
+class Utils.SoundController {
+- MediaPlayer mediaPlayer
++ <<Create>> SoundController(String)
++ void playMusic()
++ MediaPlayer getMediaPlayer()
 }
 class gameLogic.Food {
 - int POINTS
++ <<Create>> Food(String,String,int)
++ <<Create>> Food(Food)
 + int getPoints()
-}
-class pane.getDisplay {
-+ {static} Button getButton(String,int,int,int,int)
-+ {static} ImageView getImage(String,int,boolean)
-+ {static} Text getText(String,int,int,int,int)
-+ {static} Text getText(String,int,int,int,int,Color)
 }
 class gameLogic.Timer {
 - int minute
 - int seconds
 - boolean isStop
++ <<Create>> Timer(int,int)
 + void decrementTimer(int)
 + int getTimeLeft()
 + boolean isTimerEmpty()
@@ -221,22 +263,6 @@ class gameLogic.Timer {
 class buttons.IngredientButton {
 + {static} void applyButtonAnimation(Button,Pane)
 }
-class Utils.PlayerIdleAnimation {
-- ImageView playerImageView
-- Image playerImage1
-- Image playerImage2
-- Image happyImage1
-- Image happyImage2
-- Image sadImage1
-- Image sadImage2
-- Timeline idleAnimationTimeline
-- Timeline happyAnimationTimeline
-- Timeline sadAnimationTimeline
-+ ImageView getPlayerImageView()
-+ void playAnimation()
-+ void playHappyAnimation()
-+ void playSadAnimation()
-}
 class buttons.OrderButtonAnimation {
 + {static} void applyButtonAnimation(Button,Pane)
 }
@@ -244,23 +270,23 @@ class buttons.OrderButtonAnimation {
 
 pane.Pane <|-- pane.OrderPane
 javafx.scene.layout.HBox <|-- pane.InventoryPane
-Utils.PlayerAnimation <|-- Utils.CookingFinishAnimation
+Animation.PlayerAnimation <|-- Animation.PlayerIdleAnimation
 pane.Pane <|-- pane.IngredientsPane
+Animation.PlayerAnimation <|-- Animation.CookingFinishAnimation
 javafx.scene.control.TextField <|-- pane.inputField
 javafx.application.Application <|-- application.Main
 application.Main +.. application.Main$MenuItem
 application.HBox <|-- application.Main$MenuItem
 application.Main$MenuItem +.. application.Main$MenuItem$Star
 application.Parent <|-- application.Main$MenuItem$Star
-Utils.ButtonAnimation <|.. buttons.AnimatedOtherButton
+Animation.ButtonAnimation <|.. buttons.AnimatedOtherButton
 pane.Pane <|-- pane.RecipesBookPane
 pane.Pane <|-- pane.PinningPane
 javafx.scene.control.ProgressBar <|-- pane.TimerBar
 javafx.scene.layout.Pane <|-- pane.OneOrderPane
-Utils.ButtonAnimation <|.. buttons.RecipeButton
+Animation.ButtonAnimation <|.. buttons.RecipeButton
 javafx.scene.layout.Pane <|-- pane.gameOverPane
 gameLogic.Item <|-- gameLogic.Food
-Utils.ButtonAnimation <|.. buttons.IngredientButton
-Utils.PlayerAnimation <|-- Utils.PlayerIdleAnimation
-Utils.ButtonAnimation <|.. buttons.OrderButtonAnimation
+Animation.ButtonAnimation <|.. buttons.IngredientButton
+Animation.ButtonAnimation <|.. buttons.OrderButtonAnimation
 @enduml
