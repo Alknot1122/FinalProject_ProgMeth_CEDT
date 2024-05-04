@@ -12,7 +12,6 @@ public class TimerBar extends ProgressBar{
         super(1);
         this.setStyle("-fx-accent: DD4848; -fx-pref-width: 943; -fx-pref-height: 20;");
         this.totalSeconds = t.getTimeLeft();
-
         this.isStop = true;
     }
 
@@ -55,8 +54,10 @@ public class TimerBar extends ProgressBar{
     public void reset(Timer t) {
         this.setProgress(1);
         totalSeconds = t.getTimeLeft();
+
         //resize the timerBar to full
         this.setStyle("-fx-accent: DD4848; -fx-pref-width: 943; -fx-pref-height: 20;");
+
         //stop the timer
         this.isStop = true;
     }

@@ -32,11 +32,13 @@ public class RecipesBookPane extends Pane {
     private final RecipesRef recipesRef;
 
     public RecipesBookPane (GameController gameController, RecipesRef recipesRef, PinningPane pinningPane){
-        //set pane properties and set page to 0
+
         page =0;
         this.recipesRef  = recipesRef;
-       setPrefWidth(728);setPrefHeight(479);
-       setLayoutX(150);setLayoutY(120);
+       setPrefWidth(728);
+       setPrefHeight(479);
+       setLayoutX(150);
+       setLayoutY(120);
        setVisible(false);
        //set pane's background image
         Image bgimg = new Image(Objects.requireNonNull(getClass().getResource("/Background/recipesBookPane.png")).toExternalForm());
@@ -54,7 +56,6 @@ public class RecipesBookPane extends Pane {
        Button closeButton = getDisplay.getButton("/Button/exitButton.png", 38,37,686,-12);
        Button cookButton = getDisplay.getButton("/Button/cookbutton.png", 133,56,95,340);
        Button pinButton = getDisplay.getButton("/Button/pinningButton.png", 58,60,240,340);
-
 
         AnimatedOtherButton.applyHoverEffect(goLeftButton);
         AnimatedOtherButton.applyHoverEffect(goRightButton);
@@ -104,7 +105,6 @@ public class RecipesBookPane extends Pane {
        });
 
        pinButton.setOnMousePressed(mouseEvent -> {
-
            SoundController buttonClickSound = new SoundController("res/Sound/buttonclick.mp3");
            buttonClickSound.getMediaPlayer().setVolume(0.7);
            buttonClickSound.playMusic();
@@ -116,7 +116,6 @@ public class RecipesBookPane extends Pane {
 
 
         ingredientPane = new GridPane(4, 4);
-
         ingredientPane.setStyle("-fx-background-color: rgba(245, 145, 32,0.25);");
 
         searchTextfield = new TextField();
@@ -165,10 +164,8 @@ public class RecipesBookPane extends Pane {
         foodImage.setX(95.0);
         foodImage.setY(110.0);
 
-        //add pane and image
-        getChildren().addAll(ingredientPane, foodName, searchTextfield, foodImage);
 
-        //add buttons
+        getChildren().addAll(ingredientPane, foodName, searchTextfield, foodImage);
         getChildren().addAll( closeButton, goLeftButton, goRightButton, cookButton, pinButton);
 
         //show the first recipe

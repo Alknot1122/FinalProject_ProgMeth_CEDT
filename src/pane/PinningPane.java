@@ -18,9 +18,10 @@ public class PinningPane extends Pane {
     private final Text FoodName ;
     private final VBox itemListPane ;
     public PinningPane(){
-        //set Pane's properties
+
         setVisible(false);
-        setLayoutX(78); setLayoutY(386);
+        setLayoutX(78);
+        setLayoutY(386);
         setPrefHeight(200);
         setPrefWidth(228);
 
@@ -45,9 +46,8 @@ public class PinningPane extends Pane {
         getChildren().addAll(FoodName, itemListPane, closeButton);
     }
     public void setRecipeList(Recipe recipe){
-
+     // change current recipe inof to new recipe
         FoodName.setText(recipe.getFood().getItemName());
-
         itemListPane.getChildren().clear();
         for (Item item : recipe.getItems()){
             Text itemname = getDisplay.getText(item.getItemName(), 15, 195, 0,0);

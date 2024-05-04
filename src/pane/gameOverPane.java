@@ -16,6 +16,7 @@ public class gameOverPane extends Pane {
 
      private final Text SCORE_TEXT;
       public gameOverPane(){
+
           setVisible(false);
           setBackground(Background.fill(Color.rgb(255,255,255,0.75)));
           setLayoutX(0);
@@ -23,7 +24,7 @@ public class gameOverPane extends Pane {
           setPrefHeight(722);
           setPrefWidth(963);
 
-
+          // make gameOverimage
           String   gameoverpic = ClassLoader.getSystemResource("Background/GameOverPane.png").toString();
           Image gameoverimage = new Image(gameoverpic);
           ImageView gameOverImg = new ImageView(gameoverimage);
@@ -34,8 +35,8 @@ public class gameOverPane extends Pane {
           gameOverImg.setLayoutX(250);
           gameOverImg.setLayoutY(145);
 
-
           SCORE_TEXT = getDisplay.getText("", 32, 400, 376,348);
+
           Button replayButton = getDisplay.getButton("/Button/restartButton.png",201,59,395,380);
           getChildren().addAll(gameOverImg, SCORE_TEXT, replayButton);
 
