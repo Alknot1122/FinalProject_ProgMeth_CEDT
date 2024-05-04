@@ -2,7 +2,6 @@
 class pane.OrderPane {
 - Thread timerTread
 - VBox orderBox
-+ <<Create>> OrderPane()
 + void countdown(int,Text,Pane)
 + void setText(String,Text)
 + void orderGone(Pane)
@@ -17,7 +16,6 @@ class pane.InventoryPane {
 - int itemAmount
 - int nextBlankSlot
 - Player player
-+ <<Create>> InventoryPane(Player)
 + int getNextBlankSlot()
 + void Itemin(Item)
 + void ItemOut(String)
@@ -27,6 +25,26 @@ class pane.InventoryPane {
 class Utils.ZoomTransitionUtil {
 + {static} void applyZoomTransition(Node)
 + {static} void applyZoomOutTransition(Node)
+}
+class pane.GamePage {
+- {static} Pane root
+- {static} inputField inputField
+- {static} IngredientsPane ingredientsPane
+- {static} OrderPane orderPane
+- {static} RecipesBookPane recipesBookPane
+- {static} TimerBar timerBarPane
+- {static} InventoryPane inventoryPane
+- {static} PinningPane pinningPane
+- {static} PlayerIdleAnimation playerIdleAnimation
++ {static} Parent getRoot()
++ {static} inputField getInputField()
++ {static} IngredientsPane getIngredientsPane()
++ {static} OrderPane getOrderPane()
++ {static} RecipesBookPane getRecipesBookPane()
++ {static} PinningPane getPinningPane()
++ {static} PlayerIdleAnimation getPlayerAnimation()
++ void setPos(double,double,Node)
++ void centerText(Node,double)
 }
 class Animation.PlayerIdleAnimation {
 - ImageView playerImageView
@@ -39,7 +57,6 @@ class Animation.PlayerIdleAnimation {
 - Timeline idleAnimationTimeline
 - Timeline happyAnimationTimeline
 - Timeline sadAnimationTimeline
-+ <<Create>> PlayerIdleAnimation()
 + ImageView getPlayerImageView()
 + void playAnimation()
 + void playHappyAnimation()
@@ -51,35 +68,12 @@ class Utils.getDisplay {
 + {static} Text getText(String,int,int,int,int)
 + {static} Text getText(String,int,int,int,int,Color)
 }
-class application.GamePage {
-- {static} Pane root
-- {static} inputField inputField
-- {static} IngredientsPane ingredientsPane
-- {static} OrderPane orderPane
-- {static} RecipesBookPane recipesBookPane
-- {static} TimerBar timerBarPane
-- {static} InventoryPane inventoryPane
-- {static} PinningPane pinningPane
-- {static} PlayerIdleAnimation playerIdleAnimation
-+ <<Create>> GamePage()
-+ {static} Parent getRoot()
-+ {static} inputField getInputField()
-+ {static} IngredientsPane getIngredientsPane()
-+ {static} OrderPane getOrderPane()
-+ {static} RecipesBookPane getRecipesBookPane()
-+ {static} PinningPane getPinningPane()
-+ {static} PlayerIdleAnimation getPlayerAnimation()
-+ void setPos(double,double,Node)
-+ void centerText(Node,double)
-}
 class pane.IngredientsPane {
-+ <<Create>> IngredientsPane(InventoryPane,Player)
 }
 class Animation.CookingFinishAnimation {
 - ImageView imageView
 - double initialX
 - double initialY
-+ <<Create>> CookingFinishAnimation(ImageView)
 + void playAnimation()
 }
 class gameLogic.Player {
@@ -90,7 +84,6 @@ class gameLogic.Player {
 - Text ERROR_TEXT
 - gameOverPane GAMEOVER_PANE
 - ImageView IMAGE_DISPLAY
-+ <<Create>> Player()
 + Text getDisplayScore()
 + int getScores()
 + void setScores(int)
@@ -104,7 +97,6 @@ class pane.inputField {
 - boolean Eventing
 - String expectedString
 - Timeline animationTimeline
-+ <<Create>> inputField()
 + String getExpectedString()
 + void setExpectedString(String)
 + boolean isEventing()
@@ -126,22 +118,18 @@ class application.Main$MenuItem {
 - Star star2
 - Text text
 - Runnable script
-+ <<Create>> MenuItem(String)
 + void setActive(boolean)
 + void setOnActivate(Runnable)
 + void activate()
 }
 class application.Main$MenuItem$Star {
-+ <<Create>> Star()
 }
 class gameLogic.RecipesRef {
 - ArrayList<Recipe> recipes
-+ <<Create>> RecipesRef()
 + ArrayList<Recipe> getRecipes()
 }
 class gameLogic.IngridentsRef {
 - ArrayList<Item> ingridnets
-+ <<Create>> IngridentsRef()
 + ArrayList<Item> getIngridnets()
 }
 class buttons.AnimatedOtherButton {
@@ -154,7 +142,6 @@ class pane.RecipesBookPane {
 - TextField searchTextfield
 - int page
 - RecipesRef recipesRef
-+ <<Create>> RecipesBookPane(GameController,RecipesRef,PinningPane)
 + void MakePage(Recipe)
 + void goLeft()
 + void goRight()
@@ -162,7 +149,6 @@ class pane.RecipesBookPane {
 }
 abstract class Animation.PlayerAnimation {
 # ImageView playerImageView
-+ <<Create>> PlayerAnimation(ImageView)
 + {abstract}void playAnimation()
 }
 class gameLogic.GameController {
@@ -174,7 +160,6 @@ class gameLogic.GameController {
 - {static} Thread OrderEventThred
 - {static} OrderPane orderPane
 - {static} RecipesRef recipesRef
-+ <<Create>> GameController(Player,InventoryPane,TimerBar,OrderPane,RecipesRef)
 + {static} void restart()
 + {static} void startOrderEvent()
 + {static} void GameOver()
@@ -186,13 +171,11 @@ class gameLogic.GameController {
 class pane.PinningPane {
 - Text FoodName
 - VBox itemListPane
-+ <<Create>> PinningPane()
 + void setRecipeList(Recipe)
 }
 class pane.TimerBar {
 - int totalSeconds
 - boolean isStop
-+ <<Create>> TimerBar(Timer)
 + void startCountDownTimer(Timer)
 + void runCountDownTimer(Timer)
 + void setTimer(Timer)
@@ -204,7 +187,6 @@ class pane.OneOrderPane {
 - Food food
 - Text timer
 - Button sendingbutton
-+ <<Create>> OneOrderPane(Food)
 + Food getFood()
 + Text getTimer()
 + Button getSendingbutton()
@@ -213,8 +195,6 @@ class gameLogic.Item {
 - String IMAGE_PATH
 - Image ITEM_IMAGE
 - String ITEM_NAME
-+ <<Create>> Item(String,String)
-+ <<Create>> Item(Item)
 + String getImagePath()
 + ImageView getItemImageView(int)
 + String getItemName()
@@ -223,7 +203,6 @@ class gameLogic.Item {
 class gameLogic.Recipe {
 - Food FOOD
 - Item[] ITEMS
-+ <<Create>> Recipe(Food,Item[])
 + Food getFood()
 + Item[] getItems()
 }
@@ -232,26 +211,22 @@ class buttons.RecipeButton {
 }
 class pane.gameOverPane {
 - Text SCORE_TEXT
-+ <<Create>> gameOverPane()
 + void setscore(int)
 }
 class Utils.SoundController {
+- String filePath
 - MediaPlayer mediaPlayer
-+ <<Create>> SoundController(String)
-+ void playMusic()
 + MediaPlayer getMediaPlayer()
++ void playMusic()
 }
 class gameLogic.Food {
 - int POINTS
-+ <<Create>> Food(String,String,int)
-+ <<Create>> Food(Food)
 + int getPoints()
 }
 class gameLogic.Timer {
 - int minute
 - int seconds
 - boolean isStop
-+ <<Create>> Timer(int,int)
 + void decrementTimer(int)
 + int getTimeLeft()
 + boolean isTimerEmpty()
