@@ -1,32 +1,21 @@
 package application;
 
 import Utils.*;
+import buttons.IngredientButton;
+import buttons.OrderButtonAnimation;
+import buttons.RecipeButton;
 import gameLogic.*;
-import javafx.event.EventHandler;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
-import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundImage;
 import javafx.scene.layout.BackgroundRepeat;
 import javafx.scene.layout.BackgroundSize;
 import javafx.scene.layout.BackgroundPosition;
 import javafx.scene.layout.Pane;
-import javafx.animation.ScaleTransition;
-import javafx.scene.effect.Glow;
-import javafx.animation.RotateTransition;
-import javafx.animation.Timeline;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import javafx.scene.input.MouseEvent;
-import javafx.util.Duration;
-import javafx.util.Duration;
-import javafx.scene.media.MediaPlayer;
-import javafx.util.Duration;
 import pane.*;
 
 import java.util.Objects;
@@ -41,7 +30,7 @@ public class GamePage {
     private static TimerBar timerBarPane; // Add TimerBarPane
     private static InventoryPane inventoryPane;
     private static PinningPane pinningPane;
-    private static PlayerAnimation playerAnimation;
+    private static PlayerIdleAnimation playerIdleAnimation;
 
 
    // private final Timeline animationTimeline = new Timeline();
@@ -60,7 +49,7 @@ public class GamePage {
         //set timer to start
         timerBarPane.startCountDownTimer(t);
 
-        playerAnimation = new PlayerAnimation();
+        playerIdleAnimation = new PlayerIdleAnimation();
         orderPane = new OrderPane();
         RecipesRef recipesRef = new RecipesRef();
         GameController gameController = new GameController(player, inventoryPane, timerBarPane, orderPane, recipesRef);
@@ -106,8 +95,8 @@ public class GamePage {
         GameController.startOrderEvent();
 
         // Retrieve player image view
-        ImageView playerImageView = playerAnimation.getPlayerImageView();
-        playerAnimation.playIdleAnimation();
+        ImageView playerImageView = playerIdleAnimation.getPlayerImageView();
+        playerIdleAnimation.playAnimation();
 
 
         //set buttons for open and close pane
@@ -156,8 +145,8 @@ public class GamePage {
         return pinningPane;
     }
 
-    public static PlayerAnimation getPlayerAnimation() {
-        return playerAnimation;
+    public static PlayerIdleAnimation getPlayerAnimation() {
+        return playerIdleAnimation;
     }
 
     public void setPos(double Xpos, double Ypos, Node node){

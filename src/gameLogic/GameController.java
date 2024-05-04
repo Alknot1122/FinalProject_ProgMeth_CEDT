@@ -1,23 +1,15 @@
 package gameLogic;
 
 import Utils.CookingFinishAnimation;
-import Utils.PlayerAnimation;
+import Utils.PlayerIdleAnimation;
 import Utils.ZoomTransitionUtil;
 import application.GamePage;
 import javafx.animation.*;
-import javafx.application.Platform;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
-import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.Pane;
-import javafx.scene.text.Text;
-import javafx.util.Duration;
 import javafx.util.Duration;
 import pane.*;
 
-import java.awt.*;
 import java.util.Objects;
 import java.util.Random;
 
@@ -189,15 +181,15 @@ public class GameController {
         player.getImageDisplay().setImage(passimg);
 
         // Play happy animation
-        PlayerAnimation playerAnimation = GamePage.getPlayerAnimation();
-        playerAnimation.playHappyAnimation();
+        PlayerIdleAnimation playerIdleAnimation = GamePage.getPlayerAnimation();
+        playerIdleAnimation.playHappyAnimation();
 
         // Schedule a task to transition back to idle animation after 5 seconds
         new java.util.Timer().schedule(
                 new java.util.TimerTask() {
                     @Override
                     public void run() {
-                        playerAnimation.playIdleAnimation();
+                        playerIdleAnimation.playAnimation();
                     }
                 },
                 5000
@@ -229,15 +221,15 @@ public class GameController {
        player.getImageDisplay().setVisible(true);
        player.getImageDisplay().setImage(failimg);
 
-        PlayerAnimation playerAnimation = GamePage.getPlayerAnimation();
-        playerAnimation.playSadAnimation();
+        PlayerIdleAnimation playerIdleAnimation = GamePage.getPlayerAnimation();
+        playerIdleAnimation.playSadAnimation();
 
         // Schedule a task to transition back to idle animation after 5 seconds
         new java.util.Timer().schedule(
                 new java.util.TimerTask() {
                     @Override
                     public void run() {
-                        playerAnimation.playIdleAnimation();
+                        playerIdleAnimation.playAnimation();
                     }
                 },
                 5000

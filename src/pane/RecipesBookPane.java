@@ -1,25 +1,18 @@
 package pane;
 
-import Utils.AnimatedOtherButton;
-import application.GamePage;
+import buttons.AnimatedOtherButton;
 import gameLogic.GameController;
 import gameLogic.Recipe;
 import gameLogic.RecipesRef;
-import javafx.animation.ScaleTransition;
-import javafx.event.EventHandler;
 import javafx.scene.Node;
-import javafx.scene.effect.DropShadow;
 import javafx.scene.image.ImageView;
 import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Button;
-import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
-import javafx.util.Duration;
 
 import java.util.Objects;
 
@@ -57,11 +50,11 @@ public class RecipesBookPane extends Pane {
        Button cookButton = getDisplay.getButton("/Button/cookbutton.png", 133,56,95,340);
        Button pinButton = getDisplay.getButton("/Button/pinningButton.png", 58,60,240,340);
 
-        AnimatedOtherButton.applyHoverEffect(goLeftButton);
-        AnimatedOtherButton.applyHoverEffect(goRightButton);
-        AnimatedOtherButton.applyHoverEffect(closeButton);
-        AnimatedOtherButton.applyHoverEffect(cookButton);
-        AnimatedOtherButton.applyHoverEffect(pinButton);
+        AnimatedOtherButton.applyButtonAnimation(goLeftButton);
+        AnimatedOtherButton.applyButtonAnimation(goRightButton);
+        AnimatedOtherButton.applyButtonAnimation(closeButton);
+        AnimatedOtherButton.applyButtonAnimation(cookButton);
+        AnimatedOtherButton.applyButtonAnimation(pinButton);
 
 
         cookButton.setOnMousePressed(mouseEvent -> {

@@ -5,14 +5,15 @@ import javafx.animation.*;
 import javafx.scene.image.ImageView;
 import javafx.util.Duration;
 
-public class CookingFinishAnimation {
+public class CookingFinishAnimation  extends PlayerAnimation  {
 
     private final ImageView imageView;
     private final double initialX;
     private final double initialY;
 
-    public CookingFinishAnimation(ImageView imageView) {
-        this.imageView = imageView;
+    public CookingFinishAnimation(ImageView playerImageView) {
+        super(playerImageView);
+        this.imageView = playerImageView;
         this.initialX = 500;
         this.initialY = 300;
     }

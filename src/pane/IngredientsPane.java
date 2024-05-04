@@ -1,6 +1,6 @@
 package pane;
 
-import Utils.AnimatedOtherButton;
+import buttons.AnimatedOtherButton;
 import gameLogic.IngridentsRef;
 import gameLogic.Item;
 import gameLogic.Player;
@@ -9,13 +9,11 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
-import javafx.scene.effect.DropShadow;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
-import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 
 import java.util.Objects;
@@ -35,7 +33,7 @@ public class IngredientsPane extends Pane {
         setBackground(new Background(BG));
 
         Button exitButton = getDisplay.getButton("/Button/exitButton.png", 38,37, 206,-4);
-        AnimatedOtherButton.applyHoverEffect(exitButton);
+        AnimatedOtherButton.applyButtonAnimation(exitButton);
 
         exitButton.setOnMousePressed(new EventHandler<MouseEvent>() {
             @Override
@@ -78,7 +76,7 @@ public class IngredientsPane extends Pane {
 
             Button additemButton = getDisplay.getButton("/Button/addToinventory.png",33, 29,93,51 );
             additemButton.setStyle("-fx-background-image: url('/Button/addToinventory.png'); -fx-background-color: transparent;");
-            AnimatedOtherButton.applyHoverEffect(additemButton);
+            AnimatedOtherButton.applyButtonAnimation(additemButton);
 
             int finalI = i;
             //when on click, clone the item into inventory pane

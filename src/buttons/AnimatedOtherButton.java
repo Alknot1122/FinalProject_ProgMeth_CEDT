@@ -1,11 +1,12 @@
-package Utils;
+package buttons;
 
+import Utils.ButtonAnimation;
 import javafx.scene.control.Button;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.paint.Color;
 
-public class AnimatedOtherButton {
-    public static void applyHoverEffect(Button button) {
+public class AnimatedOtherButton implements ButtonAnimation {
+    public static void applyButtonAnimation(Button button) {
         button.setOnMouseEntered(e -> {
             button.setScaleX(1.1);
             button.setScaleY(1.1);

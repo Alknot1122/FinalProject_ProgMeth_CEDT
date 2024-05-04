@@ -1,5 +1,6 @@
-package Utils;
+package buttons;
 
+import Utils.ButtonAnimation;
 import javafx.animation.*;
 import javafx.event.EventHandler;
 import javafx.scene.control.Button;
@@ -9,9 +10,9 @@ import javafx.scene.layout.Pane;
 import javafx.util.Duration;
 import pane.SoundController;
 
-public class RecipeButton {
+public class OrderButtonAnimation implements ButtonAnimation {
 
-    public static void applyButtonAnimation(Button button, Pane recipesBookPane) {
+    public static void applyButtonAnimation(Button button, Pane orderPane) {
         Glow glow = new Glow(0.0);
         button.setEffect(glow);
 
@@ -70,9 +71,10 @@ public class RecipeButton {
         button.setOnMousePressed(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
-                SoundController turnleftsound = new SoundController("res/Sound/turnRightRecipeBook.mp3");
-                turnleftsound.playMusic();
-                recipesBookPane.setVisible(!recipesBookPane.isVisible());
+                SoundController clockingButtonnoise = new SoundController("res/Sound/buttonclick.mp3");
+                clockingButtonnoise.getMediaPlayer().setVolume(0.7);
+                clockingButtonnoise.playMusic();
+                orderPane.setVisible(!orderPane.isVisible());
             }
         });
     }

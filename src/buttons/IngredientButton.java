@@ -1,5 +1,6 @@
-package Utils;
+package buttons;
 
+import Utils.ButtonAnimation;
 import javafx.animation.*;
 import javafx.event.EventHandler;
 import javafx.scene.control.Button;
@@ -9,7 +10,8 @@ import javafx.scene.layout.Pane;
 import javafx.util.Duration;
 import pane.SoundController;
 
-public class IngredientButton {
+public class IngredientButton implements ButtonAnimation {
+
 
     public static void applyButtonAnimation(Button button, Pane ingredientPane) {
         Glow glow = new Glow(0.0);
