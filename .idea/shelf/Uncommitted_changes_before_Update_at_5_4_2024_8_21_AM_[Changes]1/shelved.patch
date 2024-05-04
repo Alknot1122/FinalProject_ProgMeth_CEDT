@@ -1,0 +1,104 @@
+Index: src/pane/gameOverPane.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package pane;\r\n\r\nimport gameLogic.GameController;\r\nimport javafx.event.EventHandler;\r\nimport javafx.scene.control.Button;\r\nimport javafx.scene.image.Image;\r\nimport javafx.scene.image.ImageView;\r\nimport javafx.scene.input.MouseEvent;\r\nimport javafx.scene.layout.Background;\r\nimport javafx.scene.layout.Pane;\r\nimport javafx.scene.paint.Color;\r\nimport javafx.scene.text.Font;\r\nimport javafx.scene.text.Text;\r\n\r\npublic class gameOverPane extends Pane {\r\n    //add this\r\n      //set pane size to the screensize cus rn its not in right size\r\n     private final Text scoreText;\r\n      public gameOverPane(){\r\n          setVisible(false);\r\n          setBackground(Background.fill(Color.WHITE));\r\n          setLayoutX(0);\r\n          setLayoutY(0);\r\n          setPrefHeight(722);\r\n          setPrefWidth(963);\r\n         setBackground(Background.fill(Color.rgb(255,255,255,0.75)));\r\n          String   gameoverpic = ClassLoader.getSystemResource(\"Background/GameOverPane.png\").toString();\r\n          Image gameoverimage = new Image(gameoverpic);\r\n          ImageView gameOverImg = new ImageView(gameoverimage);\r\n          gameOverImg.setFitHeight(175);\r\n          gameOverImg.setPreserveRatio(true);\r\n          gameOverImg.setLayoutX(250);\r\n          gameOverImg.setLayoutY(145);\r\n\r\n\r\n           scoreText = getDisplay.getText(\"\", 32, 400, 396,348);\r\n          Button replayButton = new Button (\"Start again?\");\r\n          replayButton.setPrefWidth(105);\r\n          replayButton.setPrefHeight(43);\r\n          replayButton.setLayoutY(418); replayButton.setLayoutX(430);\r\n\r\n          scoreText.setFont(Font.loadFont(getClass().getResourceAsStream(\"/PeaberryBase.ttf\"), 32));\r\n          scoreText.setLayoutY(396);\r\n          scoreText.setLayoutX(348);\r\n          getChildren().addAll(gameOverImg, scoreText, replayButton);\r\n          replayButton.setOnMousePressed(new EventHandler<MouseEvent>() {\r\n              @Override\r\n              public void handle(MouseEvent mouseEvent) {\r\n                 setVisible(false);\r\n                 GameController.restart();\r\n\r\n              }\r\n          });\r\n\r\n      }\r\n   public void setscore (int scores){\r\n    //   System.out.println(\"set score to \" + scores);\r\n       scoreText.setText(\"Your score : \"+ scores);\r\n   }\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/pane/gameOverPane.java b/src/pane/gameOverPane.java
+--- a/src/pane/gameOverPane.java	
++++ b/src/pane/gameOverPane.java	
+@@ -34,14 +34,7 @@
+ 
+ 
+            scoreText = getDisplay.getText("", 32, 400, 396,348);
+-          Button replayButton = new Button ("Start again?");
+-          replayButton.setPrefWidth(105);
+-          replayButton.setPrefHeight(43);
+-          replayButton.setLayoutY(418); replayButton.setLayoutX(430);
+-
+-          scoreText.setFont(Font.loadFont(getClass().getResourceAsStream("/PeaberryBase.ttf"), 32));
+-          scoreText.setLayoutY(396);
+-          scoreText.setLayoutX(348);
++          Button replayButton = getDisplay.getButton("/Button/restartButton.png",201,59,318,430);
+           getChildren().addAll(gameOverImg, scoreText, replayButton);
+           replayButton.setOnMousePressed(new EventHandler<MouseEvent>() {
+               @Override
+Index: src/application/Main.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package application;\r\n\r\nimport javafx.animation.FadeTransition;\r\nimport javafx.application.Application;\r\nimport javafx.geometry.Pos;\r\nimport javafx.scene.Parent;\r\nimport javafx.scene.Scene;\r\nimport javafx.scene.effect.GaussianBlur;\r\nimport javafx.scene.image.Image;\r\nimport javafx.scene.image.ImageView;\r\nimport javafx.scene.input.KeyCode;\r\nimport javafx.scene.layout.*;\r\nimport javafx.scene.media.MediaPlayer;\r\nimport javafx.scene.paint.Color;\r\nimport javafx.scene.text.Font;\r\nimport javafx.scene.text.FontWeight;\r\nimport javafx.scene.text.Text;\r\nimport javafx.stage.Stage;\r\nimport javafx.util.Duration;\r\nimport pane.SoundController;\r\n\r\nimport java.util.Objects;\r\n\r\npublic class Main extends Application {\r\n\r\n    private static final Font FONT = Font.font(\"\", FontWeight.BOLD, 42);\r\n    private VBox menuBox;\r\n    private int currentItem = 0;\r\n    private GamePage gamePage;\r\n    private Scene mainScene; // Declare mainScene at the class level\r\n\r\n    private Parent createContent() {\r\n        Pane root = new Pane();\r\n        root.setPrefSize(963, 722);\r\n\r\n        // Load and set the background image\r\n        Image bgImage = new Image(Objects.requireNonNull(getClass().getResource(\"/Background/mainmenuBg.png\")).toExternalForm());\r\n        BackgroundImage backgroundImage = new BackgroundImage(bgImage, BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT);\r\n        root.setBackground(new Background(backgroundImage));\r\n\r\n        MenuItem itemExit = new MenuItem(\"EXIT\");\r\n        itemExit.setOnActivate(() -> System.exit(0));\r\n\r\n        MenuItem itemStart = new MenuItem(\"START\");\r\n        itemStart.setOnActivate(() -> {\r\n            if (mainScene.getRoot() != gamePage.getRoot()) {\r\n                FadeTransition fadeOut = new FadeTransition(Duration.seconds(1), mainScene.getRoot());\r\n                fadeOut.setFromValue(1.0);\r\n                fadeOut.setToValue(0.0);\r\n                fadeOut.setOnFinished(e -> {\r\n                    mainScene.setRoot(gamePage.getRoot()); // Switch to game page after fade out\r\n                    gamePage.getInputField().requestFocus();\r\n                    FadeTransition fadeIn = new FadeTransition(Duration.seconds(1), gamePage.getRoot());\r\n                    fadeIn.setFromValue(0.0);\r\n                    fadeIn.setToValue(1.0);\r\n                    fadeIn.play();\r\n                });\r\n                fadeOut.play();\r\n\r\n            } else {\r\n                gamePage.getInputField().requestFocus();\r\n            }\r\n        });\r\n        menuBox = new VBox(10,\r\n                itemStart,\r\n                new MenuItem(\"GUIDE\"),\r\n                itemExit);\r\n        menuBox.setAlignment(Pos.TOP_CENTER);\r\n        menuBox.setTranslateX(100);\r\n        menuBox.setTranslateY(350);\r\n\r\n        getMenuItem(0).setActive(true);\r\n\r\n        root.getChildren().addAll(menuBox);\r\n        return root;\r\n    }\r\n\r\n\r\n    private MenuItem getMenuItem(int index){\r\n        return (MenuItem)menuBox.getChildren().get(index);\r\n    }\r\n\r\n    private static class MenuItem extends HBox {\r\n        private Star star1 = new Star();\r\n        private Star star2 = new Star();\r\n\r\n        private Text text;\r\n        private Runnable script;\r\n\r\n        public MenuItem(String name){\r\n            super(12);\r\n            setAlignment(Pos.CENTER);\r\n\r\n            text = new Text(name);\r\n            text.setFont(FONT);\r\n            text.setEffect(new GaussianBlur(1));\r\n\r\n            getChildren().addAll(star1 , text , star2 );\r\n            setActive(false);\r\n            setOnActivate(() -> System.out.println(name + \" activated\"));\r\n        }\r\n\r\n        private static class Star extends Parent {\r\n            public Star(){\r\n                ImageView imageView = new ImageView(new Image(Objects.requireNonNull(getClass().getResource(\"/star1.png\")).toExternalForm()));\r\n\r\n                imageView.setFitWidth(20);\r\n                imageView.setFitHeight(20);\r\n                imageView.setEffect(new GaussianBlur(1));\r\n\r\n                getChildren().add(imageView);\r\n\r\n            }\r\n        }\r\n\r\n        public void setActive(boolean b){\r\n            star1.setVisible(b);\r\n            star2.setVisible(b);\r\n            text.setFill(b ? Color.rgb(255,184,59) : Color.rgb(242,203,127));\r\n        }\r\n\r\n        public void setOnActivate(Runnable r){\r\n            script = r;\r\n        }\r\n\r\n        public void activate(){\r\n            if(script != null)\r\n                script.run();\r\n        }\r\n    }\r\n\r\n\r\n    public void start(Stage stage) {\r\n        gamePage = new GamePage();\r\n        //play background music\r\n\r\n            SoundController backgroundMusic = new SoundController(\"res/Sound/Backgroundmusic.mp3\");\r\n            backgroundMusic.getMediaPlayer().setVolume(0.75);\r\n            backgroundMusic.getMediaPlayer().setCycleCount(MediaPlayer.INDEFINITE);\r\n            backgroundMusic.getMediaPlayer().play();\r\n\r\n\r\n        SoundController clockingButtonnoise = new SoundController(\"res/Sound/buttonclick.mp3\");\r\n        clockingButtonnoise.getMediaPlayer().setVolume(0.5);\r\n        mainScene = new Scene(createContent(), 963,722); // Rename the variable to avoid shadowing\r\n        mainScene.setOnKeyPressed(event -> {\r\n\r\n\r\n            clockingButtonnoise.playMusic();\r\n\r\n            if(event.getCode() == KeyCode.UP){\r\n                if(currentItem > 0){\r\n                    getMenuItem(currentItem).setActive(false);\r\n                    getMenuItem(--currentItem).setActive(true);\r\n                }\r\n            }\r\n            if(event.getCode() == KeyCode.DOWN){\r\n                if(currentItem < menuBox.getChildren().size() - 1){\r\n                    getMenuItem(currentItem).setActive(false);\r\n                    getMenuItem(++currentItem).setActive(true);\r\n                }\r\n            }\r\n\r\n            if(event.getCode() == KeyCode.ENTER){\r\n                getMenuItem(currentItem).activate();\r\n            }\r\n        });\r\n\r\n        stage.setScene(mainScene);\r\n        stage.setTitle(\"Cooking Game\");\r\n        stage.setResizable(false);\r\n        stage.show();\r\n    }\r\n\r\n\r\n    public static void main(String[] args) {\r\n        launch();\r\n    }\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/application/Main.java b/src/application/Main.java
+--- a/src/application/Main.java	
++++ b/src/application/Main.java	
+@@ -29,6 +29,7 @@
+     private GamePage gamePage;
+     private Scene mainScene; // Declare mainScene at the class level
+ 
++
+     private Parent createContent() {
+         Pane root = new Pane();
+         root.setPrefSize(963, 722);
+@@ -61,9 +62,12 @@
+                 gamePage.getInputField().requestFocus();
+             }
+         });
++        MenuItem itemGuide = new MenuItem("GUIDE");
++
++
+         menuBox = new VBox(10,
+                 itemStart,
+-                new MenuItem("GUIDE"),
++                itemGuide,
+                 itemExit);
+         menuBox.setAlignment(Pos.TOP_CENTER);
+         menuBox.setTranslateX(100);
+@@ -71,7 +75,7 @@
+ 
+         getMenuItem(0).setActive(true);
+ 
+-        root.getChildren().addAll(menuBox);
++        root.getChildren().addAll(menuBox  );
+         return root;
+     }
+ 
+@@ -149,20 +153,28 @@
+             clockingButtonnoise.playMusic();
+ 
+             if(event.getCode() == KeyCode.UP){
+-                if(currentItem > 0){
+-                    getMenuItem(currentItem).setActive(false);
+-                    getMenuItem(--currentItem).setActive(true);
++
++                    if (currentItem > 0) {
++                        getMenuItem(currentItem).setActive(false);
++                        getMenuItem(--currentItem).setActive(true);
++                    
+                 }
+             }
+             if(event.getCode() == KeyCode.DOWN){
+-                if(currentItem < menuBox.getChildren().size() - 1){
+-                    getMenuItem(currentItem).setActive(false);
+-                    getMenuItem(++currentItem).setActive(true);
+-                }
++
++                    if(currentItem < menuBox.getChildren().size() - 1){
++                        getMenuItem(currentItem).setActive(false);
++                        getMenuItem(++currentItem).setActive(true);
++                    }
++
++
+             }
+ 
+             if(event.getCode() == KeyCode.ENTER){
+-                getMenuItem(currentItem).activate();
++
++                    getMenuItem(currentItem).activate();
++
++
+             }
+         });
+ 

@@ -29,8 +29,7 @@ public class GameController {
     private static InventoryPane inventoryPane;
     private static Recipe recipe;
     private static TimerBar timerBar;
-    private static Thread orderTrade ;
-    private static Boolean isThreadRunning = true;
+    private static Boolean isOrderThreadRunning = true;
 
  private static OrderPane orderPane;
  private static RecipesRef recipesRef;
@@ -43,31 +42,37 @@ public class GameController {
         this.recipesRef = recipesRef;
     }
     public static void restart(){
+        //reset plater's score and clear player's inventory
         player.setScores(0);
         for (int i =0; i < 9; i++){
             inventoryPane.ItemOut(i);
         }
-        gameLogic.Timer t = new Timer(5,0);
+        //reset the timer
+        int minutes = 5;
+        int seconds = 0;
+        gameLogic.Timer t = new Timer(minutes,seconds);
         timerBar.reset(t);
         timerBar.startCountDownTimer(t);
-        isThreadRunning = true;
+
+        //tell orderThread that it ok to run again
+        isOrderThreadRunning = true;
+        //run the orderThread
         orderenter();
     }
     public static synchronized void orderenter(){
-
        Random random = new Random();
+
         int randomNumforOrder1 = random.nextInt(40) + 60;
         int randomRecipe1 = random.nextInt(23);
         orderPane.OrderIn(recipesRef.getRecipes().get(randomRecipe1).getFood(), randomNumforOrder1);
-        orderTrade = new Thread(() -> {
-            while (isThreadRunning) {
+        Thread orderTrade = new Thread(() -> {
+            while (isOrderThreadRunning) {
                 try {
-                    int randomnumforWait = random.nextInt(30) + 35;
-                    int randomNumforOrder = random.nextInt(30) + 60;
+                    int delayBeforeAnotherOrder = random.nextInt(30) + 35;
+                    int timeAmountforOrderTimer = random.nextInt(30) + 60;
                     int randomRecipe = random.nextInt(23);
-                    Thread.sleep(randomnumforWait * 1000);
-                    orderPane.OrderIn(recipesRef.getRecipes().get(randomRecipe).getFood(), randomNumforOrder);
-                 //  System.out.println(recipesRef.getRecipes().get(randomRecipe).getFood().getItemName());
+                    Thread.sleep(delayBeforeAnotherOrder * 1000);
+                    orderPane.OrderIn(recipesRef.getRecipes().get(randomRecipe).getFood(), timeAmountforOrderTimer);
 
                 } catch (InterruptedException e) {
                     System.out.println("guh");
@@ -79,12 +84,10 @@ public class GameController {
     }
     public  static void GameOver(){
 
-          //  System.out.println("thread ended");
-            isThreadRunning = false;
+            isOrderThreadRunning = false;
             player.getGameOverPane().setVisible(true);
-           // System.out.println(player.getGameOverPane().isVisible());
             player.getGameOverPane().setscore(player.getScores());
-         //   System.out.println("gameOver!");
+
 
 
     }

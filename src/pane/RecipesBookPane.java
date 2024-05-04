@@ -24,39 +24,41 @@ import javafx.util.Duration;
 import java.util.Objects;
 
 public class RecipesBookPane extends Pane {
-    private GridPane ingredientPane;
+    private final GridPane ingredientPane;
     private ImageView foodImage;
-    private Text foodName ;
-    private TextField searchTextfield ;
+    private final Text foodName ;
+    private final TextField searchTextfield ;
     private int page;
-    private RecipesRef recipesRef;
+    private final RecipesRef recipesRef;
 
     public RecipesBookPane (GameController gameController, RecipesRef recipesRef, PinningPane pinningPane){
-
+        //set pane properties and set page to 0
         page =0;
         this.recipesRef  = recipesRef;
        setPrefWidth(728);setPrefHeight(479);
        setLayoutX(150);setLayoutY(120);
        setVisible(false);
-
+       //set pane's background image
         Image bgimg = new Image(Objects.requireNonNull(getClass().getResource("/Background/recipesBookPane.png")).toExternalForm());
         BackgroundImage BGimg = new BackgroundImage(bgimg, BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT);
         setBackground(new Background(BGimg));
 
         foodImage = new ImageView();
         foodImage.setFitHeight(200);
+
         foodName = getDisplay.getText("", 29, 275, 425,73);
 
+        //set buttons
        Button goLeftButton = getDisplay.getButton("/Button/goleftButton.png", 34,40,-10,214);
        Button goRightButton = getDisplay.getButton("/Button/goRightButton.png", 34,40,701,214);
-       Button exitButton = getDisplay.getButton("/Button/exitButton.png", 38,37,686,-12);
+       Button closeButton = getDisplay.getButton("/Button/exitButton.png", 38,37,686,-12);
        Button cookButton = getDisplay.getButton("/Button/cookbutton.png", 133,56,95,340);
        Button pinButton = getDisplay.getButton("/Button/pinningButton.png", 58,60,240,340);
 
 
         AnimatedOtherButton.applyHoverEffect(goLeftButton);
         AnimatedOtherButton.applyHoverEffect(goRightButton);
-        AnimatedOtherButton.applyHoverEffect(exitButton);
+        AnimatedOtherButton.applyHoverEffect(closeButton);
         AnimatedOtherButton.applyHoverEffect(cookButton);
         AnimatedOtherButton.applyHoverEffect(pinButton);
 
@@ -73,35 +75,43 @@ public class RecipesBookPane extends Pane {
             gameController.StartCooking(recipesRef.getRecipes().get(page));
         });
        goLeftButton.setOnMousePressed(mouseEvent -> {
-            SoundController turnleftsound = new SoundController("res/Sound/turnLeftRecipeBook.mp3");
-           turnleftsound.playMusic();
+           // Play turn left sound
+            SoundController turnLeftSound = new SoundController("res/Sound/turnLeftRecipeBook.mp3");
+           turnLeftSound.playMusic();
+           //go to earlier recipe
            goLeft();
 
        });
 
 
        goRightButton.setOnMousePressed(mouseEvent -> {
+           // Play turn right sound
            SoundController turnRightSound = new SoundController("res/Sound/turnRightRecipeBook.mp3");
            turnRightSound.playMusic();
-           goRight();
 
+           //go to next recipe
+           goRight();
        });
 
 
-       exitButton.setOnMousePressed(mouseEvent -> {
+        closeButton.setOnMousePressed(mouseEvent -> {
+           //play close book sound
            SoundController turnleftsound = new SoundController("res/Sound/CloseBook.mp3");
            turnleftsound.playMusic();
+
+           //close RecipeBookPane
            setVisible(false);
        });
-       pinButton.setOnMousePressed(new EventHandler<MouseEvent>() {
-           @Override
-           public void handle(MouseEvent mouseEvent) {
-               SoundController clockingButtonnoise = new SoundController("res/Sound/buttonclick.mp3");
-               clockingButtonnoise.getMediaPlayer().setVolume(0.7);
-               clockingButtonnoise.playMusic();
-               pinningPane.setVisible(true);
-               pinningPane.setFoodList(recipesRef.getRecipes().get(page));
-           }
+
+       pinButton.setOnMousePressed(mouseEvent -> {
+
+           SoundController buttonClickSound = new SoundController("res/Sound/buttonclick.mp3");
+           buttonClickSound.getMediaPlayer().setVolume(0.7);
+           buttonClickSound.playMusic();
+
+           //make pinningPane visible and set the recipe to current recipe
+           pinningPane.setVisible(true);
+           pinningPane.setRecipeList(recipesRef.getRecipes().get(page));
        });
 
 
@@ -121,14 +131,26 @@ public class RecipesBookPane extends Pane {
 
 
         searchTextfield.setOnKeyPressed(keyEvent -> {
+            // search the recipe from player's input
             if (keyEvent.getCode().equals(KeyCode.ENTER)) {
-                String searchInput = searchTextfield.getText().trim().toLowerCase(); // Get the trimmed lowercase input
+                // Get the trimmed lowercase input
+                String searchInput = searchTextfield.getText().trim().toLowerCase();
+
                 for (int i = 0; i < recipesRef.getRecipes().size(); i++) {
-                    String recipeName = recipesRef.getRecipes().get(i).getFood().getItemName().trim().toLowerCase(); // Get the trimmed lowercase recipe name
+                    // Get the trimmed lowercase recipe name
+                    String recipeName = recipesRef.getRecipes().get(i).getFood().getItemName().trim().toLowerCase();
+
+                    //if searchInput equals to any recipe name
                     if (searchInput.equals(recipeName)) {
+
+                        //set page to that recipe index
                         page = i;
-                        clear();
+                        ingredientPane.getChildren().clear();
+
+                        //make page out of this recipe
                         MakePage(recipesRef.getRecipes().get(page));
+
+                        // clear player' input
                         searchTextfield.setText("");
                         break;
                     }
@@ -136,72 +158,69 @@ public class RecipesBookPane extends Pane {
             }
         });
 
-
+        //set ingredientPane, searchTextfield, foodImage position
         setNodePosition(ingredientPane, 447,110);
         setNodePosition(searchTextfield, 52,42);
         foodImage = recipesRef.getRecipes().get(page).getFood().getItemImageView(200);
         foodImage.setX(95.0);
         foodImage.setY(110.0);
 
-        getChildren().addAll(ingredientPane, foodName, searchTextfield,foodImage, exitButton, goLeftButton, goRightButton, cookButton, pinButton);
-        MakePage(recipesRef.getRecipes().getFirst());
+        //add pane and image
+        getChildren().addAll(ingredientPane, foodName, searchTextfield, foodImage);
 
+        //add buttons
+        getChildren().addAll( closeButton, goLeftButton, goRightButton, cookButton, pinButton);
+
+        //show the first recipe
+        MakePage(recipesRef.getRecipes().getFirst());
     }
     public void MakePage(Recipe recipe){
 
+         foodImage.setImage(recipe.getFood().getItemImage());
+         foodName.setText(recipe.getFood().getItemName());
 
-     foodImage.setImage(recipe.getFood().getItemImage());
-
-     foodName.setText(recipe.getFood().getItemName());
+        // make ingredientPane display items that is from that recipe
         int colum =0;
         int row =0;
         for (int i =0; i <recipe.getItems().length; i++){
+
             ImageView imageItem = recipe.getItems()[i].getItemImageView(100);
             GridPane.setColumnIndex(imageItem, colum);
             GridPane.setRowIndex(imageItem, row);
 
+            // make items display from top to bottom, left to right
             colum++;
             if (colum == 2) {
                 row ++;
                 colum = 0;
             }
+
             ingredientPane.getChildren().add(imageItem);
         }
     }
     public void goLeft(){
-        clear();
-    page --;
-    if (page == -1) {
-        page = recipesRef.getRecipes().size()-1;
-    }
+        //clear children in ingredientPane
+        ingredientPane.getChildren().clear();
 
-    MakePage(recipesRef.getRecipes().get(page));
+        page --;
+        // if page is already at -1, return to the last recipe in recipeRef
+        page = page == -1? recipesRef.getRecipes().size()-1 : page;
 
+        MakePage(recipesRef.getRecipes().get(page));
     }
     public void goRight(){
-        clear();
+        //clear children in ingredientPane
+        ingredientPane.getChildren().clear();
+
+        //if page reach the last recipe, return to the beginning of recipeRef
         page = (page + 1) % recipesRef.getRecipes().size();
 
        MakePage(recipesRef.getRecipes().get(page));
-
     }
     public void setNodePosition (Node nodem, double Xpos, double Ypos){
         nodem.setLayoutX(Xpos);
         nodem.setLayoutY(Ypos);
+    }
 
-    }
-    public void setSizeButton(Button button, double width, double hight){
-        button.setPrefHeight(hight);
-        button.setPrefWidth(width);
-    }
-    public void clear (){
-            for (int i = ingredientPane.getChildren().size()-1; i >=0 ; i--){
-                ingredientPane.getChildren().remove(i);
-            }
-    }
-    public void setBGImageforButton (String imgpath, Button button ){
-        Image buttonimg = new Image(Objects.requireNonNull(getClass().getResource(imgpath)).toExternalForm());
-        BackgroundImage BGbuttonimg = new BackgroundImage(buttonimg, BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT);
-        button.setBackground(new Background(BGbuttonimg));
-    }
+
 }

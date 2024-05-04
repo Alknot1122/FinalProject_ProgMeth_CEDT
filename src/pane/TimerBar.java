@@ -34,8 +34,6 @@ public class TimerBar extends ProgressBar{
             try {
                 Thread.sleep(1000);
                 t.decrementTimer(1);
-              //  System.out.println(t.getTimeLeft());
-               // System.out.println(t);
                 Platform.runLater(() -> {
                     setTimer(t);
                 });
@@ -57,8 +55,9 @@ public class TimerBar extends ProgressBar{
     public void reset(Timer t) {
         this.setProgress(1);
         totalSeconds = t.getTimeLeft();
+        //resize the timerBar to full
         this.setStyle("-fx-accent: DD4848; -fx-pref-width: 943; -fx-pref-height: 20;");
-
+        //stop the timer
         this.isStop = true;
     }
 

@@ -32,8 +32,6 @@ public class IngridentsRef {
         ingridnets.add(new Item ("Blueberry", "Item/Blueberry.png"));
         ingridnets.add(new Item ("Lemon", "Item/Lemon.png"));
 
-
-
     }
 
     public ArrayList<Item> getIngridnets() {

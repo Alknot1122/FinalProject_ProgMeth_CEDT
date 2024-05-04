@@ -30,6 +30,7 @@ public class Main extends Application {
     private GamePage gamePage;
     private Scene mainScene; // Declare mainScene at the class level
 
+
     private Parent createContent() {
         Pane root = new Pane();
         root.setPrefSize(963, 722);
@@ -44,12 +45,15 @@ public class Main extends Application {
 
         MenuItem itemStart = new MenuItem("START");
         itemStart.setOnActivate(() -> {
+
             if (mainScene.getRoot() != gamePage.getRoot()) {
+
                 FadeTransition fadeOut = new FadeTransition(Duration.seconds(1), mainScene.getRoot());
                 fadeOut.setFromValue(1.0);
                 fadeOut.setToValue(0.0);
                 fadeOut.setOnFinished(e -> {
-                    mainScene.setRoot(gamePage.getRoot()); // Switch to game page after fade out
+                    // Switch to game page after fade out
+                    mainScene.setRoot(gamePage.getRoot());
                     FadeTransition fadeIn = new FadeTransition(Duration.seconds(1), gamePage.getRoot());
                     fadeIn.setFromValue(0.0);
                     fadeIn.setToValue(1.0);
@@ -58,9 +62,12 @@ public class Main extends Application {
                 fadeOut.play();
                 }
         });
+        MenuItem itemGuide = new MenuItem("GUIDE");
+
+
         menuBox = new VBox(10,
                 itemStart,
-                new MenuItem("GUIDE"),
+                itemGuide,
                 itemExit);
         menuBox.setAlignment(Pos.TOP_CENTER);
         menuBox.setTranslateX(100);
@@ -68,7 +75,7 @@ public class Main extends Application {
 
         getMenuItem(0).setActive(true);
 
-        root.getChildren().addAll(menuBox);
+        root.getChildren().addAll(menuBox  );
         return root;
     }
 
@@ -159,20 +166,28 @@ public class Main extends Application {
             clockingButtonnoise.playMusic();
 
             if(event.getCode() == KeyCode.UP){
-                if(currentItem > 0){
-                    getMenuItem(currentItem).setActive(false);
-                    getMenuItem(--currentItem).setActive(true);
+
+                    if (currentItem > 0) {
+                        getMenuItem(currentItem).setActive(false);
+                        getMenuItem(--currentItem).setActive(true);
+                    
                 }
             }
             if(event.getCode() == KeyCode.DOWN){
-                if(currentItem < menuBox.getChildren().size() - 1){
-                    getMenuItem(currentItem).setActive(false);
-                    getMenuItem(++currentItem).setActive(true);
-                }
+
+                    if(currentItem < menuBox.getChildren().size() - 1){
+                        getMenuItem(currentItem).setActive(false);
+                        getMenuItem(++currentItem).setActive(true);
+                    }
+
+
             }
 
             if(event.getCode() == KeyCode.ENTER){
-                getMenuItem(currentItem).activate();
+
+                    getMenuItem(currentItem).activate();
+
+
             }
         });
 

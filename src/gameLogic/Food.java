@@ -1,7 +1,7 @@
 package gameLogic;
 
 public class Food extends Item{
-    private int Points;
+    private final int Points;
     public Food(String name, String imagePath, int points) {
         super(name, imagePath);
         Points = Math.max(5, points);

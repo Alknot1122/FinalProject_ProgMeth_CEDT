@@ -34,6 +34,7 @@ public class Player  {
 
     public Player(){
         scores =0;
+
         displayScore = new Text("Score : " + scores);
         gameOverPane = new gameOverPane();
         ErrorText = getDisplay.getText("", 29, 808,78,587);

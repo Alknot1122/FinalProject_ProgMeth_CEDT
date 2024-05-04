@@ -12,15 +12,8 @@ public class Item {
 
     public Item (String name , String imagePath){
         itemName = name;
-
-
-
-
         this.imagePath = imagePath;
-
         String   classLoaderPath = ClassLoader.getSystemResource(imagePath).toString();
-
-
         itemImage = new Image(classLoaderPath);
 
     }
@@ -33,13 +26,10 @@ public class Item {
         this.imagePath = item.getImagePath();
         this.itemName = item.getItemName();
         this.itemImage = item.getItemImage();
-
-
-
     }
 
     public ImageView getItemImageView(int fitHight) {
-        ImageView image = new ImageView(itemImage);
+        ImageView image = new ImageView(getItemImage());
         image.setFitHeight(fitHight);
         image.setPreserveRatio(true);
         return image;

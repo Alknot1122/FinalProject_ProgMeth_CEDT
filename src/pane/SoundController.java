@@ -6,10 +6,8 @@ import javafx.scene.media.MediaPlayer;
 import java.io.File;
 
 public class SoundController {
-    private String filePath;
-    private MediaPlayer mediaPlayer;
+    private final MediaPlayer mediaPlayer;
     public  SoundController(String filePath){
-        this.filePath = filePath;
         Media sound = new Media(new File(filePath).toURI().toString());
 
         mediaPlayer = new MediaPlayer(sound);
@@ -18,7 +16,7 @@ public class SoundController {
         return mediaPlayer;
     }
     public void playMusic(){
-        Thread ae = new Thread(() -> {
+        Thread playMusicThread = new Thread(() -> {
             if (mediaPlayer.getStatus() == MediaPlayer.Status.PLAYING){
                 mediaPlayer.stop();
                 mediaPlayer.seek(mediaPlayer.getStartTime());
@@ -27,6 +25,6 @@ public class SoundController {
             mediaPlayer.play();
             Thread.yield();
         });
-        ae.start();
+        playMusicThread.start();
     }
 }
