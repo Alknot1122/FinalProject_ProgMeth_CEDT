@@ -16,7 +16,6 @@ public class gameOverPane extends Pane {
 
      private final Text SCORE_TEXT;
       public gameOverPane(){
-          //set pane properties
           setVisible(false);
           setBackground(Background.fill(Color.rgb(255,255,255,0.75)));
           setLayoutX(0);
@@ -24,7 +23,7 @@ public class gameOverPane extends Pane {
           setPrefHeight(722);
           setPrefWidth(963);
 
-          // set gameOverImage
+
           String   gameoverpic = ClassLoader.getSystemResource("Background/GameOverPane.png").toString();
           Image gameoverimage = new Image(gameoverpic);
           ImageView gameOverImg = new ImageView(gameoverimage);

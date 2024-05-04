@@ -22,14 +22,13 @@ import java.util.Objects;
 import java.util.Random;
 
 public class GameController {
-    private int Process;
-    private int live;
-    private String foodName ;
     private static Player player;
     private static InventoryPane inventoryPane;
     private static Recipe recipe;
     private static TimerBar timerBar;
-    private static Boolean isOrderThreadRunning = true;
+    private static Boolean isOrderThreadRunning = false;
+
+    private static Thread OrderEventThred;
 
  private static OrderPane orderPane;
  private static RecipesRef recipesRef;
@@ -41,6 +40,24 @@ public class GameController {
         GameController.orderPane = orderPane;
         GameController.recipesRef = recipesRef;
 
+        Random random = new Random();
+
+        OrderEventThred = new Thread(() -> {
+            while (isOrderThreadRunning) {
+                try {
+                    int delayBeforeAnotherOrder = random.nextInt(30) + 35;
+                    int timeAmountforOrderTimer = random.nextInt(30) + 60;
+                    int randomRecipe = random.nextInt(23);
+                    Thread.sleep(delayBeforeAnotherOrder * 1000);
+
+                    orderPane.OrderIn(recipesRef.getRecipes().get(randomRecipe).getFood(), timeAmountforOrderTimer);
+
+                } catch (InterruptedException e) {
+                    System.out.println("thread intruded");
+                }
+
+            }
+        });
     }
     public static void restart(){
         //reset player's score and clear player's inventory
@@ -48,6 +65,7 @@ public class GameController {
         for (int i =0; i < 9; i++){
             inventoryPane.ItemOut(i);
         }
+
         //reset the timer
         int minutes = 5;
         int seconds = 0;
@@ -55,41 +73,31 @@ public class GameController {
         timerBar.reset(t);
         timerBar.startCountDownTimer(t);
 
-        //tell orderThread that it ok to run again
-        isOrderThreadRunning = true;
         //run the orderThread
-        orderenter();
+       isOrderThreadRunning = true;
     }
-    public static synchronized void orderenter(){
-       Random random = new Random();
+    public static synchronized void startOrderEvent(){
+        Random random = new Random();
 
+        //add random order with random time for timer
         int randomNumforOrder1 = random.nextInt(40) + 60;
         int randomRecipe1 = random.nextInt(23);
         orderPane.OrderIn(recipesRef.getRecipes().get(randomRecipe1).getFood(), randomNumforOrder1);
-        Thread orderTrade = new Thread(() -> {
-            while (isOrderThreadRunning) {
-                try {
-                    int delayBeforeAnotherOrder = random.nextInt(30) + 35;
-                    int timeAmountforOrderTimer = random.nextInt(30) + 60;
-                    int randomRecipe = random.nextInt(23);
-                    Thread.sleep(delayBeforeAnotherOrder * 1000);
-                    orderPane.OrderIn(recipesRef.getRecipes().get(randomRecipe).getFood(), timeAmountforOrderTimer);
 
-                } catch (InterruptedException e) {
-                    System.out.println("thread intrupped");
-                }
+        //run the OrderEventThread
+        isOrderThreadRunning = true;
+        if (!OrderEventThred.isAlive()){
+            OrderEventThred.start();
+        }
 
-            }
-        });
-        orderTrade.start();
     }
     public  static void GameOver(){
-
+            //stop the OrderEventThred
             isOrderThreadRunning = false;
+
+            //make gameOverPane visible and show player's score
             player.getGameOverPane().setVisible(true);
             player.getGameOverPane().setscore(player.getScores());
-
-
 
     }
 
@@ -156,6 +164,7 @@ public class GameController {
         //check inventory pane if it has required food
        for (int i =0; i < inventoryPane.getItems().length; i++){
            if (inventoryPane.getItems()[i] != null){
+
                if (Objects.equals(inventoryPane.getItems()[i].getItemName(), foodOrder.getItemName())){
                    //if they do have required, give player food's score
                    //remove that food in inventory pane
@@ -163,6 +172,7 @@ public class GameController {
                    inventoryPane.ItemOut(i);
                    return true;
                }
+
            }
 
        }

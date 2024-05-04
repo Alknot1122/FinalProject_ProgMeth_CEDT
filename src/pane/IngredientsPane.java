@@ -35,7 +35,6 @@ public class IngredientsPane extends Pane {
         setBackground(new Background(BG));
 
         Button exitButton = getDisplay.getButton("/Button/exitButton.png", 38,37, 206,-4);
-
         AnimatedOtherButton.applyHoverEffect(exitButton);
 
         exitButton.setOnMousePressed(new EventHandler<MouseEvent>() {
@@ -64,12 +63,13 @@ public class IngredientsPane extends Pane {
         scrollPane.setContent(itemlist);
         IngridentsRef ingridentsRef = new IngridentsRef();
         for (int i =0; i < ingridentsRef.getIngridnets().size(); i++){
-            Pane itemPane = new Pane();
+            //make Pane about item's inof
 
+            Pane itemPane = new Pane();
             itemPane.setPrefWidth(212);
             itemPane.setPrefHeight(90);
-
             itemPane.setStyle("-fx-background-color:transparent;");
+
             Text itemName = getDisplay.getText(ingridentsRef.getIngridnets().get(i).getItemName(),17,119,93,20, Color.WHITE );
 
             ImageView itemImage = ingridentsRef.getIngridnets().get(i).getItemImageView(80);
@@ -78,21 +78,17 @@ public class IngredientsPane extends Pane {
 
             Button additemButton = getDisplay.getButton("/Button/addToinventory.png",33, 29,93,51 );
             additemButton.setStyle("-fx-background-image: url('/Button/addToinventory.png'); -fx-background-color: transparent;");
-
             AnimatedOtherButton.applyHoverEffect(additemButton);
 
             int finalI = i;
-            additemButton.setOnMousePressed(new EventHandler<MouseEvent>() {
-                @Override
-                public void handle(MouseEvent mouseEvent) {
-                    SoundController clockingButtonnoise = new SoundController("res/Sound/buttonclick.mp3");
-                    clockingButtonnoise.getMediaPlayer().setVolume(0.7);
-                    clockingButtonnoise.playMusic();
+            //when on click, clone the item into inventory pane
+            additemButton.setOnMousePressed(mouseEvent -> {
+                SoundController clockingButtonnoise = new SoundController("res/Sound/buttonclick.mp3");
+                clockingButtonnoise.getMediaPlayer().setVolume(0.7);
+                clockingButtonnoise.playMusic();
 
-                    Item tem = new Item(ingridentsRef.getIngridnets().get(finalI));
-
-                    inventoryPane.Itemin(tem);
-                }
+                Item tem = new Item(ingridentsRef.getIngridnets().get(finalI));
+                inventoryPane.Itemin(tem);
             });
 
             itemPane.getChildren().addAll(itemImage, itemName, additemButton);

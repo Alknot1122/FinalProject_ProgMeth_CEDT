@@ -56,6 +56,8 @@ public class GamePage {
         int sec = 0;
         Timer t = new Timer(minute,sec);
         timerBarPane = new TimerBar(t); // Initialize TimerBarPane
+
+        //set timer to start
         timerBarPane.startCountDownTimer(t);
 
         playerAnimation = new PlayerAnimation();
@@ -72,6 +74,7 @@ public class GamePage {
         ingredientsPane = new IngredientsPane(inventoryPane, player );
         recipesBookPane = new RecipesBookPane( gameController, recipesRef, pinningPane);
 
+        //add oven
         String  oven1png = ClassLoader.getSystemResource("oven1.png").toString();
         Image OvenImage = new Image(oven1png);
 
@@ -100,7 +103,7 @@ public class GamePage {
         setPos(10,10, timerBarPane); // Adjust the X position as needed
 
         //make game start to random add the order
-        GameController.orderenter();
+        GameController.startOrderEvent();
 
         // Retrieve player image view
         ImageView playerImageView = playerAnimation.getPlayerImageView();

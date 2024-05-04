@@ -45,7 +45,7 @@ public class Player  {
         INPUT_FIELD.setVisible(false);
         INPUT_FIELD.setAlignment(Pos.CENTER);
 
-        TranslateTransition translateTransition = new TranslateTransition(Duration.seconds(1), displayEventText);
+        TranslateTransition translateTransition = new TranslateTransition(Duration.seconds(1), DISPLAY_EVENT_TEXT);
         translateTransition.setByY(-30); // Adjust this value to change the amplitude of the animation
         translateTransition.setCycleCount(TranslateTransition.INDEFINITE);
         translateTransition.setAutoReverse(true);
