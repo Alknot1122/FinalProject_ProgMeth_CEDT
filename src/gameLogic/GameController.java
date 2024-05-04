@@ -38,11 +38,12 @@ public class GameController {
         GameController.inventoryPane = inventoryPane;
         GameController.player = player;
         GameController.timerBar = timerBar;
-        this.orderPane = orderPane;
-        this.recipesRef = recipesRef;
+        GameController.orderPane = orderPane;
+        GameController.recipesRef = recipesRef;
+
     }
     public static void restart(){
-        //reset plater's score and clear player's inventory
+        //reset player's score and clear player's inventory
         player.setScores(0);
         for (int i =0; i < 9; i++){
             inventoryPane.ItemOut(i);
@@ -75,7 +76,7 @@ public class GameController {
                     orderPane.OrderIn(recipesRef.getRecipes().get(randomRecipe).getFood(), timeAmountforOrderTimer);
 
                 } catch (InterruptedException e) {
-                    System.out.println("guh");
+                    System.out.println("thread intrupped");
                 }
 
             }
@@ -152,9 +153,12 @@ public class GameController {
        }
 
    public static boolean Ordersending(Food foodOrder){
+        //check inventory pane if it has required food
        for (int i =0; i < inventoryPane.getItems().length; i++){
            if (inventoryPane.getItems()[i] != null){
                if (Objects.equals(inventoryPane.getItems()[i].getItemName(), foodOrder.getItemName())){
+                   //if they do have required, give player food's score
+                   //remove that food in inventory pane
                    player.setScores(player.getScores() + foodOrder.getPoints());
                    inventoryPane.ItemOut(i);
                    return true;

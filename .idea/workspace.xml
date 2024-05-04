@@ -5,20 +5,18 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="a2931400-677a-4a12-b94b-b4a8c183172b" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/res/Button/restartButton.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/application/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/application/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/res/Button/restartButton.png" beforeDir="false" afterPath="$PROJECT_DIR$/res/Button/restartButton.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/application/GamePage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/application/GamePage.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/gameLogic/Food.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/gameLogic/Food.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/gameLogic/GameController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/gameLogic/GameController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/gameLogic/IngridentsRef.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/gameLogic/IngridentsRef.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/gameLogic/Item.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/gameLogic/Item.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/gameLogic/Player.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/gameLogic/Player.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/gameLogic/Recipe.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/gameLogic/Recipe.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pane/IngredientsPane.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/pane/IngredientsPane.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/pane/PinningPane.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/pane/PinningPane.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pane/RecipesBookPane.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/pane/RecipesBookPane.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pane/SoundController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/pane/SoundController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pane/TimerBar.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/pane/TimerBar.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/pane/gameOverPane.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/pane/gameOverPane.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pane/getDisplay.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/pane/getDisplay.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -55,13 +53,16 @@
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;git-widget-placeholder&quot;: &quot;pane&quot;,
     &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/USER/IdeaProjects/Cedt_leb5fromteacher&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/USER/IdeaProjects/FinalProject_ProgMeth_CEDT/res/Button&quot;,
     &quot;project.structure.last.edited&quot;: &quot;Global Libraries&quot;,
     &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
     &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;
   }
 }</component>
   <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\USER\IdeaProjects\FinalProject_ProgMeth_CEDT\res\Button" />
+    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Users\USER\IdeaProjects\FinalProject_ProgMeth_CEDT\res\Sound" />
       <recent name="C:\Users\USER\IdeaProjects\FinalProject_ProgMeth_CEDT\res\Button" />

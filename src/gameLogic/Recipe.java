@@ -3,19 +3,19 @@ package gameLogic;
 import application.Main;
 
 public class Recipe {
-    private final Food food;
-    private final Item[] items;
+    private final Food FOOD;
+    private final Item[] ITEMS;
     public Recipe(Food food, Item[] items) {
-        this.food = food;
-        this.items = items;
+        this.FOOD = food;
+        this.ITEMS = items;
     }
 
     public Food getFood() {
-        return food;
+        return FOOD;
     }
 
     public Item[] getItems() {
-        return items;
+        return ITEMS;
     }
 
 

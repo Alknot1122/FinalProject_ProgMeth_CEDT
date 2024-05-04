@@ -29,27 +29,26 @@ public class gameOverPane extends Pane {
           Image gameoverimage = new Image(gameoverpic);
           ImageView gameOverImg = new ImageView(gameoverimage);
 
+          // set gameOverImage Layout
           gameOverImg.setFitHeight(175);
           gameOverImg.setPreserveRatio(true);
           gameOverImg.setLayoutX(250);
           gameOverImg.setLayoutY(145);
 
 
-          SCORE_TEXT = getDisplay.getText("", 32, 400, 396,348);
-          Button replayButton = getDisplay.getButton("/Button/restartButton.png",201,59,318,430);
+          SCORE_TEXT = getDisplay.getText("", 32, 400, 376,348);
+          Button replayButton = getDisplay.getButton("/Button/restartButton.png",201,59,395,380);
           getChildren().addAll(gameOverImg, SCORE_TEXT, replayButton);
-          replayButton.setOnMousePressed(new EventHandler<MouseEvent>() {
-              @Override
-              public void handle(MouseEvent mouseEvent) {
-                 setVisible(false);
-                 GameController.restart();
 
-              }
+          replayButton.setOnMousePressed(mouseEvent -> {
+              // close this pane and restart the game
+             setVisible(false);
+             GameController.restart();
           });
 
       }
    public void setscore (int scores){
-
+       //tell player the total score they have
        SCORE_TEXT.setText("Your score : "+ scores);
    }
 }

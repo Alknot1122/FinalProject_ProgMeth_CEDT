@@ -50,11 +50,14 @@ public class GamePage {
     public GamePage() {
         Player player = new Player();
         inventoryPane = new InventoryPane(player);
+
+        //set timer
         int minute = 5;
         int sec = 0;
         Timer t = new Timer(minute,sec);
         timerBarPane = new TimerBar(t); // Initialize TimerBarPane
         timerBarPane.startCountDownTimer(t);
+
         playerAnimation = new PlayerAnimation();
         orderPane = new OrderPane();
         RecipesRef recipesRef = new RecipesRef();
@@ -68,25 +71,8 @@ public class GamePage {
         pinningPane = new PinningPane();
         ingredientsPane = new IngredientsPane(inventoryPane, player );
         recipesBookPane = new RecipesBookPane( gameController, recipesRef, pinningPane);
-       /* inputField.setPromptText("Enter your input");
-        setPos( 250,200, inputField); // Adjust the position as needed
 
-        inputField.setBackground(Background.EMPTY); // Make background transparent
-        inputField.setBorder(null); // Remove border
-        inputField.setFont(Font.loadFont(getClass().getResourceAsStream("/PeaberryBase.ttf"), 50)); // Load and set Bubblegum Sans font with size 30
-
-        // Apply CSS styling
-        inputField.setStyle("-fx-stroke: pink; " +
-                "-fx-stroke-width: 3; " +
-                "-fx-stroke-line-cap: round; " +
-                "-fx-text-fill: white; " +
-                "-fx-fill: transparent; " +
-                "-fx-effect: dropshadow(three-pass-box, orange, 6, 0.0, 0.0, 1); ");*/
-
-        //this is just in case : add oven image manually
-        //[might remove later]
         String  oven1png = ClassLoader.getSystemResource("oven1.png").toString();
-
         Image OvenImage = new Image(oven1png);
 
         ImageView oven1 = new ImageView(OvenImage);
@@ -104,13 +90,9 @@ public class GamePage {
         }
 
         // Load and set the background image
-
         Image bgImage = new Image(Objects.requireNonNull(getClass().getResource("/Background/kitchen.png")).toExternalForm());
         BackgroundImage backgroundImage = new BackgroundImage(bgImage, BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT);
         root.setBackground(new Background(backgroundImage));
-        //play background music
-
-
 
         // Add TimerBarPane
         root.getChildren().add(timerBarPane);
@@ -139,14 +121,12 @@ public class GamePage {
         root.getChildren().addAll(player.getInputField(), OrderButton, ingredientsPaneButton, recipebookButton);
         root.getChildren().addAll(orderPane, ingredientsPane, recipesBookPane,inventoryPane, pinningPane);
         root.getChildren().addAll(player.getErrorText(), player.getDisplayEventText(), player.getDisplayScore(),
-                player.getImageDisplay());
+                                  player.getImageDisplay());
         root.getChildren().add(player.getGameOverPane());
 
         setPos(180, 450, player.getDisplayEventText());
         setPos(250, 250, player.getInputField());
         centerText(player.getDisplayEventText(), root.getPrefWidth());
-
-
     }
 
     public static Parent getRoot() {

@@ -28,6 +28,8 @@ public class IngredientsPane extends Pane {
         setPrefHeight(491);
         setPrefWidth(239);
         setLayoutX(654); setLayoutY(120);
+
+
         Image bgimg = new Image(Objects.requireNonNull(getClass().getResource("/Background/ingridentsPane.png")).toExternalForm());
         BackgroundImage BG = new BackgroundImage(bgimg, BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT);
         setBackground(new Background(BG));

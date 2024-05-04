@@ -5,27 +5,27 @@ import javafx.scene.image.ImageView;
 
 public class Item {
 
-    private final String imagePath;
+    private final String IMAGE_PATH;
 
-   private Image itemImage;
-    private String itemName;
+   private final Image ITEM_IMAGE;
+    private final String ITEM_NAME;
 
     public Item (String name , String imagePath){
-        itemName = name;
-        this.imagePath = imagePath;
+        ITEM_NAME = name;
+        this.IMAGE_PATH = imagePath;
         String   classLoaderPath = ClassLoader.getSystemResource(imagePath).toString();
-        itemImage = new Image(classLoaderPath);
+        ITEM_IMAGE = new Image(classLoaderPath);
 
     }
 
     public String getImagePath() {
-        return imagePath;
+        return IMAGE_PATH;
     }
 
     public  Item (Item item){
-        this.imagePath = item.getImagePath();
-        this.itemName = item.getItemName();
-        this.itemImage = item.getItemImage();
+        this.IMAGE_PATH = item.getImagePath();
+        this.ITEM_NAME = item.getItemName();
+        this.ITEM_IMAGE = item.getItemImage();
     }
 
     public ImageView getItemImageView(int fitHight) {
@@ -36,10 +36,10 @@ public class Item {
     }
 
     public String getItemName() {
-        return itemName;
+        return ITEM_NAME;
     }
     public  Image getItemImage(){
-        return itemImage;
+        return ITEM_IMAGE;
     }
 
 }

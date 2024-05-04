@@ -52,7 +52,6 @@ public class PinningPane extends Pane {
         for (Item item : recipe.getItems()){
             Text itemname = getDisplay.getText(item.getItemName(), 15, 195, 0,0);
             itemListPane.getChildren().add(itemname);
-
         }
     }
 }
