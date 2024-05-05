@@ -3,7 +3,7 @@ package pane;
 import Utils.SoundController;
 import Utils.getDisplay;
 import buttons.AnimatedOtherButton;
-import gameLogic.IngridentsRef;
+import gameLogic.IngredientsRef;
 import gameLogic.Item;
 import gameLogic.Player;
 import javafx.event.EventHandler;
@@ -60,8 +60,8 @@ public class IngredientsPane extends Pane {
         itemlist.setAlignment(Pos.CENTER);
 
         scrollPane.setContent(itemlist);
-        IngridentsRef ingridentsRef = new IngridentsRef();
-        for (int i =0; i < ingridentsRef.getIngridnets().size(); i++){
+        IngredientsRef ingridentsRef = new IngredientsRef();
+        for (int i = 0; i < ingridentsRef.getIngredients().size(); i++){
 
             //make Pane about item's inof
             Pane itemPane = new Pane();
@@ -69,9 +69,9 @@ public class IngredientsPane extends Pane {
             itemPane.setPrefHeight(90);
             itemPane.setStyle("-fx-background-color:transparent;");
 
-            Text itemName = getDisplay.getText(ingridentsRef.getIngridnets().get(i).getItemName(),17,119,93,20, Color.WHITE );
+            Text itemName = getDisplay.getText(ingridentsRef.getIngredients().get(i).getItemName(),17,119,93,20, Color.WHITE );
 
-            ImageView itemImage = ingridentsRef.getIngridnets().get(i).getItemImageView(80);
+            ImageView itemImage = ingridentsRef.getIngredients().get(i).getItemImageView(80);
             itemImage.setLayoutY(7);
             itemImage.setLayoutX(5);
 
@@ -86,7 +86,7 @@ public class IngredientsPane extends Pane {
                 clockingButtonnoise.getMediaPlayer().setVolume(0.7);
                 clockingButtonnoise.playMusic();
 
-                Item tem = new Item(ingridentsRef.getIngridnets().get(finalI));
+                Item tem = new Item(ingridentsRef.getIngredients().get(finalI));
                 inventoryPane.Itemin(tem);
             });
 

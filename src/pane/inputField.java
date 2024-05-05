@@ -55,7 +55,7 @@ public class inputField extends TextField {
              public void handle(ActionEvent actionEvent) {
               if (isEventing()){// if player is in cooking event
                   if (getText().equalsIgnoreCase(getExpectedString())) {
-                      GameController.Cookingpass();
+                      GameController.CookingPass();
                       GamePage.getInputField().setVisible(false);
                       clear();
                   }

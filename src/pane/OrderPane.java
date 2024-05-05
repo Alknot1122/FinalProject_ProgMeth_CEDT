@@ -5,12 +5,10 @@ import Utils.getDisplay;
 import gameLogic.Food;
 import gameLogic.GameController;
 import javafx.application.Platform;
-import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
@@ -125,7 +123,7 @@ public class OrderPane extends Pane {
             ORDER_VBOX.getChildren().add(oneOrderPane);
 
             oneOrderPane.getSendingbutton().setOnMousePressed(mouseEvent -> {
-                if (GameController.Ordersending(oneOrderPane.getFood())){
+                if (GameController.hasOrder(oneOrderPane.getFood())){
 
                     orderGone(oneOrderPane);
                     if (ORDER_VBOX.getChildren().isEmpty()){

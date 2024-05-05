@@ -21,7 +21,7 @@ public class GameController {
     private static TimerBar timerBar;
     private static Boolean isOrderThreadRunning = false;
 
-    private static Thread OrderEventThred;
+    private static Thread OrderEventThread;
 
  private static OrderPane orderPane;
  private static RecipesRef recipesRef;
@@ -35,7 +35,7 @@ public class GameController {
 
         Random random = new Random();
 
-        OrderEventThred = new Thread(() -> {
+        OrderEventThread = new Thread(() -> {
             while (isOrderThreadRunning) {
                 try {
                     int delayBeforeAnotherOrder = random.nextInt(30) + 35;
@@ -73,19 +73,19 @@ public class GameController {
         Random random = new Random();
 
         //add random order with random time for timer
-        int randomNumforOrder1 = random.nextInt(40) + 60;
+        int randomNumForOrder1 = random.nextInt(40) + 60;
         int randomRecipe1 = random.nextInt(23);
-        orderPane.OrderIn(recipesRef.getRecipes().get(randomRecipe1).getFood(), randomNumforOrder1);
+        orderPane.OrderIn(recipesRef.getRecipes().get(randomRecipe1).getFood(), randomNumForOrder1);
 
         //run the OrderEventThread
         isOrderThreadRunning = true;
-        if (!OrderEventThred.isAlive()){
-            OrderEventThred.start();
+        if (!OrderEventThread.isAlive()){
+            OrderEventThread.start();
         }
 
     }
     public  static void GameOver(){
-            //stop the OrderEventThred
+            //stop the OrderEventThread
             isOrderThreadRunning = false;
 
             //make gameOverPane visible and show player's score
@@ -98,13 +98,13 @@ public class GameController {
    public void StartCooking ( Recipe recipe){
 
        GameController.recipe = recipe;
-       for (Item ingrident : recipe.getItems()){
+       for (Item recipeIngredient : recipe.getItems()){
            boolean cookable = false;
 
            for (int i =0; i < inventoryPane.getItems().length; i++) {
                if (inventoryPane.getItems()[i] != null) {
-                   if (inventoryPane.getItems()[i].getItemName().equalsIgnoreCase(ingrident.getItemName())) {
-                       System.out.println(inventoryPane.getItems()[i].getItemName() + "=" + ingrident.getItemName());
+                   if (inventoryPane.getItems()[i].getItemName().equalsIgnoreCase(recipeIngredient.getItemName())) {
+                       System.out.println(inventoryPane.getItems()[i].getItemName() + "=" + recipeIngredient.getItemName());
                        cookable = true;
                    }
                }
@@ -153,7 +153,7 @@ public class GameController {
            player.getDisplayEventText().setText("Type : " + player.getInputField().getExpectedString());
        }
 
-   public static boolean Ordersending(Food foodOrder){
+   public static boolean hasOrder(Food foodOrder){
         //check inventory pane if it has required food
        for (int i =0; i < inventoryPane.getItems().length; i++){
            if (inventoryPane.getItems()[i] != null){
@@ -172,14 +172,14 @@ public class GameController {
        return false;
    }
 
-    public static void Cookingpass() {
-        SoundController cookingSuccessSound = new SoundController("res/Sound/CookingSuccessed.mp3");
+    public static void CookingPass() {
+        SoundController cookingSuccessSound = new SoundController("res/Sound/CookingSuccesses.mp3");
         cookingSuccessSound.playMusic();
 
-        String passImage = ClassLoader.getSystemResource("boxwhencookgood.png").toString();
-        Image passimg = new Image(passImage);
+        String passImage = ClassLoader.getSystemResource("boxWhenCookGood.png").toString();
+        Image passImg = new Image(passImage);
         player.getImageDisplay().setVisible(true);
-        player.getImageDisplay().setImage(passimg);
+        player.getImageDisplay().setImage(passImg);
 
         // Play happy animation
         PlayerIdleAnimation playerIdleAnimation = GamePage.getPlayerAnimation();
@@ -217,10 +217,10 @@ public class GameController {
        SoundController CookingFailedSound = new SoundController("res/Sound/CookingFailed.mp3");
        CookingFailedSound.playMusic();
 
-       String   failedImage = ClassLoader.getSystemResource("burntfoodForBadFood.png").toString();
-       Image failimg = new Image(failedImage);
+       String   failedImage = ClassLoader.getSystemResource("burntFoodForBadFood.png").toString();
+       Image failImg = new Image(failedImage);
        player.getImageDisplay().setVisible(true);
-       player.getImageDisplay().setImage(failimg);
+       player.getImageDisplay().setImage(failImg);
 
         PlayerIdleAnimation playerIdleAnimation = GamePage.getPlayerAnimation();
         playerIdleAnimation.playSadAnimation();
@@ -241,8 +241,8 @@ public class GameController {
         CookingFinishAnimation cookingFinishAnimation = new CookingFinishAnimation(imageView);
         cookingFinishAnimation.playAnimation();
 
-       for (Item ingrident : recipe.getItems()){
-           inventoryPane.ItemOut(ingrident.getItemName());
+       for (Item ingredient : recipe.getItems()){
+           inventoryPane.ItemOut(ingredient.getItemName());
        }
        player.getInputField().setEventing(false);
        player.getInputField().setExpectedString("");
