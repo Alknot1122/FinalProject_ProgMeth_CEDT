@@ -29,8 +29,8 @@ public class IngredientsPane extends Pane {
         setPrefWidth(239);
         setLayoutX(654); setLayoutY(120);
 
-        Image bgimg = new Image(Objects.requireNonNull(getClass().getResource("/Background/ingridentsPane.png")).toExternalForm());
-        BackgroundImage BG = new BackgroundImage(bgimg, BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT);
+        Image bgImg = new Image(Objects.requireNonNull(getClass().getResource("/Background/ingredientsPane.png")).toExternalForm());
+        BackgroundImage BG = new BackgroundImage(bgImg, BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT);
         setBackground(new Background(BG));
 
         Button exitButton = getDisplay.getButton("/Button/exitButton.png", 38,37, 206,-4);
@@ -40,7 +40,7 @@ public class IngredientsPane extends Pane {
             @Override
             public void handle(MouseEvent mouseEvent) {
                 setVisible(false);
-                SoundController turnoffSound = new SoundController("res/Sound/CloseIngridentPane.mp3");
+                SoundController turnoffSound = new SoundController("res/Sound/CloseIngredientPane.mp3");
                 turnoffSound.playMusic();
             }
         });
@@ -51,17 +51,17 @@ public class IngredientsPane extends Pane {
         scrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
         scrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
 
-        VBox itemlist = new VBox();
-        itemlist.setPadding(new Insets(5));
-        itemlist.setSpacing(8);
+        VBox itemList = new VBox();
+        itemList.setPadding(new Insets(5));
+        itemList.setSpacing(8);
 
-        itemlist.setStyle("-fx-background-color:transparent;");
-        itemlist.setFillWidth(true);
-        itemlist.setAlignment(Pos.CENTER);
+        itemList.setStyle("-fx-background-color:transparent;");
+        itemList.setFillWidth(true);
+        itemList.setAlignment(Pos.CENTER);
 
-        scrollPane.setContent(itemlist);
-        IngredientsRef ingridentsRef = new IngredientsRef();
-        for (int i = 0; i < ingridentsRef.getIngredients().size(); i++){
+        scrollPane.setContent(itemList);
+        IngredientsRef ingredientsRef = new IngredientsRef();
+        for (int i = 0; i < ingredientsRef.getIngredients().size(); i++){
 
             //make Pane about item's inof
             Pane itemPane = new Pane();
@@ -69,29 +69,29 @@ public class IngredientsPane extends Pane {
             itemPane.setPrefHeight(90);
             itemPane.setStyle("-fx-background-color:transparent;");
 
-            Text itemName = getDisplay.getText(ingridentsRef.getIngredients().get(i).getItemName(),17,119,93,20, Color.WHITE );
+            Text itemName = getDisplay.getText(ingredientsRef.getIngredients().get(i).getItemName(),17,119,93,20, Color.WHITE );
 
-            ImageView itemImage = ingridentsRef.getIngredients().get(i).getItemImageView(80);
+            ImageView itemImage = ingredientsRef.getIngredients().get(i).getItemImageView(80);
             itemImage.setLayoutY(7);
             itemImage.setLayoutX(5);
 
-            Button additemButton = getDisplay.getButton("/Button/addToinventory.png",33, 29,93,51 );
-            additemButton.setStyle("-fx-background-image: url('/Button/addToinventory.png'); -fx-background-color: transparent;");
+            Button additemButton = getDisplay.getButton("/Button/addToInventory.png",33, 29,93,51 );
+            additemButton.setStyle("-fx-background-image: url('/Button/addToInventory.png'); -fx-background-color: transparent;");
             AnimatedOtherButton.applyButtonAnimation(additemButton);
 
             int finalI = i;
             //when on click, clone the item into inventory pane
             additemButton.setOnMousePressed(mouseEvent -> {
-                SoundController clockingButtonnoise = new SoundController("res/Sound/buttonclick.mp3");
-                clockingButtonnoise.getMediaPlayer().setVolume(0.7);
-                clockingButtonnoise.playMusic();
+                SoundController clickingButtonNoise = new SoundController("res/Sound/buttonClick.mp3");
+                clickingButtonNoise.getMediaPlayer().setVolume(0.7);
+                clickingButtonNoise.playMusic();
 
-                Item tem = new Item(ingridentsRef.getIngredients().get(finalI));
+                Item tem = new Item(ingredientsRef.getIngredients().get(finalI));
                 inventoryPane.Itemin(tem);
             });
 
             itemPane.getChildren().addAll(itemImage, itemName, additemButton);
-            itemlist.getChildren().add(itemPane);
+            itemList.getChildren().add(itemPane);
         }
 
         getChildren().addAll(scrollPane,exitButton);

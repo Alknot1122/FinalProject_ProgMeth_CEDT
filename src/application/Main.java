@@ -37,7 +37,7 @@ public class Main extends Application {
         root.setPrefSize(963, 722);
 
         // Load and set the background image
-        Image bgImage = new Image(Objects.requireNonNull(getClass().getResource("/Background/mainmenuBg.png")).toExternalForm());
+        Image bgImage = new Image(Objects.requireNonNull(getClass().getResource("/Background/MainMenuBg.png")).toExternalForm());
         BackgroundImage backgroundImage = new BackgroundImage(bgImage, BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT);
         root.setBackground(new Background(backgroundImage));
 
@@ -158,7 +158,7 @@ public class Main extends Application {
         backgroundMusic.getMediaPlayer().play();
 
 
-        SoundController clockingButtonnoise = new SoundController("res/Sound/buttonclick.mp3");
+        SoundController clockingButtonnoise = new SoundController("res/Sound/buttonClick.mp3");
         clockingButtonnoise.getMediaPlayer().setVolume(0.65);
         mainScene = new Scene(createContent(), 963,722); // Rename the variable to avoid shadowing
         mainScene.setOnKeyPressed(event -> {

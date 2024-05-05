@@ -25,10 +25,10 @@ public class OneOrderPane extends Pane {
         SENDING_BUTTON = getDisplay.getButton("/Button/deliveryButton.png",34,33,141,42);
         SENDING_BUTTON.setStyle("-fx-background-image: url('/Button/deliveryButton.png'); -fx-background-color: transparent;");
 
-        ImageView foodimagShow = food.getItemImageView(58);
-        foodimagShow.setLayoutY(6); foodimagShow.setLayoutX(8);
-        foodimagShow.setPreserveRatio(true);
-        getChildren().addAll(foodimagShow, SENDING_BUTTON, TIMER, orderName);
+        ImageView foodImageShow = food.getItemImageView(58);
+        foodImageShow.setLayoutY(6); foodImageShow.setLayoutX(8);
+        foodImageShow.setPreserveRatio(true);
+        getChildren().addAll(foodImageShow, SENDING_BUTTON, TIMER, orderName);
 
     }
 

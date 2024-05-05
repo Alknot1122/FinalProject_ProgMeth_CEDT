@@ -22,9 +22,9 @@ public class gameOverPane extends Pane {
           setPrefHeight(722);
           setPrefWidth(963);
 
-          // make gameOverimage
-          String   gameoverpic = ClassLoader.getSystemResource("Background/GameOverPane.png").toString();
-          Image gameoverimage = new Image(gameoverpic);
+          // make gameOverImage
+          String   gameOverPic = ClassLoader.getSystemResource("Background/GameOverPane.png").toString();
+          Image gameoverimage = new Image(gameOverPic);
           ImageView gameOverImg = new ImageView(gameoverimage);
 
           // set gameOverImage Layout
@@ -45,7 +45,7 @@ public class gameOverPane extends Pane {
           });
 
       }
-   public void setscore (int scores){
+   public void setScore(int scores){
        //tell player the total score they have
        SCORE_TEXT.setText("Your score : "+ scores);
    }

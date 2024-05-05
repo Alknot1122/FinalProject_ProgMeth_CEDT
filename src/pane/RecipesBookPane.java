@@ -36,9 +36,9 @@ public class RecipesBookPane extends Pane {
        setLayoutY(120);
        setVisible(false);
        //set pane's background image
-        Image bgimg = new Image(Objects.requireNonNull(getClass().getResource("/Background/recipesBookPane.png")).toExternalForm());
-        BackgroundImage BGimg = new BackgroundImage(bgimg, BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT);
-        setBackground(new Background(BGimg));
+        Image bgImg = new Image(Objects.requireNonNull(getClass().getResource("/Background/recipesBookPane.png")).toExternalForm());
+        BackgroundImage BG = new BackgroundImage(bgImg, BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT);
+        setBackground(new Background(BG));
 
         foodImage = new ImageView();
         foodImage.setFitHeight(200);
@@ -46,10 +46,10 @@ public class RecipesBookPane extends Pane {
         foodName = getDisplay.getText("", 29, 275, 425,73);
 
         //set buttons
-       Button goLeftButton = getDisplay.getButton("/Button/goleftButton.png", 34,40,-10,214);
+       Button goLeftButton = getDisplay.getButton("/Button/goLeftButton.png", 34,40,-10,214);
        Button goRightButton = getDisplay.getButton("/Button/goRightButton.png", 34,40,701,214);
        Button closeButton = getDisplay.getButton("/Button/exitButton.png", 38,37,686,-12);
-       Button cookButton = getDisplay.getButton("/Button/cookbutton.png", 133,56,95,340);
+       Button cookButton = getDisplay.getButton("/Button/cookButton.png", 133,56,95,340);
        Button pinButton = getDisplay.getButton("/Button/pinningButton.png", 58,60,240,340);
 
         AnimatedOtherButton.applyButtonAnimation(goLeftButton);
@@ -61,9 +61,9 @@ public class RecipesBookPane extends Pane {
 
         cookButton.setOnMousePressed(mouseEvent -> {
             // Play button click sound
-            SoundController clockingButtonnoise = new SoundController("res/Sound/buttonclick.mp3");
-            clockingButtonnoise.getMediaPlayer().setVolume(0.7);
-            clockingButtonnoise.playMusic();
+            SoundController clickingButtonNoise = new SoundController("res/Sound/buttonClick.mp3");
+            clickingButtonNoise.getMediaPlayer().setVolume(0.7);
+            clickingButtonNoise.playMusic();
 
             setVisible(false);
 
@@ -92,15 +92,15 @@ public class RecipesBookPane extends Pane {
 
         closeButton.setOnMousePressed(mouseEvent -> {
            //play close book sound
-           SoundController turnleftsound = new SoundController("res/Sound/CloseBook.mp3");
-           turnleftsound.playMusic();
+           SoundController turnLeftSound = new SoundController("res/Sound/CloseBook.mp3");
+           turnLeftSound.playMusic();
 
            //close RecipeBookPane
            setVisible(false);
        });
 
        pinButton.setOnMousePressed(mouseEvent -> {
-           SoundController buttonClickSound = new SoundController("res/Sound/buttonclick.mp3");
+           SoundController buttonClickSound = new SoundController("res/Sound/buttonClick.mp3");
            buttonClickSound.getMediaPlayer().setVolume(0.7);
            buttonClickSound.playMusic();
 

@@ -23,8 +23,8 @@ public class PinningPane extends Pane {
         setPrefWidth(228);
 
         //set Pane's image Background
-        Image bgimg = new Image(Objects.requireNonNull(getClass().getResource("/Background/pinning.png")).toExternalForm());
-        BackgroundImage BG = new BackgroundImage(bgimg, BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT);
+        Image bgImg = new Image(Objects.requireNonNull(getClass().getResource("/Background/pinning.png")).toExternalForm());
+        BackgroundImage BG = new BackgroundImage(bgImg, BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT);
         setBackground(new Background(BG));
 
         FoodName = getDisplay.getText("", 17, 169, 14,32);
@@ -47,8 +47,8 @@ public class PinningPane extends Pane {
         FoodName.setText(recipe.getFood().getItemName());
         itemListPane.getChildren().clear();
         for (Item item : recipe.getItems()){
-            Text itemname = getDisplay.getText(item.getItemName(), 15, 195, 0,0);
-            itemListPane.getChildren().add(itemname);
+            Text itemName = getDisplay.getText(item.getItemName(), 15, 195, 0,0);
+            itemListPane.getChildren().add(itemName);
         }
     }
 }

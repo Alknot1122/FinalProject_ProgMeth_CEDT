@@ -35,9 +35,9 @@ public class OrderPane extends Pane {
 
         Button exitButton = getDisplay.getButton("/Button/exitButton.png", 38,37,178,2);
         exitButton.setOnMousePressed(mouseEvent -> {
-            SoundController clockingButtonnoise = new SoundController("res/Sound/buttonclick.mp3");
-            clockingButtonnoise.getMediaPlayer().setVolume(0.7);
-            clockingButtonnoise.playMusic();
+            SoundController clickingButtonNoise = new SoundController("res/Sound/buttonClick.mp3");
+            clickingButtonNoise.getMediaPlayer().setVolume(0.7);
+            clickingButtonNoise.playMusic();
             setVisible(!isVisible());
         });
 
@@ -62,7 +62,7 @@ public class OrderPane extends Pane {
         ORDER_VBOX.setStyle("-fx-background-color:transparent;");
         scrollPane.setContent(ORDER_VBOX);
         getChildren().addAll(exitButton, order,scrollPane);
-        addnoOrderPic();
+        addNoOrderPic();
 
     }
     public void countdown(int timeInSec, Text textDisplay, Pane pane){
@@ -127,7 +127,7 @@ public class OrderPane extends Pane {
 
                     orderGone(oneOrderPane);
                     if (ORDER_VBOX.getChildren().isEmpty()){
-                        addnoOrderPic();
+                        addNoOrderPic();
                     }
                 }
             });
@@ -136,11 +136,11 @@ public class OrderPane extends Pane {
     }
 
 
-    public void addnoOrderPic(){
+    public void addNoOrderPic(){
         String   classLoaderPath = ClassLoader.getSystemResource("noOrder.png").toString();
-        ImageView noorder = new ImageView(new Image(classLoaderPath));
-        noorder.setPreserveRatio(true);
+        ImageView noOrder = new ImageView(new Image(classLoaderPath));
+        noOrder.setPreserveRatio(true);
 
-        ORDER_VBOX.getChildren().add(noorder);
+        ORDER_VBOX.getChildren().add(noOrder);
     }
 }

@@ -90,7 +90,7 @@ public class GameController {
 
             //make gameOverPane visible and show player's score
             player.getGameOverPane().setVisible(true);
-            player.getGameOverPane().setscore(player.getScores());
+            player.getGameOverPane().setScore(player.getScores());
 
     }
 

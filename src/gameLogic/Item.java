@@ -28,9 +28,9 @@ public class Item {
         this.ITEM_IMAGE = item.getItemImage();
     }
 
-    public ImageView getItemImageView(int fitHight) {
+    public ImageView getItemImageView(int fitHeight) {
         ImageView image = new ImageView(getItemImage());
-        image.setFitHeight(fitHight);
+        image.setFitHeight(fitHeight);
         image.setPreserveRatio(true);
         return image;
     }

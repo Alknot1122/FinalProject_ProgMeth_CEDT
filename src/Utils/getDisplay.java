@@ -11,13 +11,13 @@ import javafx.scene.text.Text;
 import java.util.Objects;
 
 public class getDisplay {
-    public static Button getButton(String imagePath, int width, int hight, int posX, int posY){
+    public static Button getButton(String imagePath, int width, int height, int posX, int posY){
         Button button = new Button();
 
         Image bgImage = new Image(Objects.requireNonNull(getDisplay.class.getResource(imagePath)).toExternalForm());
         BackgroundImage backgroundImage = new BackgroundImage(bgImage, BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT);
         button.setBackground(new Background(backgroundImage));
-        button.setPrefHeight(hight); button.setPrefWidth(width);
+        button.setPrefHeight(height); button.setPrefWidth(width);
         button.setLayoutX(posX); button.setLayoutY(posY);
         return button;
     }

@@ -34,9 +34,9 @@ public class IngredientButton extends BaseButtonAnimation {
         pulseAnimation.play();
 
         applyButtonAnimation(button, glow, idleAnimation, pulseAnimation, mouseEvent -> {
-            SoundController OpenIngridentPane = new SoundController("res/Sound/OpenIngridentPane.mp3");
-            OpenIngridentPane.getMediaPlayer().setVolume(0.75);
-            OpenIngridentPane.playMusic();
+            SoundController OpenIngredientPane = new SoundController("res/Sound/OpenIngredientPane.mp3");
+            OpenIngredientPane.getMediaPlayer().setVolume(0.75);
+            OpenIngredientPane.playMusic();
             ingredientPane.setVisible(!ingredientPane.isVisible());
         });
     }

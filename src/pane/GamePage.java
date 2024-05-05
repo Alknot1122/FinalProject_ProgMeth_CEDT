@@ -17,7 +17,6 @@ import javafx.scene.layout.BackgroundRepeat;
 import javafx.scene.layout.BackgroundSize;
 import javafx.scene.layout.BackgroundPosition;
 import javafx.scene.layout.Pane;
-import pane.*;
 
 import java.util.Objects;
 
@@ -101,7 +100,7 @@ public class GamePage {
 
 
         //set buttons for open and close pane
-        Button ingredientsPaneButton = getDisplay.getButton("/Button/ingridentButton.png",154,318,714,31);
+        Button ingredientsPaneButton = getDisplay.getButton("/Button/ingredientButton.png",154,318,714,31);
         IngredientButton.applyButtonAnimation(ingredientsPaneButton, ingredientsPane);
 
         Button recipebookButton = getDisplay.getButton("/Button/recipeBookPaneButton.png", 109, 77,320,510);

@@ -34,8 +34,8 @@ public class RecipeButton extends BaseButtonAnimation {
         pulseAnimation.play();
 
         applyButtonAnimation(button, glow, idleAnimation, pulseAnimation, mouseEvent -> {
-            SoundController turnleftsound = new SoundController("res/Sound/turnRightRecipeBook.mp3");
-            turnleftsound.playMusic();
+            SoundController turnLeftSound = new SoundController("res/Sound/turnRightRecipeBook.mp3");
+            turnLeftSound.playMusic();
             recipesBookPane.setVisible(!recipesBookPane.isVisible());
         });
     }
