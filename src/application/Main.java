@@ -63,12 +63,10 @@ public class Main extends Application {
                 fadeOut.play();
                 }
         });
-        MenuItem itemGuide = new MenuItem("GUIDE");
 
 
         menuBox = new VBox(10,
                 itemStart,
-                itemGuide,
                 itemExit);
         menuBox.setAlignment(Pos.TOP_CENTER);
         menuBox.setTranslateX(100);
