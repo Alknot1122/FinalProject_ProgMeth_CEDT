@@ -173,7 +173,7 @@ public class GameController {
    }
 
     public static void CookingPass() {
-        SoundController cookingSuccessSound = new SoundController("res/Sound/CookingSuccesses.mp3");
+        SoundController cookingSuccessSound = new SoundController("Sound/CookingSuccessed.mp3");
         cookingSuccessSound.playMusic();
 
         String passImage = ClassLoader.getSystemResource("boxWhenCookGood.png").toString();
@@ -214,7 +214,7 @@ public class GameController {
 
 
     public static void CookingFailed(){
-       SoundController CookingFailedSound = new SoundController("res/Sound/CookingFailed.mp3");
+       SoundController CookingFailedSound = new SoundController("Sound/CookingFailed.mp3");
        CookingFailedSound.playMusic();
 
        String   failedImage = ClassLoader.getSystemResource("burntFoodForBadFood.png").toString();

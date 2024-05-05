@@ -49,4 +49,7 @@ public class gameOverPane extends Pane {
        //tell player the total score they have
        SCORE_TEXT.setText("Your score : "+ scores);
    }
+
+
+
 }

@@ -4,8 +4,21 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="245143e8-dd10-44be-b04b-d6f900566b72" name="Changes" comment="">
+    <list default="true" id="a2931400-677a-4a12-b94b-b4a8c183172b" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/res/Background/mainmenuBg.png" beforeDir="false" afterPath="$PROJECT_DIR$/res/Background/MainMenuBg.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/res/Button/addToinventory.png" beforeDir="false" afterPath="$PROJECT_DIR$/res/Button/addToInventory.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/res/Button/cookbutton.png" beforeDir="false" afterPath="$PROJECT_DIR$/res/Button/cookButton.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/res/Button/goleftButton.png" beforeDir="false" afterPath="$PROJECT_DIR$/res/Button/goLeftButton.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/res/Sound/buttonclick.mp3" beforeDir="false" afterPath="$PROJECT_DIR$/res/Sound/buttonClick.mp3" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/application/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/application/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/buttons/IngredientButton.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/buttons/IngredientButton.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/buttons/OrderButtonAnimation.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/buttons/OrderButtonAnimation.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/buttons/RecipeButton.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/buttons/RecipeButton.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/gameLogic/Item.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/gameLogic/Item.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pane/IngredientsPane.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/pane/IngredientsPane.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pane/OrderPane.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/pane/OrderPane.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pane/RecipesBookPane.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/pane/RecipesBookPane.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -23,9 +36,9 @@
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="ProjectColorInfo">{
-    &quot;customColor&quot;: &quot;&quot;,
-    &quot;associatedIndex&quot;: 1
-    }</component>
+  &quot;customColor&quot;: &quot;&quot;,
+  &quot;associatedIndex&quot;: 1
+}</component>
   <component name="ProjectId" id="2ffg5mjGMjlCf6DVDfLL03Ret20" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true">
     <ConfirmationsSetting value="2" id="Add" />
@@ -34,20 +47,20 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Application.Main.executor": "Run",
-    "Application.main.executor": "Run",
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "pane",
-    "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "C:/Users/USER/IdeaProjects/FinalProject_ProgMeth_CEDT/res/Button",
-    "project.structure.last.edited": "Modules",
-    "project.structure.proportion": "0.15",
-    "project.structure.side.proportion": "0.2"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Application.Main.executor&quot;: &quot;Run&quot;,
+    &quot;Application.main.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;pane&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/USER/IdeaProjects/FinalProject_ProgMeth_CEDT/res/Button&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Libraries&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\USER\IdeaProjects\FinalProject_ProgMeth_CEDT\res\Button" />
@@ -63,7 +76,7 @@
     <configuration name="main" type="Application" factoryName="Application">
       <option name="MAIN_CLASS_NAME" value="application.Main" />
       <module name="ProjectCEDT" />
-      <option name="VM_PARAMETERS" value="--module-path C:\Users\USER\Downloads\openjfx-21.0.2_windows-x64_bin-sdk\javafx-sdk-21.0.2\lib --add-modules javafx.controls,javafx.graphics,javafx.media,javafx.fxml" />
+      <option name="VM_PARAMETERS" value="--module-path &quot;C:\Users\USER\Downloads\openjfx-21.0.2_windows-x64_bin-sdk\javafx-sdk-21.0.2\lib&quot; --add-modules javafx.controls,javafx.graphics,javafx.media,javafx.fxml" />
       <method v="2">
         <option name="Make" enabled="true" />
         <option name="com.soywiz.korge.intellij.UpdateResourceBeforeRunTask" enabled="false" />

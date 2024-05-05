@@ -18,7 +18,7 @@ import javafx.scene.text.Text;
 
 import java.util.Objects;
 
-public class RecipesBookPane extends Pane {
+public class RecipesBookPane extends Pane implements CloseAble {
     private final GridPane ingredientPane;
     private ImageView foodImage;
     private final Text foodName ;
@@ -61,7 +61,7 @@ public class RecipesBookPane extends Pane {
 
         cookButton.setOnMousePressed(mouseEvent -> {
             // Play button click sound
-            SoundController clickingButtonNoise = new SoundController("res/Sound/buttonClick.mp3");
+            SoundController clickingButtonNoise = new SoundController("Sound/buttonClick.mp3");
             clickingButtonNoise.getMediaPlayer().setVolume(0.7);
             clickingButtonNoise.playMusic();
 
@@ -72,7 +72,7 @@ public class RecipesBookPane extends Pane {
         });
        goLeftButton.setOnMousePressed(mouseEvent -> {
            // Play turn left sound
-            SoundController turnLeftSound = new SoundController("res/Sound/turnLeftRecipeBook.mp3");
+            SoundController turnLeftSound = new SoundController("Sound/turnLeftRecipeBook.mp3");
            turnLeftSound.playMusic();
            //go to earlier recipe
            goLeft();
@@ -82,7 +82,7 @@ public class RecipesBookPane extends Pane {
 
        goRightButton.setOnMousePressed(mouseEvent -> {
            // Play turn right sound
-           SoundController turnRightSound = new SoundController("res/Sound/turnRightRecipeBook.mp3");
+           SoundController turnRightSound = new SoundController("Sound/turnRightRecipeBook.mp3");
            turnRightSound.playMusic();
 
            //go to next recipe
@@ -90,17 +90,10 @@ public class RecipesBookPane extends Pane {
        });
 
 
-        closeButton.setOnMousePressed(mouseEvent -> {
-           //play close book sound
-           SoundController turnLeftSound = new SoundController("res/Sound/CloseBook.mp3");
-           turnLeftSound.playMusic();
-
-           //close RecipeBookPane
-           setVisible(false);
-       });
+        closeButton.setOnMousePressed(mouseEvent -> close());
 
        pinButton.setOnMousePressed(mouseEvent -> {
-           SoundController buttonClickSound = new SoundController("res/Sound/buttonClick.mp3");
+           SoundController buttonClickSound = new SoundController("Sound/buttonClick.mp3");
            buttonClickSound.getMediaPlayer().setVolume(0.7);
            buttonClickSound.playMusic();
 
@@ -215,4 +208,13 @@ public class RecipesBookPane extends Pane {
     }
 
 
+    @Override
+    public void close() {
+        //play close book sound
+        SoundController turnLeftSound = new SoundController("Sound/CloseBook.mp3");
+        turnLeftSound.playMusic();
+
+        //close RecipeBookPane
+        setVisible(false);
+    }
 }

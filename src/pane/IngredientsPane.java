@@ -20,7 +20,7 @@ import javafx.scene.text.Text;
 
 import java.util.Objects;
 
-public class IngredientsPane extends Pane {
+public class IngredientsPane extends Pane implements CloseAble {
 
     public IngredientsPane(InventoryPane inventoryPane, Player player){
 
@@ -29,21 +29,14 @@ public class IngredientsPane extends Pane {
         setPrefWidth(239);
         setLayoutX(654); setLayoutY(120);
 
-        Image bgImg = new Image(Objects.requireNonNull(getClass().getResource("/Background/ingredientsPane.png")).toExternalForm());
+        Image bgImg = new Image(Objects.requireNonNull(getClass().getResource("/Background/ingridentsPane.png")).toExternalForm());
         BackgroundImage BG = new BackgroundImage(bgImg, BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT);
         setBackground(new Background(BG));
 
         Button exitButton = getDisplay.getButton("/Button/exitButton.png", 38,37, 206,-4);
         AnimatedOtherButton.applyButtonAnimation(exitButton);
+        exitButton.setOnMousePressed(mouseEvent -> close());
 
-        exitButton.setOnMousePressed(new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent mouseEvent) {
-                setVisible(false);
-                SoundController turnoffSound = new SoundController("res/Sound/CloseIngredientPane.mp3");
-                turnoffSound.playMusic();
-            }
-        });
         ScrollPane scrollPane = new ScrollPane();
         scrollPane.setPrefWidth(219); scrollPane.setPrefHeight(460);
         scrollPane.setLayoutY(10); scrollPane.setLayoutX(10);
@@ -82,7 +75,7 @@ public class IngredientsPane extends Pane {
             int finalI = i;
             //when on click, clone the item into inventory pane
             additemButton.setOnMousePressed(mouseEvent -> {
-                SoundController clickingButtonNoise = new SoundController("res/Sound/buttonClick.mp3");
+                SoundController clickingButtonNoise = new SoundController("Sound/buttonClick.mp3");
                 clickingButtonNoise.getMediaPlayer().setVolume(0.7);
                 clickingButtonNoise.playMusic();
 
@@ -95,5 +88,12 @@ public class IngredientsPane extends Pane {
         }
 
         getChildren().addAll(scrollPane,exitButton);
+    }
+
+    @Override
+    public void close() {
+        setVisible(false);
+        SoundController turnoffSound = new SoundController("Sound/CloseIngridentPane.mp3");
+        turnoffSound.playMusic();
     }
 }

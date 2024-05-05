@@ -34,7 +34,7 @@ public class OrderButtonAnimation extends BaseButtonAnimation {
         pulseAnimation.play();
 
         applyButtonAnimation(button, glow, idleAnimation, pulseAnimation, mouseEvent -> {
-            SoundController clockingButtonnoise = new SoundController("res/Sound/buttonClick.mp3");
+            SoundController clockingButtonnoise = new SoundController("Sound/buttonClick.mp3");
             clockingButtonnoise.getMediaPlayer().setVolume(0.7);
             clockingButtonnoise.playMusic();
             orderPane.setVisible(!orderPane.isVisible());

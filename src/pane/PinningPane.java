@@ -11,7 +11,7 @@ import javafx.scene.text.Text;
 
 import java.util.Objects;
 
-public class PinningPane extends Pane {
+public class PinningPane extends Pane implements CloseAble {
     private final Text FoodName ;
     private final VBox itemListPane ;
     public PinningPane(){
@@ -38,7 +38,7 @@ public class PinningPane extends Pane {
 
         //make close button
         Button closeButton = getDisplay.getButton("/Button/exitButton.png",38,37,195,-4);
-        closeButton.setOnMousePressed(mouseEvent -> setVisible(false));
+        closeButton.setOnMousePressed(mouseEvent -> close());
 
         getChildren().addAll(FoodName, itemListPane, closeButton);
     }
@@ -50,5 +50,10 @@ public class PinningPane extends Pane {
             Text itemName = getDisplay.getText(item.getItemName(), 15, 195, 0,0);
             itemListPane.getChildren().add(itemName);
         }
+    }
+
+    @Override
+    public void close() {
+        setVisible(false);
     }
 }

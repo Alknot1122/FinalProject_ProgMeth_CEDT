@@ -1,0 +1,553 @@
+Index: src/pane/RecipesBookPane.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package pane;\r\n\r\nimport Utils.SoundController;\r\nimport Utils.getDisplay;\r\nimport buttons.AnimatedOtherButton;\r\nimport gameLogic.GameController;\r\nimport gameLogic.Recipe;\r\nimport gameLogic.RecipesRef;\r\nimport javafx.scene.Node;\r\nimport javafx.scene.image.ImageView;\r\nimport javafx.scene.image.Image;\r\nimport javafx.scene.input.KeyCode;\r\nimport javafx.scene.layout.*;\r\nimport javafx.scene.control.TextField;\r\nimport javafx.scene.control.Button;\r\nimport javafx.scene.text.Font;\r\nimport javafx.scene.text.Text;\r\n\r\nimport java.util.Objects;\r\n\r\npublic class RecipesBookPane extends Pane {\r\n    private final GridPane ingredientPane;\r\n    private ImageView foodImage;\r\n    private final Text foodName ;\r\n    private final TextField searchTextfield ;\r\n    private int page;\r\n    private final RecipesRef recipesRef;\r\n\r\n    public RecipesBookPane (GameController gameController, RecipesRef recipesRef, PinningPane pinningPane){\r\n\r\n        page =0;\r\n        this.recipesRef  = recipesRef;\r\n       setPrefWidth(728);\r\n       setPrefHeight(479);\r\n       setLayoutX(150);\r\n       setLayoutY(120);\r\n       setVisible(false);\r\n       //set pane's background image\r\n        Image bgImg = new Image(Objects.requireNonNull(getClass().getResource(\"/Background/recipesBookPane.png\")).toExternalForm());\r\n        BackgroundImage BG = new BackgroundImage(bgImg, BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT);\r\n        setBackground(new Background(BG));\r\n\r\n        foodImage = new ImageView();\r\n        foodImage.setFitHeight(200);\r\n\r\n        foodName = getDisplay.getText(\"\", 29, 275, 425,73);\r\n\r\n        //set buttons\r\n       Button goLeftButton = getDisplay.getButton(\"/Button/goLeftButton.png\", 34,40,-10,214);\r\n       Button goRightButton = getDisplay.getButton(\"/Button/goRightButton.png\", 34,40,701,214);\r\n       Button closeButton = getDisplay.getButton(\"/Button/exitButton.png\", 38,37,686,-12);\r\n       Button cookButton = getDisplay.getButton(\"/Button/cookButton.png\", 133,56,95,340);\r\n       Button pinButton = getDisplay.getButton(\"/Button/pinningButton.png\", 58,60,240,340);\r\n\r\n        AnimatedOtherButton.applyButtonAnimation(goLeftButton);\r\n        AnimatedOtherButton.applyButtonAnimation(goRightButton);\r\n        AnimatedOtherButton.applyButtonAnimation(closeButton);\r\n        AnimatedOtherButton.applyButtonAnimation(cookButton);\r\n        AnimatedOtherButton.applyButtonAnimation(pinButton);\r\n\r\n\r\n        cookButton.setOnMousePressed(mouseEvent -> {\r\n            // Play button click sound\r\n            SoundController clickingButtonNoise = new SoundController(\"res/Sound/buttonClick.mp3\");\r\n            clickingButtonNoise.getMediaPlayer().setVolume(0.7);\r\n            clickingButtonNoise.playMusic();\r\n\r\n            setVisible(false);\r\n\r\n            // Start cooking process\r\n            gameController.StartCooking(recipesRef.getRecipes().get(page));\r\n        });\r\n       goLeftButton.setOnMousePressed(mouseEvent -> {\r\n           // Play turn left sound\r\n            SoundController turnLeftSound = new SoundController(\"res/Sound/turnLeftRecipeBook.mp3\");\r\n           turnLeftSound.playMusic();\r\n           //go to earlier recipe\r\n           goLeft();\r\n\r\n       });\r\n\r\n\r\n       goRightButton.setOnMousePressed(mouseEvent -> {\r\n           // Play turn right sound\r\n           SoundController turnRightSound = new SoundController(\"res/Sound/turnRightRecipeBook.mp3\");\r\n           turnRightSound.playMusic();\r\n\r\n           //go to next recipe\r\n           goRight();\r\n       });\r\n\r\n\r\n        closeButton.setOnMousePressed(mouseEvent -> {\r\n           //play close book sound\r\n           SoundController turnLeftSound = new SoundController(\"res/Sound/CloseBook.mp3\");\r\n           turnLeftSound.playMusic();\r\n\r\n           //close RecipeBookPane\r\n           setVisible(false);\r\n       });\r\n\r\n       pinButton.setOnMousePressed(mouseEvent -> {\r\n           SoundController buttonClickSound = new SoundController(\"res/Sound/buttonClick.mp3\");\r\n           buttonClickSound.getMediaPlayer().setVolume(0.7);\r\n           buttonClickSound.playMusic();\r\n\r\n           //make pinningPane visible and set the recipe to current recipe\r\n           pinningPane.setVisible(true);\r\n           pinningPane.setRecipeList(recipesRef.getRecipes().get(page));\r\n       });\r\n\r\n\r\n        ingredientPane = new GridPane(4, 4);\r\n        ingredientPane.setStyle(\"-fx-background-color: rgba(245, 145, 32,0.25);\");\r\n\r\n        searchTextfield = new TextField();\r\n        searchTextfield.setPromptText(\"Find Recipes Here!\");\r\n        searchTextfield.setPrefWidth(265);\r\n        searchTextfield.setFont(Font.loadFont(getClass().getResourceAsStream(\"/PeaberryBase.ttf\"),20));\r\n        searchTextfield.setBackground(Background.EMPTY);\r\n\r\n        searchTextfield.setOnMouseEntered(event -> {\r\n            searchTextfield.requestFocus();\r\n        });\r\n\r\n\r\n        searchTextfield.setOnKeyPressed(keyEvent -> {\r\n            // search the recipe from player's input\r\n            if (keyEvent.getCode().equals(KeyCode.ENTER)) {\r\n                // Get the trimmed lowercase input\r\n                String searchInput = searchTextfield.getText().trim().toLowerCase();\r\n\r\n                for (int i = 0; i < recipesRef.getRecipes().size(); i++) {\r\n                    // Get the trimmed lowercase recipe name\r\n                    String recipeName = recipesRef.getRecipes().get(i).getFood().getItemName().trim().toLowerCase();\r\n\r\n                    //if searchInput equals to any recipe name\r\n                    if (searchInput.equals(recipeName)) {\r\n\r\n                        //set page to that recipe index\r\n                        page = i;\r\n                        ingredientPane.getChildren().clear();\r\n\r\n                        //make page out of this recipe\r\n                        MakePage(recipesRef.getRecipes().get(page));\r\n\r\n                        // clear player' input\r\n                        searchTextfield.setText(\"\");\r\n                        break;\r\n                    }\r\n                }\r\n            }\r\n        });\r\n\r\n        //set ingredientPane, searchTextfield, foodImage position\r\n        setNodePosition(ingredientPane, 447,110);\r\n        setNodePosition(searchTextfield, 52,42);\r\n        foodImage = recipesRef.getRecipes().get(page).getFood().getItemImageView(200);\r\n        foodImage.setX(95.0);\r\n        foodImage.setY(110.0);\r\n\r\n\r\n        getChildren().addAll(ingredientPane, foodName, searchTextfield, foodImage);\r\n        getChildren().addAll( closeButton, goLeftButton, goRightButton, cookButton, pinButton);\r\n\r\n        //show the first recipe\r\n        MakePage(recipesRef.getRecipes().getFirst());\r\n    }\r\n    public void MakePage(Recipe recipe){\r\n\r\n         foodImage.setImage(recipe.getFood().getItemImage());\r\n         foodName.setText(recipe.getFood().getItemName());\r\n\r\n        // make ingredientPane display items that is from that recipe\r\n        int colum =0;\r\n        int row =0;\r\n        for (int i =0; i <recipe.getItems().length; i++){\r\n\r\n            ImageView imageItem = recipe.getItems()[i].getItemImageView(100);\r\n            GridPane.setColumnIndex(imageItem, colum);\r\n            GridPane.setRowIndex(imageItem, row);\r\n\r\n            // make items display from top to bottom, left to right\r\n            colum++;\r\n            if (colum == 2) {\r\n                row ++;\r\n                colum = 0;\r\n            }\r\n\r\n            ingredientPane.getChildren().add(imageItem);\r\n        }\r\n    }\r\n    public void goLeft(){\r\n        //clear children in ingredientPane\r\n        ingredientPane.getChildren().clear();\r\n\r\n        page --;\r\n        // if page is already at -1, return to the last recipe in recipeRef\r\n        page = page == -1? recipesRef.getRecipes().size()-1 : page;\r\n\r\n        MakePage(recipesRef.getRecipes().get(page));\r\n    }\r\n    public void goRight(){\r\n        //clear children in ingredientPane\r\n        ingredientPane.getChildren().clear();\r\n\r\n        //if page reach the last recipe, return to the beginning of recipeRef\r\n        page = (page + 1) % recipesRef.getRecipes().size();\r\n\r\n       MakePage(recipesRef.getRecipes().get(page));\r\n    }\r\n    public void setNodePosition (Node nodem, double Xpos, double Ypos){\r\n        nodem.setLayoutX(Xpos);\r\n        nodem.setLayoutY(Ypos);\r\n    }\r\n\r\n\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/pane/RecipesBookPane.java b/src/pane/RecipesBookPane.java
+--- a/src/pane/RecipesBookPane.java	(revision db00d4ad9a575ad69f5d2b3f378522fa6de1bbd1)
++++ b/src/pane/RecipesBookPane.java	(date 1714899351329)
+@@ -18,7 +18,7 @@
+ 
+ import java.util.Objects;
+ 
+-public class RecipesBookPane extends Pane {
++public class RecipesBookPane extends Pane implements CloseAble {
+     private final GridPane ingredientPane;
+     private ImageView foodImage;
+     private final Text foodName ;
+@@ -61,7 +61,7 @@
+ 
+         cookButton.setOnMousePressed(mouseEvent -> {
+             // Play button click sound
+-            SoundController clickingButtonNoise = new SoundController("res/Sound/buttonClick.mp3");
++            SoundController clickingButtonNoise = new SoundController("Sound/buttonClick.mp3");
+             clickingButtonNoise.getMediaPlayer().setVolume(0.7);
+             clickingButtonNoise.playMusic();
+ 
+@@ -72,7 +72,7 @@
+         });
+        goLeftButton.setOnMousePressed(mouseEvent -> {
+            // Play turn left sound
+-            SoundController turnLeftSound = new SoundController("res/Sound/turnLeftRecipeBook.mp3");
++            SoundController turnLeftSound = new SoundController("Sound/turnLeftRecipeBook.mp3");
+            turnLeftSound.playMusic();
+            //go to earlier recipe
+            goLeft();
+@@ -82,7 +82,7 @@
+ 
+        goRightButton.setOnMousePressed(mouseEvent -> {
+            // Play turn right sound
+-           SoundController turnRightSound = new SoundController("res/Sound/turnRightRecipeBook.mp3");
++           SoundController turnRightSound = new SoundController("Sound/turnRightRecipeBook.mp3");
+            turnRightSound.playMusic();
+ 
+            //go to next recipe
+@@ -90,17 +90,10 @@
+        });
+ 
+ 
+-        closeButton.setOnMousePressed(mouseEvent -> {
+-           //play close book sound
+-           SoundController turnLeftSound = new SoundController("res/Sound/CloseBook.mp3");
+-           turnLeftSound.playMusic();
+-
+-           //close RecipeBookPane
+-           setVisible(false);
+-       });
++        closeButton.setOnMousePressed(mouseEvent -> close());
+ 
+        pinButton.setOnMousePressed(mouseEvent -> {
+-           SoundController buttonClickSound = new SoundController("res/Sound/buttonClick.mp3");
++           SoundController buttonClickSound = new SoundController("Sound/buttonClick.mp3");
+            buttonClickSound.getMediaPlayer().setVolume(0.7);
+            buttonClickSound.playMusic();
+ 
+@@ -215,4 +208,13 @@
+     }
+ 
+ 
++    @Override
++    public void close() {
++        //play close book sound
++        SoundController turnLeftSound = new SoundController("Sound/CloseBook.mp3");
++        turnLeftSound.playMusic();
++
++        //close RecipeBookPane
++        setVisible(false);
++    }
+ }
+Index: src/buttons/IngredientButton.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package buttons;\r\n\r\nimport Utils.BaseButtonAnimation;\r\nimport javafx.animation.Animation;\r\nimport javafx.animation.KeyFrame;\r\nimport javafx.animation.Timeline;\r\nimport javafx.scene.control.Button;\r\nimport javafx.scene.effect.Glow;\r\nimport javafx.scene.input.MouseEvent;\r\nimport javafx.scene.layout.Pane;\r\nimport javafx.util.Duration;\r\nimport Utils.SoundController;\r\n\r\npublic class IngredientButton extends BaseButtonAnimation {\r\n\r\n    public static void applyButtonAnimation(Button button, Pane ingredientPane) {\r\n        Glow glow = new Glow(0.0);\r\n        button.setEffect(glow);\r\n\r\n        Timeline idleAnimation = new Timeline(\r\n                new KeyFrame(Duration.seconds(1), event -> button.setRotate(0.5)),\r\n                new KeyFrame(Duration.seconds(2), event -> button.setRotate(-0.5))\r\n        );\r\n        idleAnimation.setCycleCount(Animation.INDEFINITE);\r\n        idleAnimation.play();\r\n\r\n        Timeline pulseAnimation = new Timeline(\r\n                new KeyFrame(Duration.ZERO, new javafx.animation.KeyValue(glow.levelProperty(), 0.0)),\r\n                new KeyFrame(Duration.seconds(1.5), new javafx.animation.KeyValue(glow.levelProperty(), 0.6)),\r\n                new KeyFrame(Duration.seconds(2), new javafx.animation.KeyValue(glow.levelProperty(), 0.0))\r\n        );\r\n        pulseAnimation.setCycleCount(Timeline.INDEFINITE);\r\n\r\n        pulseAnimation.play();\r\n\r\n        applyButtonAnimation(button, glow, idleAnimation, pulseAnimation, mouseEvent -> {\r\n            SoundController OpenIngredientPane = new SoundController(\"res/Sound/OpenIngredientPane.mp3\");\r\n            OpenIngredientPane.getMediaPlayer().setVolume(0.75);\r\n            OpenIngredientPane.playMusic();\r\n            ingredientPane.setVisible(!ingredientPane.isVisible());\r\n        });\r\n    }\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/buttons/IngredientButton.java b/src/buttons/IngredientButton.java
+--- a/src/buttons/IngredientButton.java	(revision db00d4ad9a575ad69f5d2b3f378522fa6de1bbd1)
++++ b/src/buttons/IngredientButton.java	(date 1714898106022)
+@@ -34,7 +34,7 @@
+         pulseAnimation.play();
+ 
+         applyButtonAnimation(button, glow, idleAnimation, pulseAnimation, mouseEvent -> {
+-            SoundController OpenIngredientPane = new SoundController("res/Sound/OpenIngredientPane.mp3");
++            SoundController OpenIngredientPane = new SoundController("Sound/OpenIngridentPane.mp3");
+             OpenIngredientPane.getMediaPlayer().setVolume(0.75);
+             OpenIngredientPane.playMusic();
+             ingredientPane.setVisible(!ingredientPane.isVisible());
+Index: src/pane/gameOverPane.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package pane;\r\n\r\nimport Utils.getDisplay;\r\nimport gameLogic.GameController;\r\nimport javafx.scene.control.Button;\r\nimport javafx.scene.image.Image;\r\nimport javafx.scene.image.ImageView;\r\nimport javafx.scene.layout.Background;\r\nimport javafx.scene.layout.Pane;\r\nimport javafx.scene.paint.Color;\r\nimport javafx.scene.text.Text;\r\n\r\npublic class gameOverPane extends Pane {\r\n\r\n     private final Text SCORE_TEXT;\r\n      public gameOverPane(){\r\n\r\n          setVisible(false);\r\n          setBackground(Background.fill(Color.rgb(255,255,255,0.75)));\r\n          setLayoutX(0);\r\n          setLayoutY(0);\r\n          setPrefHeight(722);\r\n          setPrefWidth(963);\r\n\r\n          // make gameOverImage\r\n          String   gameOverPic = ClassLoader.getSystemResource(\"Background/GameOverPane.png\").toString();\r\n          Image gameoverimage = new Image(gameOverPic);\r\n          ImageView gameOverImg = new ImageView(gameoverimage);\r\n\r\n          // set gameOverImage Layout\r\n          gameOverImg.setFitHeight(175);\r\n          gameOverImg.setPreserveRatio(true);\r\n          gameOverImg.setLayoutX(250);\r\n          gameOverImg.setLayoutY(145);\r\n\r\n          SCORE_TEXT = getDisplay.getText(\"\", 32, 400, 376,348);\r\n\r\n          Button replayButton = getDisplay.getButton(\"/Button/restartButton.png\",201,59,395,380);\r\n          getChildren().addAll(gameOverImg, SCORE_TEXT, replayButton);\r\n\r\n          replayButton.setOnMousePressed(mouseEvent -> {\r\n              // close this pane and restart the game\r\n             setVisible(false);\r\n             GameController.restart();\r\n          });\r\n\r\n      }\r\n   public void setScore(int scores){\r\n       //tell player the total score they have\r\n       SCORE_TEXT.setText(\"Your score : \"+ scores);\r\n   }\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/pane/gameOverPane.java b/src/pane/gameOverPane.java
+--- a/src/pane/gameOverPane.java	(revision db00d4ad9a575ad69f5d2b3f378522fa6de1bbd1)
++++ b/src/pane/gameOverPane.java	(date 1714898469455)
+@@ -49,4 +49,7 @@
+        //tell player the total score they have
+        SCORE_TEXT.setText("Your score : "+ scores);
+    }
++
++
++
+ }
+Index: src/pane/GamePage.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package pane;\r\n\r\nimport Animation.PlayerIdleAnimation;\r\nimport Utils.*;\r\nimport buttons.IngredientButton;\r\nimport buttons.OrderButtonAnimation;\r\nimport buttons.RecipeButton;\r\nimport gameLogic.*;\r\nimport javafx.scene.Node;\r\nimport javafx.scene.Parent;\r\nimport javafx.scene.control.Button;\r\nimport javafx.scene.image.Image;\r\nimport javafx.scene.image.ImageView;\r\nimport javafx.scene.layout.Background;\r\nimport javafx.scene.layout.BackgroundImage;\r\nimport javafx.scene.layout.BackgroundRepeat;\r\nimport javafx.scene.layout.BackgroundSize;\r\nimport javafx.scene.layout.BackgroundPosition;\r\nimport javafx.scene.layout.Pane;\r\n\r\nimport java.util.Objects;\r\n\r\npublic class GamePage {\r\n\r\n    private static Pane root;\r\n    private static inputField inputField;\r\n    private static IngredientsPane ingredientsPane;\r\n    private static OrderPane orderPane;\r\n    private static RecipesBookPane recipesBookPane;\r\n    private static TimerBar timerBarPane; // Add TimerBarPane\r\n    private static InventoryPane inventoryPane;\r\n    private static PinningPane pinningPane;\r\n    private static PlayerIdleAnimation playerIdleAnimation;\r\n\r\n\r\n   // private final Timeline animationTimeline = new Timeline();\r\n\r\n\r\n    public GamePage() {\r\n        Player player = new Player();\r\n        inventoryPane = new InventoryPane(player);\r\n\r\n        //set timer\r\n        int minute = 5;\r\n        int sec = 0;\r\n        Timer t = new Timer(minute,sec);\r\n        timerBarPane = new TimerBar(t); // Initialize TimerBarPane\r\n\r\n        //set timer to start\r\n        timerBarPane.startCountDownTimer(t);\r\n\r\n        playerIdleAnimation = new PlayerIdleAnimation();\r\n        orderPane = new OrderPane();\r\n        RecipesRef recipesRef = new RecipesRef();\r\n        GameController gameController = new GameController(player, inventoryPane, timerBarPane, orderPane, recipesRef);\r\n\r\n        root = new Pane();\r\n        root.setPrefSize(963, 722);\r\n\r\n        inputField = player.getInputField();\r\n        inputField.setVisible(false);\r\n        pinningPane = new PinningPane();\r\n        ingredientsPane = new IngredientsPane(inventoryPane, player );\r\n        recipesBookPane = new RecipesBookPane( gameController, recipesRef, pinningPane);\r\n\r\n        //add oven\r\n        String  oven1png = ClassLoader.getSystemResource(\"oven1.png\").toString();\r\n        Image OvenImage = new Image(oven1png);\r\n\r\n        ImageView oven1 = new ImageView(OvenImage);\r\n        ImageView oven2 = new ImageView(OvenImage);\r\n        ImageView oven3 = new ImageView(OvenImage);\r\n        ImageView[] imgs = new ImageView[]{oven1, oven2, oven3};\r\n        int plus = 0;\r\n        for (ImageView imageView : imgs){\r\n            imageView.setFitHeight(152);\r\n            imageView.setPreserveRatio(true);\r\n            imageView.setLayoutX(3 + plus);\r\n            imageView.setLayoutY(198);\r\n            plus += 112;\r\n            root.getChildren().add(imageView);\r\n        }\r\n\r\n        // Load and set the background image\r\n        Image bgImage = new Image(Objects.requireNonNull(getClass().getResource(\"/Background/kitchen.png\")).toExternalForm());\r\n        BackgroundImage backgroundImage = new BackgroundImage(bgImage, BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT);\r\n        root.setBackground(new Background(backgroundImage));\r\n\r\n        // Add TimerBarPane\r\n        root.getChildren().add(timerBarPane);\r\n        // Position TimerBarPane on the left side\r\n        setPos(10,10, timerBarPane); // Adjust the X position as needed\r\n\r\n        //make game start to random add the order\r\n        GameController.startOrderEvent();\r\n\r\n        // Retrieve player image view\r\n        ImageView playerImageView = playerIdleAnimation.getPlayerImageView();\r\n        playerIdleAnimation.playAnimation();\r\n\r\n\r\n        //set buttons for open and close pane\r\n        Button ingredientsPaneButton = getDisplay.getButton(\"/Button/ingredientButton.png\",154,318,714,31);\r\n        IngredientButton.applyButtonAnimation(ingredientsPaneButton, ingredientsPane);\r\n\r\n        Button recipebookButton = getDisplay.getButton(\"/Button/recipeBookPaneButton.png\", 109, 77,320,510);\r\n        RecipeButton.applyButtonAnimation(recipebookButton, recipesBookPane);\r\n\r\n        Button OrderButton = getDisplay.getButton(\"/Button/phoneButton.png\", 32, 45, 560, 460);\r\n        OrderButtonAnimation.applyButtonAnimation(OrderButton, orderPane);\r\n\r\n        root.getChildren().add(playerImageView);\r\n        root.getChildren().addAll(player.getInputField(), OrderButton, ingredientsPaneButton, recipebookButton);\r\n        root.getChildren().addAll(orderPane, ingredientsPane, recipesBookPane,inventoryPane, pinningPane);\r\n        root.getChildren().addAll(player.getErrorText(), player.getDisplayEventText(), player.getDisplayScore(),\r\n                                  player.getImageDisplay());\r\n        root.getChildren().add(player.getGameOverPane());\r\n\r\n        setPos(180, 450, player.getDisplayEventText());\r\n        setPos(250, 250, player.getInputField());\r\n        centerText(player.getDisplayEventText(), root.getPrefWidth());\r\n    }\r\n\r\n    public static Parent getRoot() {\r\n        return root;\r\n    }\r\n\r\n    public static inputField getInputField() {\r\n        return inputField;\r\n    }\r\n\r\n    public static IngredientsPane getIngredientsPane() {\r\n        return ingredientsPane;\r\n    }\r\n\r\n    public static OrderPane getOrderPane() {\r\n        return orderPane;\r\n    }\r\n\r\n    public static RecipesBookPane getRecipesBookPane() {\r\n        return recipesBookPane;\r\n    }\r\n\r\n    public static PinningPane getPinningPane() {\r\n        return pinningPane;\r\n    }\r\n\r\n    public static PlayerIdleAnimation getPlayerAnimation() {\r\n        return playerIdleAnimation;\r\n    }\r\n\r\n    public void setPos(double Xpos, double Ypos, Node node){\r\n        node.setLayoutX(Xpos);\r\n        node.setLayoutY(Ypos);\r\n    }\r\n\r\n    public void centerText(Node node, double sceneWidth) {\r\n        double textWidth = node.getBoundsInLocal().getWidth();\r\n        double xPos = (sceneWidth - textWidth) / 2.0;\r\n        node.setLayoutX(xPos);\r\n    }\r\n\r\n\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/pane/GamePage.java b/src/pane/GamePage.java
+--- a/src/pane/GamePage.java	(revision db00d4ad9a575ad69f5d2b3f378522fa6de1bbd1)
++++ b/src/pane/GamePage.java	(date 1714899126253)
+@@ -20,7 +20,7 @@
+ 
+ import java.util.Objects;
+ 
+-public class GamePage {
++public class GamePage  {
+ 
+     private static Pane root;
+     private static inputField inputField;
+Index: src/pane/IngredientsPane.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package pane;\r\n\r\nimport Utils.SoundController;\r\nimport Utils.getDisplay;\r\nimport buttons.AnimatedOtherButton;\r\nimport gameLogic.IngredientsRef;\r\nimport gameLogic.Item;\r\nimport gameLogic.Player;\r\nimport javafx.event.EventHandler;\r\nimport javafx.geometry.Insets;\r\nimport javafx.geometry.Pos;\r\nimport javafx.scene.control.Button;\r\nimport javafx.scene.control.ScrollPane;\r\nimport javafx.scene.image.Image;\r\nimport javafx.scene.image.ImageView;\r\nimport javafx.scene.input.MouseEvent;\r\nimport javafx.scene.layout.*;\r\nimport javafx.scene.paint.Color;\r\nimport javafx.scene.text.Text;\r\n\r\nimport java.util.Objects;\r\n\r\npublic class IngredientsPane extends Pane {\r\n\r\n    public IngredientsPane(InventoryPane inventoryPane, Player player){\r\n\r\n        setVisible(false);\r\n        setPrefHeight(491);\r\n        setPrefWidth(239);\r\n        setLayoutX(654); setLayoutY(120);\r\n\r\n        Image bgImg = new Image(Objects.requireNonNull(getClass().getResource(\"/Background/ingredientsPane.png\")).toExternalForm());\r\n        BackgroundImage BG = new BackgroundImage(bgImg, BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT);\r\n        setBackground(new Background(BG));\r\n\r\n        Button exitButton = getDisplay.getButton(\"/Button/exitButton.png\", 38,37, 206,-4);\r\n        AnimatedOtherButton.applyButtonAnimation(exitButton);\r\n\r\n        exitButton.setOnMousePressed(new EventHandler<MouseEvent>() {\r\n            @Override\r\n            public void handle(MouseEvent mouseEvent) {\r\n                setVisible(false);\r\n                SoundController turnoffSound = new SoundController(\"res/Sound/CloseIngredientPane.mp3\");\r\n                turnoffSound.playMusic();\r\n            }\r\n        });\r\n        ScrollPane scrollPane = new ScrollPane();\r\n        scrollPane.setPrefWidth(219); scrollPane.setPrefHeight(460);\r\n        scrollPane.setLayoutY(10); scrollPane.setLayoutX(10);\r\n        scrollPane.setStyle(\"-fx-background: transparent;\\n -fx-background-color: transparent\");\r\n        scrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);\r\n        scrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);\r\n\r\n        VBox itemList = new VBox();\r\n        itemList.setPadding(new Insets(5));\r\n        itemList.setSpacing(8);\r\n\r\n        itemList.setStyle(\"-fx-background-color:transparent;\");\r\n        itemList.setFillWidth(true);\r\n        itemList.setAlignment(Pos.CENTER);\r\n\r\n        scrollPane.setContent(itemList);\r\n        IngredientsRef ingredientsRef = new IngredientsRef();\r\n        for (int i = 0; i < ingredientsRef.getIngredients().size(); i++){\r\n\r\n            //make Pane about item's inof\r\n            Pane itemPane = new Pane();\r\n            itemPane.setPrefWidth(212);\r\n            itemPane.setPrefHeight(90);\r\n            itemPane.setStyle(\"-fx-background-color:transparent;\");\r\n\r\n            Text itemName = getDisplay.getText(ingredientsRef.getIngredients().get(i).getItemName(),17,119,93,20, Color.WHITE );\r\n\r\n            ImageView itemImage = ingredientsRef.getIngredients().get(i).getItemImageView(80);\r\n            itemImage.setLayoutY(7);\r\n            itemImage.setLayoutX(5);\r\n\r\n            Button additemButton = getDisplay.getButton(\"/Button/addToInventory.png\",33, 29,93,51 );\r\n            additemButton.setStyle(\"-fx-background-image: url('/Button/addToInventory.png'); -fx-background-color: transparent;\");\r\n            AnimatedOtherButton.applyButtonAnimation(additemButton);\r\n\r\n            int finalI = i;\r\n            //when on click, clone the item into inventory pane\r\n            additemButton.setOnMousePressed(mouseEvent -> {\r\n                SoundController clickingButtonNoise = new SoundController(\"res/Sound/buttonClick.mp3\");\r\n                clickingButtonNoise.getMediaPlayer().setVolume(0.7);\r\n                clickingButtonNoise.playMusic();\r\n\r\n                Item tem = new Item(ingredientsRef.getIngredients().get(finalI));\r\n                inventoryPane.Itemin(tem);\r\n            });\r\n\r\n            itemPane.getChildren().addAll(itemImage, itemName, additemButton);\r\n            itemList.getChildren().add(itemPane);\r\n        }\r\n\r\n        getChildren().addAll(scrollPane,exitButton);\r\n    }\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/pane/IngredientsPane.java b/src/pane/IngredientsPane.java
+--- a/src/pane/IngredientsPane.java	(revision db00d4ad9a575ad69f5d2b3f378522fa6de1bbd1)
++++ b/src/pane/IngredientsPane.java	(date 1714899351339)
+@@ -20,7 +20,7 @@
+ 
+ import java.util.Objects;
+ 
+-public class IngredientsPane extends Pane {
++public class IngredientsPane extends Pane implements CloseAble {
+ 
+     public IngredientsPane(InventoryPane inventoryPane, Player player){
+ 
+@@ -29,21 +29,14 @@
+         setPrefWidth(239);
+         setLayoutX(654); setLayoutY(120);
+ 
+-        Image bgImg = new Image(Objects.requireNonNull(getClass().getResource("/Background/ingredientsPane.png")).toExternalForm());
++        Image bgImg = new Image(Objects.requireNonNull(getClass().getResource("/Background/ingridentsPane.png")).toExternalForm());
+         BackgroundImage BG = new BackgroundImage(bgImg, BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT);
+         setBackground(new Background(BG));
+ 
+         Button exitButton = getDisplay.getButton("/Button/exitButton.png", 38,37, 206,-4);
+         AnimatedOtherButton.applyButtonAnimation(exitButton);
++        exitButton.setOnMousePressed(mouseEvent -> close());
+ 
+-        exitButton.setOnMousePressed(new EventHandler<MouseEvent>() {
+-            @Override
+-            public void handle(MouseEvent mouseEvent) {
+-                setVisible(false);
+-                SoundController turnoffSound = new SoundController("res/Sound/CloseIngredientPane.mp3");
+-                turnoffSound.playMusic();
+-            }
+-        });
+         ScrollPane scrollPane = new ScrollPane();
+         scrollPane.setPrefWidth(219); scrollPane.setPrefHeight(460);
+         scrollPane.setLayoutY(10); scrollPane.setLayoutX(10);
+@@ -82,7 +75,7 @@
+             int finalI = i;
+             //when on click, clone the item into inventory pane
+             additemButton.setOnMousePressed(mouseEvent -> {
+-                SoundController clickingButtonNoise = new SoundController("res/Sound/buttonClick.mp3");
++                SoundController clickingButtonNoise = new SoundController("Sound/buttonClick.mp3");
+                 clickingButtonNoise.getMediaPlayer().setVolume(0.7);
+                 clickingButtonNoise.playMusic();
+ 
+@@ -96,4 +89,11 @@
+ 
+         getChildren().addAll(scrollPane,exitButton);
+     }
++
++    @Override
++    public void close() {
++        setVisible(false);
++        SoundController turnoffSound = new SoundController("Sound/CloseIngridentPane.mp3");
++        turnoffSound.playMusic();
++    }
+ }
+Index: src/pane/PinningPane.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package pane;\r\n\r\nimport Utils.getDisplay;\r\nimport gameLogic.Item;\r\nimport gameLogic.Recipe;\r\nimport javafx.geometry.Insets;\r\nimport javafx.scene.control.Button;\r\nimport javafx.scene.image.Image;\r\nimport javafx.scene.layout.*;\r\nimport javafx.scene.text.Text;\r\n\r\nimport java.util.Objects;\r\n\r\npublic class PinningPane extends Pane {\r\n    private final Text FoodName ;\r\n    private final VBox itemListPane ;\r\n    public PinningPane(){\r\n\r\n        setVisible(false);\r\n        setLayoutX(78);\r\n        setLayoutY(386);\r\n        setPrefHeight(200);\r\n        setPrefWidth(228);\r\n\r\n        //set Pane's image Background\r\n        Image bgImg = new Image(Objects.requireNonNull(getClass().getResource(\"/Background/pinning.png\")).toExternalForm());\r\n        BackgroundImage BG = new BackgroundImage(bgImg, BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT);\r\n        setBackground(new Background(BG));\r\n\r\n        FoodName = getDisplay.getText(\"\", 17, 169, 14,32);\r\n\r\n        //Make Vbox for list of items\r\n        itemListPane = new VBox();\r\n        itemListPane.setPadding(new Insets(5));\r\n        itemListPane.setSpacing(5);\r\n        itemListPane.setPrefHeight(154); itemListPane.setPrefWidth(205);\r\n        itemListPane.setLayoutX(9); itemListPane.setLayoutY(40);\r\n\r\n        //make close button\r\n        Button closeButton = getDisplay.getButton(\"/Button/exitButton.png\",38,37,195,-4);\r\n        closeButton.setOnMousePressed(mouseEvent -> setVisible(false));\r\n\r\n        getChildren().addAll(FoodName, itemListPane, closeButton);\r\n    }\r\n    public void setRecipeList(Recipe recipe){\r\n     // change current recipe inof to new recipe\r\n        FoodName.setText(recipe.getFood().getItemName());\r\n        itemListPane.getChildren().clear();\r\n        for (Item item : recipe.getItems()){\r\n            Text itemName = getDisplay.getText(item.getItemName(), 15, 195, 0,0);\r\n            itemListPane.getChildren().add(itemName);\r\n        }\r\n    }\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/pane/PinningPane.java b/src/pane/PinningPane.java
+--- a/src/pane/PinningPane.java	(revision db00d4ad9a575ad69f5d2b3f378522fa6de1bbd1)
++++ b/src/pane/PinningPane.java	(date 1714899351363)
+@@ -11,7 +11,7 @@
+ 
+ import java.util.Objects;
+ 
+-public class PinningPane extends Pane {
++public class PinningPane extends Pane implements CloseAble {
+     private final Text FoodName ;
+     private final VBox itemListPane ;
+     public PinningPane(){
+@@ -38,7 +38,7 @@
+ 
+         //make close button
+         Button closeButton = getDisplay.getButton("/Button/exitButton.png",38,37,195,-4);
+-        closeButton.setOnMousePressed(mouseEvent -> setVisible(false));
++        closeButton.setOnMousePressed(mouseEvent -> close());
+ 
+         getChildren().addAll(FoodName, itemListPane, closeButton);
+     }
+@@ -51,4 +51,9 @@
+             itemListPane.getChildren().add(itemName);
+         }
+     }
++
++    @Override
++    public void close() {
++        setVisible(false);
++    }
+ }
+Index: src/pane/OrderPane.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package pane;\r\n\r\nimport Utils.SoundController;\r\nimport Utils.getDisplay;\r\nimport gameLogic.Food;\r\nimport gameLogic.GameController;\r\nimport javafx.application.Platform;\r\nimport javafx.geometry.Insets;\r\nimport javafx.geometry.Pos;\r\nimport javafx.scene.control.ScrollPane;\r\nimport javafx.scene.image.ImageView;\r\nimport javafx.scene.layout.*;\r\nimport javafx.scene.paint.Color;\r\nimport javafx.scene.text.Text;\r\nimport javafx.scene.image.Image;\r\nimport javafx.scene.control.Button;\r\nimport javafx.scene.text.TextAlignment;\r\n\r\nimport java.util.Objects;\r\n\r\npublic class OrderPane extends Pane {\r\n    private final VBox ORDER_VBOX;\r\n    public OrderPane (){\r\n        setVisible(false);\r\n        setLayoutX(684);\r\n        setLayoutY(172);\r\n        setPrefHeight(432);\r\n        setPrefWidth(211);\r\n        setScaleY(1.15);\r\n        setScaleX(1.15);\r\n\r\n        Image bgImage = new Image(Objects.requireNonNull(getClass().getResource(\"/Background/OrderPane.png\")).toExternalForm());\r\n        BackgroundImage backgroundImage = new BackgroundImage(bgImage, BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT);\r\n        setBackground(new Background(backgroundImage));\r\n\r\n        Button exitButton = getDisplay.getButton(\"/Button/exitButton.png\", 38,37,178,2);\r\n        exitButton.setOnMousePressed(mouseEvent -> {\r\n            SoundController clickingButtonNoise = new SoundController(\"res/Sound/buttonClick.mp3\");\r\n            clickingButtonNoise.getMediaPlayer().setVolume(0.7);\r\n            clickingButtonNoise.playMusic();\r\n            setVisible(!isVisible());\r\n        });\r\n\r\n        Text order = getDisplay.getText(\"ORDER\", 32, 106, 51, 67);\r\n        order.setFill(Color.WHITE);\r\n        order.setTextAlignment(TextAlignment.CENTER);\r\n\r\n        ScrollPane scrollPane = new ScrollPane();\r\n\r\n        scrollPane.setStyle(\"-fx-background: transparent;\\n -fx-background-color: transparent\");\r\n        scrollPane.setLayoutX(6);\r\n        scrollPane.setLayoutY(66);\r\n        scrollPane.setPrefSize(200,331);\r\n        scrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);\r\n        scrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);\r\n\r\n        ORDER_VBOX = new VBox();\r\n\r\n        ORDER_VBOX.setAlignment(Pos.CENTER);\r\n        ORDER_VBOX.setPadding(new Insets(5));\r\n        ORDER_VBOX.setSpacing(5);\r\n        ORDER_VBOX.setStyle(\"-fx-background-color:transparent;\");\r\n        scrollPane.setContent(ORDER_VBOX);\r\n        getChildren().addAll(exitButton, order,scrollPane);\r\n        addNoOrderPic();\r\n\r\n    }\r\n    public void countdown(int timeInSec, Text textDisplay, Pane pane){\r\n\r\n        final int[] Minute = {timeInSec / 60};\r\n        final int[] Sec = {timeInSec % 60};\r\n\r\n        Thread timerTread = new Thread(() -> {\r\n            while (true) {\r\n                try {\r\n                    Thread.sleep(1000);\r\n                    if (Sec[0] >= 0 && Minute[0] >= 0) {\r\n                        //make text appear as 01:12 format of time\r\n                        String tim = String.format(\"%02d:%02d\", Minute[0], Sec[0]);\r\n                        setText(tim, textDisplay);\r\n\r\n                        if (Sec[0] == 0) {\r\n                            Minute[0]--;\r\n                            Sec[0] = 59;\r\n                        } else {\r\n                            Sec[0]--;\r\n                        }\r\n\r\n                    } else {\r\n                        //when timer reach 0, order gone\r\n                        orderGone(pane);\r\n                        break;\r\n                    }\r\n\r\n                } catch (InterruptedException e) {\r\n                    e.printStackTrace();\r\n                    System.out.println(\"stop timing!!\");\r\n                    break;\r\n                }\r\n\r\n            }\r\n        });\r\n        timerTread.start();\r\n\r\n\r\n    }\r\n    public void setText (String text , Text textDisplay){\r\n        textDisplay.setText(text);\r\n    }\r\n    public void orderGone (Pane pane){\r\n        Platform.runLater(()->{\r\n            ORDER_VBOX.getChildren().remove(pane);\r\n                });\r\n    }\r\n    public void OrderIn(Food food, int timerInSec){\r\n        Platform.runLater(()-> {\r\n            //check if ORDER_VBOX have noOrder image, if do then remove\r\n           if (ORDER_VBOX.getChildren().getFirst() instanceof  ImageView){\r\n               ORDER_VBOX.getChildren().removeFirst();\r\n           }\r\n\r\n            OneOrderPane oneOrderPane = new OneOrderPane(food );\r\n            ORDER_VBOX.getChildren().add(oneOrderPane);\r\n\r\n            oneOrderPane.getSendingbutton().setOnMousePressed(mouseEvent -> {\r\n                if (GameController.hasOrder(oneOrderPane.getFood())){\r\n\r\n                    orderGone(oneOrderPane);\r\n                    if (ORDER_VBOX.getChildren().isEmpty()){\r\n                        addNoOrderPic();\r\n                    }\r\n                }\r\n            });\r\n            countdown(timerInSec, oneOrderPane.getTimer(), oneOrderPane);\r\n        });\r\n    }\r\n\r\n\r\n    public void addNoOrderPic(){\r\n        String   classLoaderPath = ClassLoader.getSystemResource(\"noOrder.png\").toString();\r\n        ImageView noOrder = new ImageView(new Image(classLoaderPath));\r\n        noOrder.setPreserveRatio(true);\r\n\r\n        ORDER_VBOX.getChildren().add(noOrder);\r\n    }\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/pane/OrderPane.java b/src/pane/OrderPane.java
+--- a/src/pane/OrderPane.java	(revision db00d4ad9a575ad69f5d2b3f378522fa6de1bbd1)
++++ b/src/pane/OrderPane.java	(date 1714899351351)
+@@ -18,7 +18,7 @@
+ 
+ import java.util.Objects;
+ 
+-public class OrderPane extends Pane {
++public class OrderPane extends Pane implements  CloseAble{
+     private final VBox ORDER_VBOX;
+     public OrderPane (){
+         setVisible(false);
+@@ -34,12 +34,7 @@
+         setBackground(new Background(backgroundImage));
+ 
+         Button exitButton = getDisplay.getButton("/Button/exitButton.png", 38,37,178,2);
+-        exitButton.setOnMousePressed(mouseEvent -> {
+-            SoundController clickingButtonNoise = new SoundController("res/Sound/buttonClick.mp3");
+-            clickingButtonNoise.getMediaPlayer().setVolume(0.7);
+-            clickingButtonNoise.playMusic();
+-            setVisible(!isVisible());
+-        });
++        exitButton.setOnMousePressed(mouseEvent -> close());
+ 
+         Text order = getDisplay.getText("ORDER", 32, 106, 51, 67);
+         order.setFill(Color.WHITE);
+@@ -143,4 +138,12 @@
+ 
+         ORDER_VBOX.getChildren().add(noOrder);
+     }
++
++    @Override
++    public void close() {
++        SoundController clickingButtonNoise = new SoundController("Sound/buttonClick.mp3");
++        clickingButtonNoise.getMediaPlayer().setVolume(0.7);
++        clickingButtonNoise.playMusic();
++        setVisible(!isVisible());
++    }
+ }
+Index: src/gameLogic/GameController.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package gameLogic;\r\n\r\nimport Animation.CookingFinishAnimation;\r\nimport Animation.PlayerIdleAnimation;\r\nimport Utils.SoundController;\r\nimport Utils.ZoomTransitionUtil;\r\nimport pane.GamePage;\r\nimport javafx.animation.*;\r\nimport javafx.scene.image.Image;\r\nimport javafx.scene.image.ImageView;\r\nimport javafx.util.Duration;\r\nimport pane.*;\r\n\r\nimport java.util.Objects;\r\nimport java.util.Random;\r\n\r\npublic class GameController {\r\n    private static Player player;\r\n    private static InventoryPane inventoryPane;\r\n    private static Recipe recipe;\r\n    private static TimerBar timerBar;\r\n    private static Boolean isOrderThreadRunning = false;\r\n\r\n    private static Thread OrderEventThread;\r\n\r\n private static OrderPane orderPane;\r\n private static RecipesRef recipesRef;\r\n\r\n    public GameController(Player player, InventoryPane inventoryPane, TimerBar timerBar, OrderPane orderPane, RecipesRef recipesRef){\r\n        GameController.inventoryPane = inventoryPane;\r\n        GameController.player = player;\r\n        GameController.timerBar = timerBar;\r\n        GameController.orderPane = orderPane;\r\n        GameController.recipesRef = recipesRef;\r\n\r\n        Random random = new Random();\r\n\r\n        OrderEventThread = new Thread(() -> {\r\n            while (isOrderThreadRunning) {\r\n                try {\r\n                    int delayBeforeAnotherOrder = random.nextInt(30) + 35;\r\n                    int timeAmountforOrderTimer = random.nextInt(30) + 60;\r\n                    int randomRecipe = random.nextInt(23);\r\n                    Thread.sleep(delayBeforeAnotherOrder * 1000);\r\n\r\n                    orderPane.OrderIn(recipesRef.getRecipes().get(randomRecipe).getFood(), timeAmountforOrderTimer);\r\n\r\n                } catch (InterruptedException e) {\r\n                    System.out.println(\"thread intruded\");\r\n                }\r\n\r\n            }\r\n        });\r\n    }\r\n    public static void restart(){\r\n        //reset player's score and clear player's inventory\r\n        player.setScores(0);\r\n        for (int i =0; i < 9; i++){\r\n            inventoryPane.ItemOut(i);\r\n        }\r\n\r\n        //reset the timer\r\n        int minutes = 5;\r\n        int seconds = 0;\r\n        gameLogic.Timer t = new Timer(minutes,seconds);\r\n        timerBar.reset(t);\r\n        timerBar.startCountDownTimer(t);\r\n\r\n        //run the orderThread\r\n       isOrderThreadRunning = true;\r\n    }\r\n    public static synchronized void startOrderEvent(){\r\n        Random random = new Random();\r\n\r\n        //add random order with random time for timer\r\n        int randomNumForOrder1 = random.nextInt(40) + 60;\r\n        int randomRecipe1 = random.nextInt(23);\r\n        orderPane.OrderIn(recipesRef.getRecipes().get(randomRecipe1).getFood(), randomNumForOrder1);\r\n\r\n        //run the OrderEventThread\r\n        isOrderThreadRunning = true;\r\n        if (!OrderEventThread.isAlive()){\r\n            OrderEventThread.start();\r\n        }\r\n\r\n    }\r\n    public  static void GameOver(){\r\n            //stop the OrderEventThread\r\n            isOrderThreadRunning = false;\r\n\r\n            //make gameOverPane visible and show player's score\r\n            player.getGameOverPane().setVisible(true);\r\n            player.getGameOverPane().setScore(player.getScores());\r\n\r\n    }\r\n\r\n\r\n   public void StartCooking ( Recipe recipe){\r\n\r\n       GameController.recipe = recipe;\r\n       for (Item recipeIngredient : recipe.getItems()){\r\n           boolean cookable = false;\r\n\r\n           for (int i =0; i < inventoryPane.getItems().length; i++) {\r\n               if (inventoryPane.getItems()[i] != null) {\r\n                   if (inventoryPane.getItems()[i].getItemName().equalsIgnoreCase(recipeIngredient.getItemName())) {\r\n                       System.out.println(inventoryPane.getItems()[i].getItemName() + \"=\" + recipeIngredient.getItemName());\r\n                       cookable = true;\r\n                   }\r\n               }\r\n           }\r\n\r\n           if (!cookable) {\r\n               StringBuilder missingIngredients = new StringBuilder();\r\n               boolean missing = false;\r\n\r\n               for (Item ingredient : recipe.getItems()) {\r\n                   boolean found = false;\r\n                   for (Item inventoryItem : inventoryPane.getItems()) {\r\n                       if (inventoryItem != null && inventoryItem.getItemName().equalsIgnoreCase(ingredient.getItemName())) {\r\n                           found = true;\r\n                           break;\r\n                       }\r\n                   }\r\n                   if (!found) {\r\n                       missingIngredients.append(ingredient.getItemName()).append(\", \");\r\n                       missing = true;\r\n                   }\r\n               }\r\n\r\n               if (missing) {\r\n                   player.getInputField().setVisible(false);\r\n                   String missingList = missingIngredients.substring(0, missingIngredients.length() - 2); // Remove the last comma and space\r\n                   player.getErrorText().setText(\"Missing ingredients: \" + missingList);\r\n                   Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(2.5), event -> {\r\n                       player.getErrorText().setText(\"\");\r\n                   }));\r\n                   timeline.setCycleCount(1);\r\n                   timeline.play();\r\n                   return;\r\n               }\r\n           }\r\n       }\r\n           ZoomTransitionUtil.applyZoomTransition(GamePage.getRoot());\r\n           GamePage.getIngredientsPane().setVisible(false);\r\n           GamePage.getOrderPane().setVisible(false);\r\n           GamePage.getPinningPane().setVisible(false);\r\n           GamePage.getRecipesBookPane().setVisible(false);\r\n           player.getInputField().setVisible(true);\r\n           player.getInputField().requestFocus();\r\n           player.getInputField().setEventing(true);\r\n           player.getInputField().setExpectedString(recipe.getFood().getItemName());\r\n           player.getDisplayEventText().setText(\"Type : \" + player.getInputField().getExpectedString());\r\n       }\r\n\r\n   public static boolean hasOrder(Food foodOrder){\r\n        //check inventory pane if it has required food\r\n       for (int i =0; i < inventoryPane.getItems().length; i++){\r\n           if (inventoryPane.getItems()[i] != null){\r\n\r\n               if (Objects.equals(inventoryPane.getItems()[i].getItemName(), foodOrder.getItemName())){\r\n                   //if they do have required, give player food's score\r\n                   //remove that food in inventory pane\r\n                   player.setScores(player.getScores() + foodOrder.getPoints());\r\n                   inventoryPane.ItemOut(i);\r\n                   return true;\r\n               }\r\n\r\n           }\r\n\r\n       }\r\n       return false;\r\n   }\r\n\r\n    public static void CookingPass() {\r\n        SoundController cookingSuccessSound = new SoundController(\"res/Sound/CookingSuccesses.mp3\");\r\n        cookingSuccessSound.playMusic();\r\n\r\n        String passImage = ClassLoader.getSystemResource(\"boxWhenCookGood.png\").toString();\r\n        Image passImg = new Image(passImage);\r\n        player.getImageDisplay().setVisible(true);\r\n        player.getImageDisplay().setImage(passImg);\r\n\r\n        // Play happy animation\r\n        PlayerIdleAnimation playerIdleAnimation = GamePage.getPlayerAnimation();\r\n        playerIdleAnimation.playHappyAnimation();\r\n\r\n        // Schedule a task to transition back to idle animation after 5 seconds\r\n        new java.util.Timer().schedule(\r\n                new java.util.TimerTask() {\r\n                    @Override\r\n                    public void run() {\r\n                        playerIdleAnimation.playAnimation();\r\n                    }\r\n                },\r\n                5000\r\n        );\r\n\r\n        // Play cooking finish animation\r\n        ImageView imageView = player.getImageDisplay(); // Assuming this is your ImageView\r\n        CookingFinishAnimation cookingFinishAnimation = new CookingFinishAnimation(imageView);\r\n        cookingFinishAnimation.playAnimation();\r\n\r\n        // Clearing input field and event text\r\n        for (Item ingredient : recipe.getItems()) {\r\n            inventoryPane.ItemOut(ingredient.getItemName());\r\n        }\r\n        inventoryPane.Itemin(new Food(recipe.getFood()));\r\n        player.getInputField().setEventing(false);\r\n        player.getInputField().setExpectedString(\"\");\r\n        player.getDisplayEventText().setText(\"\");\r\n        player.getDisplayEventText().getText();\r\n    }\r\n\r\n\r\n    public static void CookingFailed(){\r\n       SoundController CookingFailedSound = new SoundController(\"res/Sound/CookingFailed.mp3\");\r\n       CookingFailedSound.playMusic();\r\n\r\n       String   failedImage = ClassLoader.getSystemResource(\"burntFoodForBadFood.png\").toString();\r\n       Image failImg = new Image(failedImage);\r\n       player.getImageDisplay().setVisible(true);\r\n       player.getImageDisplay().setImage(failImg);\r\n\r\n        PlayerIdleAnimation playerIdleAnimation = GamePage.getPlayerAnimation();\r\n        playerIdleAnimation.playSadAnimation();\r\n\r\n        // Schedule a task to transition back to idle animation after 5 seconds\r\n        new java.util.Timer().schedule(\r\n                new java.util.TimerTask() {\r\n                    @Override\r\n                    public void run() {\r\n                        playerIdleAnimation.playAnimation();\r\n                    }\r\n                },\r\n                5000\r\n        );\r\n\r\n        // Play cooking finish animation\r\n        ImageView imageView = player.getImageDisplay(); // Assuming this is your ImageView\r\n        CookingFinishAnimation cookingFinishAnimation = new CookingFinishAnimation(imageView);\r\n        cookingFinishAnimation.playAnimation();\r\n\r\n       for (Item ingredient : recipe.getItems()){\r\n           inventoryPane.ItemOut(ingredient.getItemName());\r\n       }\r\n       player.getInputField().setEventing(false);\r\n       player.getInputField().setExpectedString(\"\");\r\n       player.getDisplayEventText().setText(\"\");\r\n       player.getDisplayEventText().getText();\r\n   }\r\n\r\n\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/gameLogic/GameController.java b/src/gameLogic/GameController.java
+--- a/src/gameLogic/GameController.java	(revision db00d4ad9a575ad69f5d2b3f378522fa6de1bbd1)
++++ b/src/gameLogic/GameController.java	(date 1714897974839)
+@@ -173,7 +173,7 @@
+    }
+ 
+     public static void CookingPass() {
+-        SoundController cookingSuccessSound = new SoundController("res/Sound/CookingSuccesses.mp3");
++        SoundController cookingSuccessSound = new SoundController("Sound/CookingSuccesses.mp3");
+         cookingSuccessSound.playMusic();
+ 
+         String passImage = ClassLoader.getSystemResource("boxWhenCookGood.png").toString();
+@@ -214,7 +214,7 @@
+ 
+ 
+     public static void CookingFailed(){
+-       SoundController CookingFailedSound = new SoundController("res/Sound/CookingFailed.mp3");
++       SoundController CookingFailedSound = new SoundController("Sound/CookingFailed.mp3");
+        CookingFailedSound.playMusic();
+ 
+        String   failedImage = ClassLoader.getSystemResource("burntFoodForBadFood.png").toString();
+Index: src/buttons/OrderButtonAnimation.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package buttons;\r\n\r\nimport Utils.BaseButtonAnimation;\r\nimport javafx.animation.Animation;\r\nimport javafx.animation.KeyFrame;\r\nimport javafx.animation.Timeline;\r\nimport javafx.scene.control.Button;\r\nimport javafx.scene.effect.Glow;\r\nimport javafx.scene.input.MouseEvent;\r\nimport javafx.scene.layout.Pane;\r\nimport javafx.util.Duration;\r\nimport Utils.SoundController;\r\n\r\npublic class OrderButtonAnimation extends BaseButtonAnimation {\r\n\r\n    public static void applyButtonAnimation(Button button, Pane orderPane) {\r\n        Glow glow = new Glow(0.0);\r\n        button.setEffect(glow);\r\n\r\n        Timeline idleAnimation = new Timeline(\r\n                new KeyFrame(Duration.seconds(1), event -> button.setRotate(2)),\r\n                new KeyFrame(Duration.seconds(2), event -> button.setRotate(-2))\r\n        );\r\n        idleAnimation.setCycleCount(Animation.INDEFINITE);\r\n        idleAnimation.play();\r\n\r\n        Timeline pulseAnimation = new Timeline(\r\n                new KeyFrame(Duration.ZERO, new javafx.animation.KeyValue(glow.levelProperty(), 0.0)),\r\n                new KeyFrame(Duration.seconds(1.5), new javafx.animation.KeyValue(glow.levelProperty(), 0.6)),\r\n                new KeyFrame(Duration.seconds(2), new javafx.animation.KeyValue(glow.levelProperty(), 0.0))\r\n        );\r\n        pulseAnimation.setCycleCount(Timeline.INDEFINITE);\r\n\r\n        pulseAnimation.play();\r\n\r\n        applyButtonAnimation(button, glow, idleAnimation, pulseAnimation, mouseEvent -> {\r\n            SoundController clockingButtonnoise = new SoundController(\"res/Sound/buttonClick.mp3\");\r\n            clockingButtonnoise.getMediaPlayer().setVolume(0.7);\r\n            clockingButtonnoise.playMusic();\r\n            orderPane.setVisible(!orderPane.isVisible());\r\n        });\r\n    }\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/buttons/OrderButtonAnimation.java b/src/buttons/OrderButtonAnimation.java
+--- a/src/buttons/OrderButtonAnimation.java	(revision db00d4ad9a575ad69f5d2b3f378522fa6de1bbd1)
++++ b/src/buttons/OrderButtonAnimation.java	(date 1714897974828)
+@@ -34,7 +34,7 @@
+         pulseAnimation.play();
+ 
+         applyButtonAnimation(button, glow, idleAnimation, pulseAnimation, mouseEvent -> {
+-            SoundController clockingButtonnoise = new SoundController("res/Sound/buttonClick.mp3");
++            SoundController clockingButtonnoise = new SoundController("Sound/buttonClick.mp3");
+             clockingButtonnoise.getMediaPlayer().setVolume(0.7);
+             clockingButtonnoise.playMusic();
+             orderPane.setVisible(!orderPane.isVisible());
+Index: ProjectCEDT.iml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<module type=\"JAVA_MODULE\" version=\"4\">\r\n  <component name=\"NewModuleRootManager\" inherit-compiler-output=\"true\">\r\n    <exclude-output />\r\n    <content url=\"file://$MODULE_DIR$\">\r\n      <sourceFolder url=\"file://$MODULE_DIR$/res\" type=\"java-resource\" />\r\n      <sourceFolder url=\"file://$MODULE_DIR$/src\" isTestSource=\"false\" />\r\n    </content>\r\n    <orderEntry type=\"jdk\" jdkName=\"openjdk-21\" jdkType=\"JavaSDK\" />\r\n    <orderEntry type=\"sourceFolder\" forTests=\"false\" />\r\n    <orderEntry type=\"library\" name=\"javafx-swt\" level=\"project\" />\r\n  </component>\r\n</module>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/ProjectCEDT.iml b/ProjectCEDT.iml
+--- a/ProjectCEDT.iml	(revision db00d4ad9a575ad69f5d2b3f378522fa6de1bbd1)
++++ b/ProjectCEDT.iml	(date 1714897608060)
+@@ -8,6 +8,6 @@
+     </content>
+     <orderEntry type="jdk" jdkName="openjdk-21" jdkType="JavaSDK" />
+     <orderEntry type="sourceFolder" forTests="false" />
+-    <orderEntry type="library" name="javafx-swt" level="project" />
++    <orderEntry type="library" name="javafx-swt" level="application" />
+   </component>
+ </module>
+\ No newline at end of file
+Index: src/buttons/RecipeButton.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package buttons;\r\n\r\nimport Utils.BaseButtonAnimation;\r\nimport javafx.animation.Animation;\r\nimport javafx.animation.KeyFrame;\r\nimport javafx.animation.Timeline;\r\nimport javafx.scene.control.Button;\r\nimport javafx.scene.effect.Glow;\r\nimport javafx.scene.input.MouseEvent;\r\nimport javafx.scene.layout.Pane;\r\nimport javafx.util.Duration;\r\nimport Utils.SoundController;\r\n\r\npublic class RecipeButton extends BaseButtonAnimation {\r\n\r\n    public static void applyButtonAnimation(Button button, Pane recipesBookPane) {\r\n        Glow glow = new Glow(0.0);\r\n        button.setEffect(glow);\r\n\r\n        Timeline idleAnimation = new Timeline(\r\n                new KeyFrame(Duration.seconds(1), event -> button.setRotate(2)),\r\n                new KeyFrame(Duration.seconds(2), event -> button.setRotate(-2))\r\n        );\r\n        idleAnimation.setCycleCount(Animation.INDEFINITE);\r\n        idleAnimation.play();\r\n\r\n        Timeline pulseAnimation = new Timeline(\r\n                new KeyFrame(Duration.ZERO, new javafx.animation.KeyValue(glow.levelProperty(), 0.0)),\r\n                new KeyFrame(Duration.seconds(1.5), new javafx.animation.KeyValue(glow.levelProperty(), 0.6)),\r\n                new KeyFrame(Duration.seconds(2), new javafx.animation.KeyValue(glow.levelProperty(), 0.0))\r\n        );\r\n        pulseAnimation.setCycleCount(Timeline.INDEFINITE);\r\n\r\n        pulseAnimation.play();\r\n\r\n        applyButtonAnimation(button, glow, idleAnimation, pulseAnimation, mouseEvent -> {\r\n            SoundController turnLeftSound = new SoundController(\"res/Sound/turnRightRecipeBook.mp3\");\r\n            turnLeftSound.playMusic();\r\n            recipesBookPane.setVisible(!recipesBookPane.isVisible());\r\n        });\r\n    }\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/buttons/RecipeButton.java b/src/buttons/RecipeButton.java
+--- a/src/buttons/RecipeButton.java	(revision db00d4ad9a575ad69f5d2b3f378522fa6de1bbd1)
++++ b/src/buttons/RecipeButton.java	(date 1714897974851)
+@@ -34,7 +34,7 @@
+         pulseAnimation.play();
+ 
+         applyButtonAnimation(button, glow, idleAnimation, pulseAnimation, mouseEvent -> {
+-            SoundController turnLeftSound = new SoundController("res/Sound/turnRightRecipeBook.mp3");
++            SoundController turnLeftSound = new SoundController("Sound/turnRightRecipeBook.mp3");
+             turnLeftSound.playMusic();
+             recipesBookPane.setVisible(!recipesBookPane.isVisible());
+         });
+Index: src/Utils/SoundController.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package Utils;\r\n\r\nimport javafx.scene.media.Media;\r\nimport javafx.scene.media.MediaPlayer;\r\n\r\nimport java.io.File;\r\n\r\npublic class SoundController {\r\n    private String filePath;\r\n    private MediaPlayer mediaPlayer;\r\n    public  SoundController(String filePath){\r\n        this.filePath = filePath;\r\n        Media sound = new Media(ClassLoader.getSystemResource(filePath).toString());\r\n        mediaPlayer = new MediaPlayer(sound);\r\n    }\r\n    public MediaPlayer getMediaPlayer(){\r\n        return mediaPlayer;\r\n    }\r\n    public void playMusic(){\r\n\r\n        mediaPlayer.play();\r\n        //Thread ae = new Thread(() -> {\r\n\r\n          /*  if (mediaPlayer.getStatus() == MediaPlayer.Status.PLAYING){\r\n                mediaPlayer.stop();\r\n                mediaPlayer.seek(mediaPlayer.getStartTime());\r\n            }*/\r\n\r\n            //Thread.yield();\r\n       // });\r\n        //ae.start();\r\n    }\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/Utils/SoundController.java b/src/Utils/SoundController.java
+--- a/src/Utils/SoundController.java	(revision db00d4ad9a575ad69f5d2b3f378522fa6de1bbd1)
++++ b/src/Utils/SoundController.java	(date 1714898469466)
+@@ -17,17 +17,6 @@
+         return mediaPlayer;
+     }
+     public void playMusic(){
+-
+         mediaPlayer.play();
+-        //Thread ae = new Thread(() -> {
+-
+-          /*  if (mediaPlayer.getStatus() == MediaPlayer.Status.PLAYING){
+-                mediaPlayer.stop();
+-                mediaPlayer.seek(mediaPlayer.getStartTime());
+-            }*/
+-
+-            //Thread.yield();
+-       // });
+-        //ae.start();
+     }
+ }
+Index: src/pane/CloseAble.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/pane/CloseAble.java b/src/pane/CloseAble.java
+new file mode 100644
+--- /dev/null	(date 1714899126262)
++++ b/src/pane/CloseAble.java	(date 1714899126262)
+@@ -0,0 +1,5 @@
++package pane;
++
++public interface CloseAble {
++    public void close ();
++}
+Index: .idea/artifacts/ProjectCEDT_jar.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><component name=\"ArtifactManager\">\r\n  <artifact type=\"jar\" name=\"ProjectCEDT:jar\">\r\n    <output-path>$PROJECT_DIR$/out/artifacts/ProjectCEDT_jar</output-path>\r\n    <root id=\"archive\" name=\"ProjectCEDT.jar\">\r\n      <element id=\"module-output\" name=\"ProjectCEDT\" />\r\n      <element id=\"extracted-dir\" path=\"$USER_HOME$/Downloads/openjfx-21.0.2_windows-x64_bin-sdk/javafx-sdk-21.0.2/lib/javafx-swt.jar\" path-in-jar=\"/\" />\r\n      <element id=\"extracted-dir\" path=\"$USER_HOME$/Downloads/openjfx-21.0.2_windows-x64_bin-sdk/javafx-sdk-21.0.2/lib/javafx.base.jar\" path-in-jar=\"/\" />\r\n      <element id=\"extracted-dir\" path=\"$USER_HOME$/Downloads/openjfx-21.0.2_windows-x64_bin-sdk/javafx-sdk-21.0.2/lib/javafx.controls.jar\" path-in-jar=\"/\" />\r\n      <element id=\"extracted-dir\" path=\"$USER_HOME$/Downloads/openjfx-21.0.2_windows-x64_bin-sdk/javafx-sdk-21.0.2/lib/javafx.fxml.jar\" path-in-jar=\"/\" />\r\n      <element id=\"extracted-dir\" path=\"$USER_HOME$/Downloads/openjfx-21.0.2_windows-x64_bin-sdk/javafx-sdk-21.0.2/lib/javafx.graphics.jar\" path-in-jar=\"/\" />\r\n      <element id=\"extracted-dir\" path=\"$USER_HOME$/Downloads/openjfx-21.0.2_windows-x64_bin-sdk/javafx-sdk-21.0.2/lib/javafx.media.jar\" path-in-jar=\"/\" />\r\n      <element id=\"extracted-dir\" path=\"$USER_HOME$/Downloads/openjfx-21.0.2_windows-x64_bin-sdk/javafx-sdk-21.0.2/lib/javafx.swing.jar\" path-in-jar=\"/\" />\r\n      <element id=\"extracted-dir\" path=\"$USER_HOME$/Downloads/openjfx-21.0.2_windows-x64_bin-sdk/javafx-sdk-21.0.2/lib/javafx.web.jar\" path-in-jar=\"/\" />\r\n      <element id=\"module-source\" name=\"ProjectCEDT\" />\r\n      <element id=\"dir-copy\" path=\"$PROJECT_DIR$/res\" />\r\n    </root>\r\n  </artifact>\r\n</component>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/artifacts/ProjectCEDT_jar.xml b/.idea/artifacts/ProjectCEDT_jar.xml
+--- a/.idea/artifacts/ProjectCEDT_jar.xml	(revision db00d4ad9a575ad69f5d2b3f378522fa6de1bbd1)
++++ b/.idea/artifacts/ProjectCEDT_jar.xml	(date 1714898906106)
+@@ -11,8 +11,8 @@
+       <element id="extracted-dir" path="$USER_HOME$/Downloads/openjfx-21.0.2_windows-x64_bin-sdk/javafx-sdk-21.0.2/lib/javafx.media.jar" path-in-jar="/" />
+       <element id="extracted-dir" path="$USER_HOME$/Downloads/openjfx-21.0.2_windows-x64_bin-sdk/javafx-sdk-21.0.2/lib/javafx.swing.jar" path-in-jar="/" />
+       <element id="extracted-dir" path="$USER_HOME$/Downloads/openjfx-21.0.2_windows-x64_bin-sdk/javafx-sdk-21.0.2/lib/javafx.web.jar" path-in-jar="/" />
+-      <element id="module-source" name="ProjectCEDT" />
+       <element id="dir-copy" path="$PROJECT_DIR$/res" />
++      <element id="module-source" name="ProjectCEDT" />
+     </root>
+   </artifact>
+ </component>
+\ No newline at end of file
+Index: .idea/workspace.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<project version=\"4\">\r\n  <component name=\"AutoImportSettings\">\r\n    <option name=\"autoReloadType\" value=\"SELECTIVE\" />\r\n  </component>\r\n  <component name=\"ChangeListManager\">\r\n    <list default=\"true\" id=\"a2931400-677a-4a12-b94b-b4a8c183172b\" name=\"Changes\" comment=\"\">\r\n      <change beforePath=\"$PROJECT_DIR$/.idea/workspace.xml\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/.idea/workspace.xml\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/res/Background/mainmenuBg.png\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/res/Background/MainMenuBg.png\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/res/Button/addToinventory.png\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/res/Button/addToInventory.png\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/res/Button/cookbutton.png\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/res/Button/cookButton.png\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/res/Button/goleftButton.png\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/res/Button/goLeftButton.png\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/res/Sound/buttonclick.mp3\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/res/Sound/buttonClick.mp3\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/application/Main.java\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/application/Main.java\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/buttons/IngredientButton.java\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/buttons/IngredientButton.java\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/buttons/OrderButtonAnimation.java\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/buttons/OrderButtonAnimation.java\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/buttons/RecipeButton.java\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/buttons/RecipeButton.java\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/gameLogic/Item.java\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/gameLogic/Item.java\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/pane/IngredientsPane.java\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/pane/IngredientsPane.java\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/pane/OrderPane.java\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/pane/OrderPane.java\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/pane/RecipesBookPane.java\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/pane/RecipesBookPane.java\" afterDir=\"false\" />\r\n    </list>\r\n    <option name=\"SHOW_DIALOG\" value=\"false\" />\r\n    <option name=\"HIGHLIGHT_CONFLICTS\" value=\"true\" />\r\n    <option name=\"HIGHLIGHT_NON_ACTIVE_CHANGELIST\" value=\"false\" />\r\n    <option name=\"LAST_RESOLUTION\" value=\"IGNORE\" />\r\n  </component>\r\n  <component name=\"FileTemplateManagerImpl\">\r\n    <option name=\"RECENT_TEMPLATES\">\r\n      <list>\r\n        <option value=\"Class\" />\r\n      </list>\r\n    </option>\r\n  </component>\r\n  <component name=\"Git.Settings\">\r\n    <option name=\"RECENT_GIT_ROOT_PATH\" value=\"$PROJECT_DIR$\" />\r\n  </component>\r\n  <component name=\"ProjectColorInfo\">{\r\n  &quot;customColor&quot;: &quot;&quot;,\r\n  &quot;associatedIndex&quot;: 1\r\n}</component>\r\n  <component name=\"ProjectId\" id=\"2ffg5mjGMjlCf6DVDfLL03Ret20\" />\r\n  <component name=\"ProjectLevelVcsManager\" settingsEditedManually=\"true\">\r\n    <ConfirmationsSetting value=\"2\" id=\"Add\" />\r\n  </component>\r\n  <component name=\"ProjectViewState\">\r\n    <option name=\"hideEmptyMiddlePackages\" value=\"true\" />\r\n    <option name=\"showLibraryContents\" value=\"true\" />\r\n  </component>\r\n  <component name=\"PropertiesComponent\"><![CDATA[{\r\n  \"keyToString\": {\r\n    \"Application.Main.executor\": \"Run\",\r\n    \"Application.main.executor\": \"Run\",\r\n    \"RunOnceActivity.OpenProjectViewOnStart\": \"true\",\r\n    \"RunOnceActivity.ShowReadmeOnStart\": \"true\",\r\n    \"git-widget-placeholder\": \"pane\",\r\n    \"kotlin-language-version-configured\": \"true\",\r\n    \"last_opened_file_path\": \"C:/Users/USER/IdeaProjects/FinalProject_ProgMeth_CEDT/res/Button\",\r\n    \"project.structure.last.edited\": \"Libraries\",\r\n    \"project.structure.proportion\": \"0.15\",\r\n    \"project.structure.side.proportion\": \"0.2\"\r\n  }\r\n}]]></component>\r\n  <component name=\"RecentsManager\">\r\n    <key name=\"CopyFile.RECENT_KEYS\">\r\n      <recent name=\"C:\\Users\\USER\\IdeaProjects\\FinalProject_ProgMeth_CEDT\\res\\Button\" />\r\n    </key>\r\n    <key name=\"MoveFile.RECENT_KEYS\">\r\n      <recent name=\"C:\\Users\\USER\\IdeaProjects\\FinalProject_ProgMeth_CEDT\\res\\Sound\" />\r\n      <recent name=\"C:\\Users\\USER\\IdeaProjects\\FinalProject_ProgMeth_CEDT\\res\\Button\" />\r\n      <recent name=\"C:\\Users\\USER\\IdeaProjects\\FinalProject_ProgMeth_CEDT\\res\\Background\" />\r\n      <recent name=\"C:\\Users\\USER\\IdeaProjects\\FinalProject_ProgMeth_CEDT\\res\" />\r\n    </key>\r\n  </component>\r\n  <component name=\"RunManager\">\r\n    <configuration name=\"main\" type=\"Application\" factoryName=\"Application\">\r\n      <option name=\"MAIN_CLASS_NAME\" value=\"application.Main\" />\r\n      <module name=\"ProjectCEDT\" />\r\n      <option name=\"VM_PARAMETERS\" value=\"--module-path C:\\Users\\natta\\Documents\\javafx-sdk-21.0.2\\lib\\ --add-modules javafx.controls,javafx.graphics,javafx.media,javafx.fxml\" />\r\n      <method v=\"2\">\r\n        <option name=\"Make\" enabled=\"true\" />\r\n        <option name=\"com.soywiz.korge.intellij.UpdateResourceBeforeRunTask\" enabled=\"false\" />\r\n      </method>\r\n    </configuration>\r\n  </component>\r\n  <component name=\"SharedIndexes\">\r\n    <attachedChunks>\r\n      <set>\r\n        <option value=\"jdk-21.0.1-openjdk-21.0.1-4caba194b151-23eed401\" />\r\n      </set>\r\n    </attachedChunks>\r\n  </component>\r\n  <component name=\"SpellCheckerSettings\" RuntimeDictionaries=\"0\" Folders=\"0\" CustomDictionaries=\"0\" DefaultDictionary=\"application-level\" UseSingleDictionary=\"true\" transferred=\"true\" />\r\n  <component name=\"TaskManager\">\r\n    <task active=\"true\" id=\"Default\" summary=\"Default task\">\r\n      <changelist id=\"a2931400-677a-4a12-b94b-b4a8c183172b\" name=\"Changes\" comment=\"\" />\r\n      <created>1714197370183</created>\r\n      <option name=\"number\" value=\"Default\" />\r\n      <option name=\"presentableId\" value=\"Default\" />\r\n      <updated>1714197370183</updated>\r\n    </task>\r\n    <servers />\r\n  </component>\r\n  <component name=\"Vcs.Log.Tabs.Properties\">\r\n    <option name=\"TAB_STATES\">\r\n      <map>\r\n        <entry key=\"MAIN\">\r\n          <value>\r\n            <State />\r\n          </value>\r\n        </entry>\r\n      </map>\r\n    </option>\r\n  </component>\r\n</project>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/workspace.xml b/.idea/workspace.xml
+--- a/.idea/workspace.xml	(revision db00d4ad9a575ad69f5d2b3f378522fa6de1bbd1)
++++ b/.idea/workspace.xml	(date 1714899351517)
+@@ -1,24 +1,35 @@
+ <?xml version="1.0" encoding="UTF-8"?>
+ <project version="4">
++  <component name="ArtifactsWorkspaceSettings">
++    <artifacts-to-build>
++      <artifact name="ProjectCEDT:jar" />
++    </artifacts-to-build>
++  </component>
+   <component name="AutoImportSettings">
+     <option name="autoReloadType" value="SELECTIVE" />
+   </component>
+   <component name="ChangeListManager">
+     <list default="true" id="a2931400-677a-4a12-b94b-b4a8c183172b" name="Changes" comment="">
++      <change afterPath="$PROJECT_DIR$/src/pane/CloseAble.java" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/.idea/artifacts/ProjectCEDT_jar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/artifacts/ProjectCEDT_jar.xml" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_28_4_2567_21_26__Changes_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_28_4_2567_21_26__Changes_.xml" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_28_4_2567_21_27__Changes_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_28_4_2567_21_27__Changes_.xml" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_2_5_2567_13_59__Changes_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_2_5_2567_13_59__Changes_.xml" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_5_5_2567_12_58__Changes_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_5_5_2567_12_58__Changes_.xml" afterDir="false" />
+       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/res/Background/mainmenuBg.png" beforeDir="false" afterPath="$PROJECT_DIR$/res/Background/MainMenuBg.png" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/res/Button/addToinventory.png" beforeDir="false" afterPath="$PROJECT_DIR$/res/Button/addToInventory.png" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/res/Button/cookbutton.png" beforeDir="false" afterPath="$PROJECT_DIR$/res/Button/cookButton.png" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/res/Button/goleftButton.png" beforeDir="false" afterPath="$PROJECT_DIR$/res/Button/goLeftButton.png" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/res/Sound/buttonclick.mp3" beforeDir="false" afterPath="$PROJECT_DIR$/res/Sound/buttonClick.mp3" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/ProjectCEDT.iml" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectCEDT.iml" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/src/Utils/SoundController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Utils/SoundController.java" afterDir="false" />
+       <change beforePath="$PROJECT_DIR$/src/application/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/application/Main.java" afterDir="false" />
+       <change beforePath="$PROJECT_DIR$/src/buttons/IngredientButton.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/buttons/IngredientButton.java" afterDir="false" />
+       <change beforePath="$PROJECT_DIR$/src/buttons/OrderButtonAnimation.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/buttons/OrderButtonAnimation.java" afterDir="false" />
+       <change beforePath="$PROJECT_DIR$/src/buttons/RecipeButton.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/buttons/RecipeButton.java" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/src/gameLogic/Item.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/gameLogic/Item.java" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/src/gameLogic/GameController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/gameLogic/GameController.java" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/src/pane/GamePage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/pane/GamePage.java" afterDir="false" />
+       <change beforePath="$PROJECT_DIR$/src/pane/IngredientsPane.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/pane/IngredientsPane.java" afterDir="false" />
+       <change beforePath="$PROJECT_DIR$/src/pane/OrderPane.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/pane/OrderPane.java" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/src/pane/PinningPane.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/pane/PinningPane.java" afterDir="false" />
+       <change beforePath="$PROJECT_DIR$/src/pane/RecipesBookPane.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/pane/RecipesBookPane.java" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/src/pane/gameOverPane.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/pane/gameOverPane.java" afterDir="false" />
+     </list>
+     <option name="SHOW_DIALOG" value="false" />
+     <option name="HIGHLIGHT_CONFLICTS" value="true" />
+@@ -29,6 +40,7 @@
+     <option name="RECENT_TEMPLATES">
+       <list>
+         <option value="Class" />
++        <option value="Interface" />
+       </list>
+     </option>
+   </component>
+@@ -55,10 +67,11 @@
+     "RunOnceActivity.ShowReadmeOnStart": "true",
+     "git-widget-placeholder": "pane",
+     "kotlin-language-version-configured": "true",
+-    "last_opened_file_path": "C:/Users/USER/IdeaProjects/FinalProject_ProgMeth_CEDT/res/Button",
+-    "project.structure.last.edited": "Libraries",
++    "last_opened_file_path": "C:/Users/USER/IdeaProjects/FinalProject_ProgMeth_CEDT/res",
++    "project.structure.last.edited": "Artifacts",
+     "project.structure.proportion": "0.15",
+-    "project.structure.side.proportion": "0.2"
++    "project.structure.side.proportion": "0.2",
++    "settings.editor.selected.configurable": "configurable.group.editor"
+   }
+ }]]></component>
+   <component name="RecentsManager">
+@@ -76,7 +89,7 @@
+     <configuration name="main" type="Application" factoryName="Application">
+       <option name="MAIN_CLASS_NAME" value="application.Main" />
+       <module name="ProjectCEDT" />
+-      <option name="VM_PARAMETERS" value="--module-path C:\Users\natta\Documents\javafx-sdk-21.0.2\lib\ --add-modules javafx.controls,javafx.graphics,javafx.media,javafx.fxml" />
++      <option name="VM_PARAMETERS" value="--module-path &quot;C:\Users\USER\Downloads\openjfx-21.0.2_windows-x64_bin-sdk\javafx-sdk-21.0.2\lib&quot; --add-modules javafx.controls,javafx.graphics,javafx.media,javafx.fxml" />
+       <method v="2">
+         <option name="Make" enabled="true" />
+         <option name="com.soywiz.korge.intellij.UpdateResourceBeforeRunTask" enabled="false" />
+Index: src/application/Main.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package application;\r\n\r\nimport javafx.animation.FadeTransition;\r\nimport javafx.animation.ScaleTransition;\r\nimport javafx.application.Application;\r\nimport javafx.geometry.Pos;\r\nimport javafx.scene.Parent;\r\nimport javafx.scene.Scene;\r\nimport javafx.scene.effect.GaussianBlur;\r\nimport javafx.scene.image.Image;\r\nimport javafx.scene.image.ImageView;\r\nimport javafx.scene.input.KeyCode;\r\nimport javafx.scene.layout.*;\r\nimport javafx.scene.media.MediaPlayer;\r\nimport javafx.scene.paint.Color;\r\nimport javafx.scene.text.Font;\r\nimport javafx.scene.text.FontWeight;\r\nimport javafx.scene.text.Text;\r\nimport javafx.stage.Stage;\r\nimport javafx.util.Duration;\r\nimport Utils.SoundController;\r\nimport pane.GamePage;\r\n\r\nimport java.util.Objects;\r\n\r\npublic class Main extends Application {\r\n\r\n    private static final Font FONT = Font.font(\"\", FontWeight.BOLD, 42);\r\n    private VBox menuBox;\r\n    private int currentItem = 0;\r\n    private GamePage gamePage;\r\n    private Scene mainScene; // Declare mainScene at the class level\r\n\r\n\r\n    private Parent createContent() {\r\n        Pane root = new Pane();\r\n        root.setPrefSize(963, 722);\r\n\r\n        // Load and set the background image\r\n        Image bgImage = new Image(Objects.requireNonNull(getClass().getResource(\"/Background/MainMenuBg.png\")).toExternalForm());\r\n        BackgroundImage backgroundImage = new BackgroundImage(bgImage, BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT);\r\n        root.setBackground(new Background(backgroundImage));\r\n\r\n        MenuItem itemExit = new MenuItem(\"EXIT\");\r\n        itemExit.setOnActivate(() -> System.exit(0));\r\n\r\n        MenuItem itemStart = new MenuItem(\"START\");\r\n        itemStart.setOnActivate(() -> {\r\n\r\n            if (mainScene.getRoot() != gamePage.getRoot()) {\r\n\r\n                FadeTransition fadeOut = new FadeTransition(Duration.seconds(1), mainScene.getRoot());\r\n                fadeOut.setFromValue(1.0);\r\n                fadeOut.setToValue(0.0);\r\n                fadeOut.setOnFinished(e -> {\r\n                    // Switch to game page after fade out\r\n                    mainScene.setRoot(gamePage.getRoot());\r\n                    FadeTransition fadeIn = new FadeTransition(Duration.seconds(1), gamePage.getRoot());\r\n                    fadeIn.setFromValue(0.0);\r\n                    fadeIn.setToValue(1.0);\r\n                    fadeIn.play();\r\n                });\r\n                fadeOut.play();\r\n                }\r\n        });\r\n        MenuItem itemGuide = new MenuItem(\"GUIDE\");\r\n\r\n\r\n        menuBox = new VBox(10,\r\n                itemStart,\r\n                itemGuide,\r\n                itemExit);\r\n        menuBox.setAlignment(Pos.TOP_CENTER);\r\n        menuBox.setTranslateX(100);\r\n        menuBox.setTranslateY(350);\r\n\r\n        getMenuItem(0).setActive(true);\r\n\r\n        root.getChildren().addAll(menuBox  );\r\n        return root;\r\n    }\r\n\r\n\r\n    private MenuItem getMenuItem(int index){\r\n        return (MenuItem)menuBox.getChildren().get(index);\r\n    }\r\n\r\n    private static class MenuItem extends HBox {\r\n        private Star star1 = new Star();\r\n        private Star star2 = new Star();\r\n\r\n        private Text text;\r\n        private Runnable script;\r\n\r\n        public MenuItem(String name){\r\n            super(12);\r\n            setAlignment(Pos.CENTER);\r\n\r\n            text = new Text(name);\r\n            text.setFont(FONT);\r\n            text.setEffect(new GaussianBlur(1));\r\n\r\n            getChildren().addAll(star1 , text , star2 );\r\n            setActive(false);\r\n            setOnActivate(() -> System.out.println(name + \" activated\"));\r\n        }\r\n\r\n        private static class Star extends Parent {\r\n            public Star(){\r\n                ImageView imageView = new ImageView(new Image(Objects.requireNonNull(getClass().getResource(\"/star1.png\")).toExternalForm()));\r\n\r\n                imageView.setFitWidth(20);\r\n                imageView.setFitHeight(20);\r\n                imageView.setEffect(new GaussianBlur(1));\r\n\r\n                getChildren().add(imageView);\r\n\r\n            }\r\n        }\r\n\r\n        public void setActive(boolean b){\r\n            star1.setVisible(b);\r\n            star2.setVisible(b);\r\n            text.setFill(b ? Color.rgb(255,184,59) : Color.rgb(242,203,127));\r\n\r\n            // Apply animation when setting active state\r\n            if (b) {\r\n                ScaleTransition scaleTransition = new ScaleTransition(Duration.millis(200), text);\r\n                scaleTransition.setToX(1.1);\r\n                scaleTransition.setToY(1.1);\r\n                scaleTransition.play();\r\n            } else {\r\n                ScaleTransition scaleTransition = new ScaleTransition(Duration.millis(200), text);\r\n                scaleTransition.setToX(1.0);\r\n                scaleTransition.setToY(1.0);\r\n                scaleTransition.play();\r\n            }\r\n        }\r\n\r\n        public void setOnActivate(Runnable r){\r\n            script = r;\r\n        }\r\n\r\n        public void activate(){\r\n            if(script != null)\r\n                script.run();\r\n        }\r\n    }\r\n\r\n\r\n    public void start(Stage stage) {\r\n        gamePage = new GamePage();\r\n        //play background music\r\n\r\n        SoundController backgroundMusic = new SoundController(\"res/Sound/Backgroundmusic.mp3\");\r\n        backgroundMusic.getMediaPlayer().setVolume(0.55);\r\n        backgroundMusic.getMediaPlayer().setCycleCount(MediaPlayer.INDEFINITE);\r\n        backgroundMusic.getMediaPlayer().play();\r\n\r\n\r\n        SoundController clockingButtonnoise = new SoundController(\"res/Sound/buttonClick.mp3\");\r\n        clockingButtonnoise.getMediaPlayer().setVolume(0.65);\r\n        mainScene = new Scene(createContent(), 963,722); // Rename the variable to avoid shadowing\r\n        mainScene.setOnKeyPressed(event -> {\r\n\r\n\r\n            clockingButtonnoise.playMusic();\r\n\r\n            if(event.getCode() == KeyCode.UP){\r\n\r\n                    if (currentItem > 0) {\r\n                        getMenuItem(currentItem).setActive(false);\r\n                        getMenuItem(--currentItem).setActive(true);\r\n\r\n                }\r\n            }\r\n            if(event.getCode() == KeyCode.DOWN){\r\n\r\n                    if(currentItem < menuBox.getChildren().size() - 1){\r\n                        getMenuItem(currentItem).setActive(false);\r\n                        getMenuItem(++currentItem).setActive(true);\r\n                    }\r\n\r\n\r\n            }\r\n\r\n            if(event.getCode() == KeyCode.ENTER){\r\n\r\n                    getMenuItem(currentItem).activate();\r\n\r\n\r\n            }\r\n        });\r\n\r\n        stage.setScene(mainScene);\r\n        stage.setTitle(\"Cooking Game\");\r\n        stage.setResizable(false);\r\n        stage.show();\r\n    }\r\n\r\n\r\n    public static void main(String[] args) {\r\n        launch();\r\n    }\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/application/Main.java b/src/application/Main.java
+--- a/src/application/Main.java	(revision db00d4ad9a575ad69f5d2b3f378522fa6de1bbd1)
++++ b/src/application/Main.java	(date 1714897935920)
+@@ -30,7 +30,7 @@
+     private int currentItem = 0;
+     private GamePage gamePage;
+     private Scene mainScene; // Declare mainScene at the class level
+-
++    private  SoundController backgroundMusic;
+ 
+     private Parent createContent() {
+         Pane root = new Pane();
+@@ -151,14 +151,13 @@
+     public void start(Stage stage) {
+         gamePage = new GamePage();
+         //play background music
+-
+-        SoundController backgroundMusic = new SoundController("res/Sound/Backgroundmusic.mp3");
++        backgroundMusic = new SoundController("Sound/Backgroundmusic.mp3");
+         backgroundMusic.getMediaPlayer().setVolume(0.55);
+         backgroundMusic.getMediaPlayer().setCycleCount(MediaPlayer.INDEFINITE);
+         backgroundMusic.getMediaPlayer().play();
+ 
+ 
+-        SoundController clockingButtonnoise = new SoundController("res/Sound/buttonClick.mp3");
++        SoundController clockingButtonnoise = new SoundController("Sound/buttonClick.mp3");
+         clockingButtonnoise.getMediaPlayer().setVolume(0.65);
+         mainScene = new Scene(createContent(), 963,722); // Rename the variable to avoid shadowing
+         mainScene.setOnKeyPressed(event -> {

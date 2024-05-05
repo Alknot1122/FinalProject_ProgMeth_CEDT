@@ -18,7 +18,7 @@ import javafx.scene.text.TextAlignment;
 
 import java.util.Objects;
 
-public class OrderPane extends Pane {
+public class OrderPane extends Pane implements  CloseAble{
     private final VBox ORDER_VBOX;
     public OrderPane (){
         setVisible(false);
@@ -34,12 +34,7 @@ public class OrderPane extends Pane {
         setBackground(new Background(backgroundImage));
 
         Button exitButton = getDisplay.getButton("/Button/exitButton.png", 38,37,178,2);
-        exitButton.setOnMousePressed(mouseEvent -> {
-            SoundController clickingButtonNoise = new SoundController("res/Sound/buttonClick.mp3");
-            clickingButtonNoise.getMediaPlayer().setVolume(0.7);
-            clickingButtonNoise.playMusic();
-            setVisible(!isVisible());
-        });
+        exitButton.setOnMousePressed(mouseEvent -> close());
 
         Text order = getDisplay.getText("ORDER", 32, 106, 51, 67);
         order.setFill(Color.WHITE);
@@ -142,5 +137,13 @@ public class OrderPane extends Pane {
         noOrder.setPreserveRatio(true);
 
         ORDER_VBOX.getChildren().add(noOrder);
+    }
+
+    @Override
+    public void close() {
+        SoundController clickingButtonNoise = new SoundController("Sound/buttonClick.mp3");
+        clickingButtonNoise.getMediaPlayer().setVolume(0.7);
+        clickingButtonNoise.playMusic();
+        setVisible(!isVisible());
     }
 }

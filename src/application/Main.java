@@ -30,7 +30,7 @@ public class Main extends Application {
     private int currentItem = 0;
     private GamePage gamePage;
     private Scene mainScene; // Declare mainScene at the class level
-
+    private  SoundController backgroundMusic;
 
     private Parent createContent() {
         Pane root = new Pane();
@@ -151,14 +151,13 @@ public class Main extends Application {
     public void start(Stage stage) {
         gamePage = new GamePage();
         //play background music
-
-        SoundController backgroundMusic = new SoundController("res/Sound/Backgroundmusic.mp3");
+        backgroundMusic = new SoundController("Sound/Backgroundmusic.mp3");
         backgroundMusic.getMediaPlayer().setVolume(0.55);
         backgroundMusic.getMediaPlayer().setCycleCount(MediaPlayer.INDEFINITE);
         backgroundMusic.getMediaPlayer().play();
 
 
-        SoundController clockingButtonnoise = new SoundController("res/Sound/buttonClick.mp3");
+        SoundController clockingButtonnoise = new SoundController("Sound/buttonClick.mp3");
         clockingButtonnoise.getMediaPlayer().setVolume(0.65);
         mainScene = new Scene(createContent(), 963,722); // Rename the variable to avoid shadowing
         mainScene.setOnKeyPressed(event -> {
