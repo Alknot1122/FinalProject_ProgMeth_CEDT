@@ -21,36 +21,45 @@ public class InventoryPane extends HBox {
     private final Item[] items ;
     private int itemAmount;
     private int nextBlankSlot ;
-    private Player player;
+    private final Player PLAYER;
 
     public int getNextBlankSlot() {
         return nextBlankSlot;
     }
 
     public InventoryPane(Player player ){
-        this.player = player;
-        itemAmount =0;
-        nextBlankSlot =0;
-        items = new Item[9];
+
         setPrefHeight(103);
         setPrefWidth(808);
         setLayoutX(78);
         setLayoutY(606);
-        setScaleX(0.9); setScaleY(0.9);
+        setScaleX(0.9);
+        setScaleY(0.9);
         setSpacing(10);
-
+        setPadding(new Insets(10));
         setStyle("-fx-background-color: rgb(168, 86, 59);" +
-        "-fx-border-color: rgb(102, 38, 29);" +
-        "-fx-border-radius: 5;" +
+                "-fx-border-color: rgb(102, 38, 29);" +
+                "-fx-border-radius: 5;" +
                 "-fx-border-width: 4;" + "-fx-background-radius: 5");
 
-
-        setPadding(new Insets(10));
+        this.PLAYER = player;
+        itemAmount =0;
+        nextBlankSlot =0;
+        items = new Item[9];
 
         for (int i =0; i < 9 ; i++){
             items[i]=null;
             Pane pane = new Pane();
             int finalI = i;
+
+            pane.setPrefSize(80,80);
+            pane.setStyle("-fx-background-color: rgb(148, 69, 47) ; " + "-fx-background-radius:4;");
+            ImageView itemimage = new ImageView(new Image(ClassLoader.getSystemResource("Item/Lemon.png").toString()));
+            itemimage.setVisible(false);
+            itemimage.setFitHeight(80);
+            itemimage.setPreserveRatio(true);
+
+            //player can right-click to remove item
             pane.setOnMouseClicked(event ->
                     {
                         if (event.getButton() == MouseButton.SECONDARY){
@@ -59,19 +68,9 @@ public class InventoryPane extends HBox {
                                 ItemOut(finalI);
                             }
                         }
+                    });
 
-
-                    }
-
-
-                    );
-
-            pane.setPrefSize(80,80);
-            pane.setStyle("-fx-background-color: rgb(148, 69, 47) ; " + "-fx-background-radius:4;");
-            ImageView itemimage = new ImageView(new Image(ClassLoader.getSystemResource("Item/Lemon.png").toString()));
-            itemimage.setVisible(false);
-            itemimage.setFitHeight(80);
-
+            //play animation when mouse is on the pane
             ScaleTransition scaleTransitionEnter = new ScaleTransition(Duration.millis(200), itemimage);
             scaleTransitionEnter.setToX(1.2);
             scaleTransitionEnter.setToY(1.2);
@@ -97,32 +96,35 @@ public class InventoryPane extends HBox {
             IdleAnimation.setCycleCount(Animation.INDEFINITE);
             IdleAnimation.play();
 
-            itemimage.setPreserveRatio(true);
             pane.getChildren().add(itemimage);
             getChildren().add(pane);
 
         }
-        //System.out.println(getChildren().size());
+
     }
     public void Itemin(Item item){
+        //check if inventory's full
         if (itemAmount == 9){
-            player.getErrorText().setText("Inventory Full!");
+            // tell player that inventory's full
+            PLAYER.getErrorText().setText("Inventory Full!");
             Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(2.5), event -> {
-                player.getErrorText().setText("");
+                PLAYER.getErrorText().setText("");
             }));
                 timeline.setCycleCount(1);
                 timeline.play();
         }
+
         else {
             Pane pain = (Pane) getChildren().get(getNextBlankSlot());
             ImageView img = (ImageView) pain.getChildren().getFirst();
 
-            items[getNextBlankSlot()] = item;
             img.setImage(item.getItemImage());
             img.setVisible(true);
 
-            for (int i = getNextBlankSlot(); i<9 ;i++){
+            items[getNextBlankSlot()] = item;
 
+            for (int i = getNextBlankSlot(); i<9 ;i++){
+                //find next blank slot for future insertion
                 if (items[i] == null){
                     nextBlankSlot = i;
                     break;
@@ -130,8 +132,6 @@ public class InventoryPane extends HBox {
             }
             itemAmount++;
         }
-
-
     }
 
 
@@ -140,10 +140,8 @@ public class InventoryPane extends HBox {
              if (items[i] != null){
                  if (Objects.equals(items[i].getItemName(), name)){
                      items[i] = null;
+                     nextBlankSlot = Math.min(i, nextBlankSlot);
 
-                     if (i <= nextBlankSlot){
-                         nextBlankSlot = i;
-                     }
                      Pane pain = (Pane) getChildren().get(i);
                      ImageView img = (ImageView) pain.getChildren().getFirst();
                      img.setVisible(false);

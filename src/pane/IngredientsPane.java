@@ -29,7 +29,6 @@ public class IngredientsPane extends Pane {
         setPrefWidth(239);
         setLayoutX(654); setLayoutY(120);
 
-
         Image bgimg = new Image(Objects.requireNonNull(getClass().getResource("/Background/ingridentsPane.png")).toExternalForm());
         BackgroundImage BG = new BackgroundImage(bgimg, BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT);
         setBackground(new Background(BG));
@@ -63,8 +62,8 @@ public class IngredientsPane extends Pane {
         scrollPane.setContent(itemlist);
         IngridentsRef ingridentsRef = new IngridentsRef();
         for (int i =0; i < ingridentsRef.getIngridnets().size(); i++){
-            //make Pane about item's inof
 
+            //make Pane about item's inof
             Pane itemPane = new Pane();
             itemPane.setPrefWidth(212);
             itemPane.setPrefHeight(90);
