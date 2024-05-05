@@ -31,7 +31,7 @@ public class RecipesRef {
         Food blondie = new Food("Blondie", "Food/Blondie.png", 60);
         Food blueberryMuffin = new Food("Blueberry Muffin", "Food/BlueberryMuffin.png", 60);
         Food brownie = new Food("Brownie", "Food/Brownie.png", 50);
-        Food cheesecake = new Food("Cheesecake", "Food/Cheesecake.png", 50);
+        Food cheesecake = new Food("Cheesecake", "Food/CheeseCake.png", 50);
         Food chocChipCookie = new Food("Choc-Chip Cookie", "Food/ChocChipCookie.png", 60);
         Food chocoBun = new Food("Chocobun", "Food/Chocobun.png", 60);
         Food chocolateCake = new Food("Chocolate Cake", "Food/ChocolateCake.png", 60);

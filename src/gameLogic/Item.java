@@ -13,7 +13,7 @@ public class Item {
     public Item (String name , String imagePath){
         ITEM_NAME = name;
         this.IMAGE_PATH = imagePath;
-        String   classLoaderPath = ClassLoader.getSystemResource(imagePath).toString();
+        String classLoaderPath = ClassLoader.getSystemResource(imagePath).toString();
         ITEM_IMAGE = new Image(classLoaderPath);
 
     }
