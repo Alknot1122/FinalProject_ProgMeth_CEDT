@@ -15,16 +15,16 @@ import java.util.Objects;
 import java.util.Random;
 
 public class GameController {
-    private static Player player;
-    private static InventoryPane inventoryPane;
-    private static Recipe recipe;
-    private static TimerBar timerBar;
-    private static Boolean isOrderThreadRunning = false;
+     private static Player player;
+     private static InventoryPane inventoryPane;
+     private static Recipe recipe;
+     private static TimerBar timerBar;
+     private static Boolean isOrderThreadRunning = false;
 
-    private static Thread OrderEventThread;
+     private static Thread OrderEventThread;
 
- private static OrderPane orderPane;
- private static RecipesRef recipesRef;
+     private static OrderPane orderPane;
+     private static RecipesRef recipesRef;
 
     public GameController(Player player, InventoryPane inventoryPane, TimerBar timerBar, OrderPane orderPane, RecipesRef recipesRef){
         GameController.inventoryPane = inventoryPane;

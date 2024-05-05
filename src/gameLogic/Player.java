@@ -14,17 +14,13 @@ import pane.inputField;
 
 
 public class Player  {
-
     private int scores ;
     private final Text DISPLAY_SCORES;
-
     private final inputField INPUT_FIELD;
     private final Text DISPLAY_EVENT_TEXT;
     private final Text ERROR_TEXT;
     private final gameOverPane GAMEOVER_PANE;
     private final ImageView IMAGE_DISPLAY;
-
-
     public Player(){
         scores =0;
 

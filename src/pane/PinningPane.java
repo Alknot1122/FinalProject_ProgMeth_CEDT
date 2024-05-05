@@ -34,7 +34,7 @@ public class PinningPane extends Pane implements CloseAble {
         itemListPane.setPadding(new Insets(5));
         itemListPane.setSpacing(5);
         itemListPane.setPrefHeight(154); itemListPane.setPrefWidth(205);
-        itemListPane.setLayoutX(9); itemListPane.setLayoutY(40);
+        itemListPane.setLayoutX(9); itemListPane.setLayoutY(60);
 
         //make close button
         Button closeButton = getDisplay.getButton("/Button/exitButton.png",38,37,195,-4);

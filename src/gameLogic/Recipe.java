@@ -9,11 +9,9 @@ public class Recipe {
         this.FOOD = food;
         this.ITEMS = items;
     }
-
     public Food getFood() {
         return FOOD;
     }
-
     public Item[] getItems() {
         return ITEMS;
     }

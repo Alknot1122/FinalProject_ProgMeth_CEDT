@@ -6,17 +6,20 @@ public class IngredientsRef {
     private final ArrayList<Item> ingredients;
     public IngredientsRef(){
         ingredients = new ArrayList<Item>();
+
         //diary
         ingredients.add(new Item ("Egg", "Item/Egg.png"));
         ingredients.add(new Item ("Milk", "Item/Milk.png"));
         ingredients.add(new Item ("Butter", "Item/Butter.png"));
         ingredients.add(new Item ("Cream", "Item/Cream.png"));
         ingredients.add(new Item ("Cream Cheese", "Item/CreamCheese.png"));
+
         //powder
         ingredients.add(new Item ("Sugar", "Item/Sugar.png"));
         ingredients.add(new Item ("Powdered sugar", "Item/PowderedSugar.png"));
         ingredients.add(new Item ("Flour", "Item/Flour.png"));
         ingredients.add(new Item ("Cocoa Powder", "Item/CocoPowder.png"));
+
         //spice
         ingredients.add(new Item ("Vanilla", "Item/Vanilla.png"));
         ingredients.add(new Item ("Cinnamon", "Item/Cinnamon.png"));

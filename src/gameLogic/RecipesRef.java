@@ -47,7 +47,7 @@ public class RecipesRef {
         Food mixedBerryPie = new Food("Mixed Berry Pie", "Food/MixedBerryPie.png", 60);
         Food quaso = new Food("Quaso", "Food/Quaso.png", 50);
         Food rainbowCakeRoll = new Food("Rainbow Cake Roll", "Food/RainbowCakeRoll.png", 50);
-        Food raspberryDonut = new Food("RaspberryDonut", "Food/RaspberryDonut.png", 60);
+        Food raspberryDonut = new Food("Raspberry Donut", "Food/RaspberryDonut.png", 60);
         Food raspberryTart  = new Food("Raspberry Tart", "Food/RaspberryTart.png", 50);
         Food redVelvetCake = new Food("Red Velvet Cake", "Food/RedVelvetCake.png", 60);
         Food strawberryShortcake = new Food("Strawberry Shortcake", "Food/StrawberryShortCake.png", 60);

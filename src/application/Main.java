@@ -154,7 +154,7 @@ public class Main extends Application {
         backgroundMusic = new SoundController("Sound/Backgroundmusic.mp3");
         backgroundMusic.getMediaPlayer().setVolume(0.55);
         backgroundMusic.getMediaPlayer().setCycleCount(MediaPlayer.INDEFINITE);
-        backgroundMusic.getMediaPlayer().play();
+        backgroundMusic.playMusic();
 
 
         SoundController clockingButtonnoise = new SoundController("Sound/buttonClick.mp3");

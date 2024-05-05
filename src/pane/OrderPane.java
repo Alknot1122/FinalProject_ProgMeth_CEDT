@@ -105,6 +105,10 @@ public class OrderPane extends Pane implements  CloseAble{
     public void orderGone (Pane pane){
         Platform.runLater(()->{
             ORDER_VBOX.getChildren().remove(pane);
+            if (ORDER_VBOX.getChildren().isEmpty()) {
+                addNoOrderPic();
+
+            }
                 });
     }
     public void OrderIn(Food food, int timerInSec){
